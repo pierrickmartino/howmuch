@@ -23,7 +23,8 @@ environment:
 dependencies:
   moor_flutter: ^3.1.0
   collapsible_sidebar: ^1.0.5
-  responsive_framework: ^0.0.11
+  #responsive_framework: ^0.0.11
+  fluid_layout: ^0.1.0
   flutter:
     sdk: flutter
 
