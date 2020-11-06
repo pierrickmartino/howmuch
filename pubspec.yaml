@@ -21,8 +21,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  moor: ^3.4.0
   moor_flutter: ^3.1.0
+  sqlite3_flutter_libs: ^0.2.0 
   collapsible_sidebar: ^1.0.5
+  path_provider: ^1.6.24
+  path: ^1.7.0  
   #responsive_framework: ^0.0.11
   fluid_layout: ^0.1.0
   flutter:
@@ -36,6 +40,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  moor_generator: ^3.4.0
+  build_runner: ^1.10.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

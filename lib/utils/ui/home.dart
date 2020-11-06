@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart'; // https://pub.dev/packages/collapsible_sidebar
-import 'package:howmuch/utils/ui/dasboard.dart';
+import 'package:howmuch/utils/ui/dashboard.dart';
 
 import 'accounts.dart';
 import 'categories.dart';
 import 'filters.dart';
 import 'transactions.dart';
-import 'dasboard.dart';
+import 'dashboard.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -78,8 +78,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: CollapsibleSidebar(
+    return Scaffold(
+      body: CollapsibleSidebar(
         items: _items,
         avatarImg: _avatarImg,
         title: 'John Smith',
