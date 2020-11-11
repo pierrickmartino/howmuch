@@ -7,39 +7,41 @@ part of 'database.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class Categorie extends DataClass implements Insertable<Categorie> {
+class Category extends DataClass implements Insertable<Category> {
   final int id;
   final String description;
   final String code;
+  final int tag;
   final String icon;
-  final String color;
+  final int color;
   final DateTime creationDate;
   final DateTime lastUpdateDate;
   final bool active;
-  Categorie(
+  Category(
       {@required this.id,
       @required this.description,
       @required this.code,
-      @required this.icon,
-      @required this.color,
+      this.tag,
+      this.icon,
+      this.color,
       this.creationDate,
       this.lastUpdateDate,
       @required this.active});
-  factory Categorie.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Category.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     final boolType = db.typeSystem.forDartType<bool>();
-    return Categorie(
+    return Category(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       description: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}description']),
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
+      tag: intType.mapFromDatabaseResponse(data['${effectivePrefix}tag']),
       icon: stringType.mapFromDatabaseResponse(data['${effectivePrefix}icon']),
-      color:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
+      color: intType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
       creationDate: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}creation_date']),
       lastUpdateDate: dateTimeType
@@ -60,11 +62,14 @@ class Categorie extends DataClass implements Insertable<Categorie> {
     if (!nullToAbsent || code != null) {
       map['code'] = Variable<String>(code);
     }
+    if (!nullToAbsent || tag != null) {
+      map['tag'] = Variable<int>(tag);
+    }
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<String>(icon);
     }
     if (!nullToAbsent || color != null) {
-      map['color'] = Variable<String>(color);
+      map['color'] = Variable<int>(color);
     }
     if (!nullToAbsent || creationDate != null) {
       map['creation_date'] = Variable<DateTime>(creationDate);
@@ -85,6 +90,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           ? const Value.absent()
           : Value(description),
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
+      tag: tag == null && nullToAbsent ? const Value.absent() : Value(tag),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
       color:
           color == null && nullToAbsent ? const Value.absent() : Value(color),
@@ -99,15 +105,16 @@ class Categorie extends DataClass implements Insertable<Categorie> {
     );
   }
 
-  factory Categorie.fromJson(Map<String, dynamic> json,
+  factory Category.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return Categorie(
+    return Category(
       id: serializer.fromJson<int>(json['id']),
       description: serializer.fromJson<String>(json['description']),
       code: serializer.fromJson<String>(json['code']),
+      tag: serializer.fromJson<int>(json['tag']),
       icon: serializer.fromJson<String>(json['icon']),
-      color: serializer.fromJson<String>(json['color']),
+      color: serializer.fromJson<int>(json['color']),
       creationDate: serializer.fromJson<DateTime>(json['creationDate']),
       lastUpdateDate: serializer.fromJson<DateTime>(json['lastUpdateDate']),
       active: serializer.fromJson<bool>(json['active']),
@@ -120,27 +127,30 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       'id': serializer.toJson<int>(id),
       'description': serializer.toJson<String>(description),
       'code': serializer.toJson<String>(code),
+      'tag': serializer.toJson<int>(tag),
       'icon': serializer.toJson<String>(icon),
-      'color': serializer.toJson<String>(color),
+      'color': serializer.toJson<int>(color),
       'creationDate': serializer.toJson<DateTime>(creationDate),
       'lastUpdateDate': serializer.toJson<DateTime>(lastUpdateDate),
       'active': serializer.toJson<bool>(active),
     };
   }
 
-  Categorie copyWith(
+  Category copyWith(
           {int id,
           String description,
           String code,
+          int tag,
           String icon,
-          String color,
+          int color,
           DateTime creationDate,
           DateTime lastUpdateDate,
           bool active}) =>
-      Categorie(
+      Category(
         id: id ?? this.id,
         description: description ?? this.description,
         code: code ?? this.code,
+        tag: tag ?? this.tag,
         icon: icon ?? this.icon,
         color: color ?? this.color,
         creationDate: creationDate ?? this.creationDate,
@@ -149,10 +159,11 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       );
   @override
   String toString() {
-    return (StringBuffer('Categorie(')
+    return (StringBuffer('Category(')
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('code: $code, ')
+          ..write('tag: $tag, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
           ..write('creationDate: $creationDate, ')
@@ -170,20 +181,23 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           $mrjc(
               code.hashCode,
               $mrjc(
-                  icon.hashCode,
+                  tag.hashCode,
                   $mrjc(
-                      color.hashCode,
+                      icon.hashCode,
                       $mrjc(
-                          creationDate.hashCode,
+                          color.hashCode,
                           $mrjc(
-                              lastUpdateDate.hashCode, active.hashCode))))))));
+                              creationDate.hashCode,
+                              $mrjc(lastUpdateDate.hashCode,
+                                  active.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is Categorie &&
+      (other is Category &&
           other.id == this.id &&
           other.description == this.description &&
           other.code == this.code &&
+          other.tag == this.tag &&
           other.icon == this.icon &&
           other.color == this.color &&
           other.creationDate == this.creationDate &&
@@ -191,12 +205,13 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           other.active == this.active);
 }
 
-class CategoriesCompanion extends UpdateCompanion<Categorie> {
+class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<int> id;
   final Value<String> description;
   final Value<String> code;
+  final Value<int> tag;
   final Value<String> icon;
-  final Value<String> color;
+  final Value<int> color;
   final Value<DateTime> creationDate;
   final Value<DateTime> lastUpdateDate;
   final Value<bool> active;
@@ -204,6 +219,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     this.id = const Value.absent(),
     this.description = const Value.absent(),
     this.code = const Value.absent(),
+    this.tag = const Value.absent(),
     this.icon = const Value.absent(),
     this.color = const Value.absent(),
     this.creationDate = const Value.absent(),
@@ -214,21 +230,21 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     this.id = const Value.absent(),
     @required String description,
     @required String code,
-    @required String icon,
-    @required String color,
+    this.tag = const Value.absent(),
+    this.icon = const Value.absent(),
+    this.color = const Value.absent(),
     this.creationDate = const Value.absent(),
     this.lastUpdateDate = const Value.absent(),
     this.active = const Value.absent(),
   })  : description = Value(description),
-        code = Value(code),
-        icon = Value(icon),
-        color = Value(color);
-  static Insertable<Categorie> custom({
+        code = Value(code);
+  static Insertable<Category> custom({
     Expression<int> id,
     Expression<String> description,
     Expression<String> code,
+    Expression<int> tag,
     Expression<String> icon,
-    Expression<String> color,
+    Expression<int> color,
     Expression<DateTime> creationDate,
     Expression<DateTime> lastUpdateDate,
     Expression<bool> active,
@@ -237,6 +253,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
       if (id != null) 'id': id,
       if (description != null) 'description': description,
       if (code != null) 'code': code,
+      if (tag != null) 'tag': tag,
       if (icon != null) 'icon': icon,
       if (color != null) 'color': color,
       if (creationDate != null) 'creation_date': creationDate,
@@ -249,8 +266,9 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
       {Value<int> id,
       Value<String> description,
       Value<String> code,
+      Value<int> tag,
       Value<String> icon,
-      Value<String> color,
+      Value<int> color,
       Value<DateTime> creationDate,
       Value<DateTime> lastUpdateDate,
       Value<bool> active}) {
@@ -258,6 +276,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
       id: id ?? this.id,
       description: description ?? this.description,
       code: code ?? this.code,
+      tag: tag ?? this.tag,
       icon: icon ?? this.icon,
       color: color ?? this.color,
       creationDate: creationDate ?? this.creationDate,
@@ -278,11 +297,14 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     if (code.present) {
       map['code'] = Variable<String>(code.value);
     }
+    if (tag.present) {
+      map['tag'] = Variable<int>(tag.value);
+    }
     if (icon.present) {
       map['icon'] = Variable<String>(icon.value);
     }
     if (color.present) {
-      map['color'] = Variable<String>(color.value);
+      map['color'] = Variable<int>(color.value);
     }
     if (creationDate.present) {
       map['creation_date'] = Variable<DateTime>(creationDate.value);
@@ -302,6 +324,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('code: $code, ')
+          ..write('tag: $tag, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
           ..write('creationDate: $creationDate, ')
@@ -313,7 +336,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
 }
 
 class $CategoriesTable extends Categories
-    with TableInfo<$CategoriesTable, Categorie> {
+    with TableInfo<$CategoriesTable, Category> {
   final GeneratedDatabase _db;
   final String _alias;
   $CategoriesTable(this._db, [this._alias]);
@@ -352,6 +375,15 @@ class $CategoriesTable extends Categories
     );
   }
 
+  final VerificationMeta _tagMeta = const VerificationMeta('tag');
+  GeneratedIntColumn _tag;
+  @override
+  GeneratedIntColumn get tag => _tag ??= _constructTag();
+  GeneratedIntColumn _constructTag() {
+    return GeneratedIntColumn('tag', $tableName, true,
+        $customConstraints: 'NULL REFERENCES tags(id)');
+  }
+
   final VerificationMeta _iconMeta = const VerificationMeta('icon');
   GeneratedTextColumn _icon;
   @override
@@ -360,19 +392,19 @@ class $CategoriesTable extends Categories
     return GeneratedTextColumn(
       'icon',
       $tableName,
-      false,
+      true,
     );
   }
 
   final VerificationMeta _colorMeta = const VerificationMeta('color');
-  GeneratedTextColumn _color;
+  GeneratedIntColumn _color;
   @override
-  GeneratedTextColumn get color => _color ??= _constructColor();
-  GeneratedTextColumn _constructColor() {
-    return GeneratedTextColumn(
+  GeneratedIntColumn get color => _color ??= _constructColor();
+  GeneratedIntColumn _constructColor() {
+    return GeneratedIntColumn(
       'color',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -418,6 +450,7 @@ class $CategoriesTable extends Categories
         id,
         description,
         code,
+        tag,
         icon,
         color,
         creationDate,
@@ -431,7 +464,7 @@ class $CategoriesTable extends Categories
   @override
   final String actualTableName = 'categories';
   @override
-  VerificationContext validateIntegrity(Insertable<Categorie> instance,
+  VerificationContext validateIntegrity(Insertable<Category> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -452,17 +485,17 @@ class $CategoriesTable extends Categories
     } else if (isInserting) {
       context.missing(_codeMeta);
     }
+    if (data.containsKey('tag')) {
+      context.handle(
+          _tagMeta, tag.isAcceptableOrUnknown(data['tag'], _tagMeta));
+    }
     if (data.containsKey('icon')) {
       context.handle(
           _iconMeta, icon.isAcceptableOrUnknown(data['icon'], _iconMeta));
-    } else if (isInserting) {
-      context.missing(_iconMeta);
     }
     if (data.containsKey('color')) {
       context.handle(
           _colorMeta, color.isAcceptableOrUnknown(data['color'], _colorMeta));
-    } else if (isInserting) {
-      context.missing(_colorMeta);
     }
     if (data.containsKey('creation_date')) {
       context.handle(
@@ -486,9 +519,9 @@ class $CategoriesTable extends Categories
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Categorie map(Map<String, dynamic> data, {String tablePrefix}) {
+  Category map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Categorie.fromData(data, _db, prefix: effectivePrefix);
+    return Category.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
@@ -497,12 +530,247 @@ class $CategoriesTable extends Categories
   }
 }
 
+class Tag extends DataClass implements Insertable<Tag> {
+  final int id;
+  final String name;
+  final int color;
+  Tag({@required this.id, @required this.name, this.color});
+  factory Tag.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return Tag(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
+      color: intType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
+    }
+    if (!nullToAbsent || color != null) {
+      map['color'] = Variable<int>(color);
+    }
+    return map;
+  }
+
+  TagsCompanion toCompanion(bool nullToAbsent) {
+    return TagsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
+      color:
+          color == null && nullToAbsent ? const Value.absent() : Value(color),
+    );
+  }
+
+  factory Tag.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Tag(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      color: serializer.fromJson<int>(json['color']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'color': serializer.toJson<int>(color),
+    };
+  }
+
+  Tag copyWith({int id, String name, int color}) => Tag(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        color: color ?? this.color,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Tag(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('color: $color')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      $mrjf($mrjc(id.hashCode, $mrjc(name.hashCode, color.hashCode)));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Tag &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.color == this.color);
+}
+
+class TagsCompanion extends UpdateCompanion<Tag> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<int> color;
+  const TagsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.color = const Value.absent(),
+  });
+  TagsCompanion.insert({
+    this.id = const Value.absent(),
+    @required String name,
+    this.color = const Value.absent(),
+  }) : name = Value(name);
+  static Insertable<Tag> custom({
+    Expression<int> id,
+    Expression<String> name,
+    Expression<int> color,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (color != null) 'color': color,
+    });
+  }
+
+  TagsCompanion copyWith(
+      {Value<int> id, Value<String> name, Value<int> color}) {
+    return TagsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      color: color ?? this.color,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (color.present) {
+      map['color'] = Variable<int>(color.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('color: $color')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $TagsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _nameMeta = const VerificationMeta('name');
+  GeneratedTextColumn _name;
+  @override
+  GeneratedTextColumn get name => _name ??= _constructName();
+  GeneratedTextColumn _constructName() {
+    return GeneratedTextColumn('name', $tableName, false,
+        minTextLength: 1, maxTextLength: 20);
+  }
+
+  final VerificationMeta _colorMeta = const VerificationMeta('color');
+  GeneratedIntColumn _color;
+  @override
+  GeneratedIntColumn get color => _color ??= _constructColor();
+  GeneratedIntColumn _constructColor() {
+    return GeneratedIntColumn(
+      'color',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, name, color];
+  @override
+  $TagsTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tags';
+  @override
+  final String actualTableName = 'tags';
+  @override
+  VerificationContext validateIntegrity(Insertable<Tag> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('color')) {
+      context.handle(
+          _colorMeta, color.isAcceptableOrUnknown(data['color'], _colorMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Tag map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Tag.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TagsTable createAlias(String alias) {
+    return $TagsTable(_db, alias);
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $CategoriesTable _categories;
   $CategoriesTable get categories => _categories ??= $CategoriesTable(this);
+  $TagsTable _tags;
+  $TagsTable get tags => _tags ??= $TagsTable(this);
+  Future<int> _resetTag(int var1) {
+    return customUpdate(
+      'UPDATE Categories SET tag = NULL WHERE tag = ?',
+      variables: [Variable.withInt(var1)],
+      updates: {categories},
+      updateKind: UpdateKind.update,
+    );
+  }
+
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [categories];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [categories, tags];
 }
