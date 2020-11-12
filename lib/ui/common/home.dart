@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart'; // https://pub.dev/packages/collapsible_sidebar
-import 'package:howmuch/utils/ui/dashboard.dart';
+import 'package:howmuch/ui/common/dashboard.dart';
 
 import 'accounts.dart';
 import 'categories.dart';

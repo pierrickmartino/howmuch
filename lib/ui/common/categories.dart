@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/blocs/category.dart';
 import 'package:howmuch/ui/common/category_card.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+//import 'package:provider/provider.dart';
+//import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:undo/undo.dart';
 
 import '../../src/database/database.dart';
-import '../../widgets/new_categorie_input_widget.dart';
-import '../../widgets/new_tag_input_widget.dart';
+//import '../../widgets/new_categorie_input_widget.dart';
+//import '../../widgets/new_tag_input_widget.dart';
 
 class Categories extends StatefulWidget {
   @override

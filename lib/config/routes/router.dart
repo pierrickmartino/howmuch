@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../utils/ui/accounts.dart';
-import '../../utils/ui/home.dart';
-import '../../utils/ui/transactions.dart';
-import '../../utils/ui/categories.dart';
-import '../../utils/ui/filters.dart';
+import '../../ui/common/accounts.dart';
+import '../../ui/common/home.dart';
+import '../../ui/common/transactions.dart';
+import '../../ui/common/categories.dart';
+import '../../ui/common/filters.dart';
 import '../../constants/const.dart';
 
 class CustomRouter {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moor/moor.dart';
-import 'package:provider/provider.dart';
+// import 'package:moor/moor.dart';
+// import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../src/blocs/category.dart';
@@ -53,7 +53,7 @@ class _NewCategorieInputState extends State<NewCategorieInput> {
         // final dao = Provider.of<CategorieDao>(context, listen: false);
         // final categorie = CategoriesCompanion(
         //   description: Value(inputName),
-        //   code: Value(inputName), // TODO
+        //   code: Value(inputName),
         //   creationDate: Value(newCategorieDate),
         //   tagName: Value(selectedTag?.name),
         // );
