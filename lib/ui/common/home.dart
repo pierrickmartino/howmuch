@@ -93,8 +93,7 @@ class _HomeState extends State<Home> {
       height: double.infinity,
       width: double.infinity,
       color: Colors.blueGrey[50],
-      child: _showContent(
-          _selectedIndex), //Text('selectedIndex: $_selectedIndex'),
+      child: _showContent(_selectedIndex),
     );
   }
 }

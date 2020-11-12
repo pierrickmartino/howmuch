@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 
-import '../../widgets/custom_card.dart'; // https://pub.dev/packages/fluid_layout
+import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 class Dashboard extends StatefulWidget {
   @override

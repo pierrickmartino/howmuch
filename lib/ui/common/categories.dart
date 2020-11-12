@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:howmuch/src/blocs/category.dart';
-import 'package:howmuch/ui/common/category_card.dart';
-//import 'package:provider/provider.dart';
-//import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:undo/undo.dart';
 
+import 'index.dart';
 import '../../src/database/database.dart';
-//import '../../widgets/new_categorie_input_widget.dart';
-//import '../../widgets/new_tag_input_widget.dart';
+import '../../src/blocs/category.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -16,6 +12,7 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+  final TextEditingController controller = TextEditingController();
   HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
 
   @override
@@ -24,8 +21,32 @@ class _CategoriesState extends State<Categories> {
       builder: (context, cs) => Scaffold(
         appBar: AppBar(
           title: Text('Categories'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.undo),
+              onPressed: !bloc.canUndo
+                  ? null
+                  : () {
+                      if (mounted)
+                        setState(() {
+                          bloc.undo();
+                        });
+                    },
+            ),
+            IconButton(
+              icon: Icon(Icons.redo),
+              onPressed: !bloc.canRedo
+                  ? null
+                  : () {
+                      if (mounted)
+                        setState(() {
+                          bloc.redo();
+                        });
+                    },
+            ),
+          ],
         ),
-        //drawer: TagsDrawer(),
+        drawer: TagsDrawer(),
         body: StreamBuilder<List<CategoryWithTag>>(
           stream: bloc.homeScreenEntries,
           builder: (context, snapshot) {
@@ -46,81 +67,49 @@ class _CategoriesState extends State<Categories> {
             );
           },
         ),
-        // body: Column(
-        //   children: <Widget>[
-        //     Expanded(child: _buildCategoryList(context)),
-        //     NewCategorieInput(),
-        //     NewTagInput(),
-        //   ],
-        // )
+        bottomSheet: Material(
+          elevation: 12.0,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('What needs to be done?'),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: controller,
+                            onSubmitted: (_) => _createCategoryEntry(),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.send),
+                          color: Theme.of(context).accentColor,
+                          onPressed: _createCategoryEntry,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  // StreamBuilder<List<CategoryWithTag>> _buildCategoryList(
-  //     BuildContext context) {
-  //   final dao = Provider.of<CategoryDao>(context);
-  //   return StreamBuilder(
-  //     stream: bloc.homeScreenEntries,
-  //     builder: (context, AsyncSnapshot<List<CategoryWithTag>> snapshot) {
-  //       final categories = snapshot.data ?? List();
-
-  //       return ListView.builder(
-  //         itemCount: categories.length,
-  //         itemBuilder: (_, index) {
-  //           final item = categories[index];
-  //           return _buildListItem(item, dao);
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
-  // Widget _buildListItem(CategoryWithTag item, CategoryDao dao) {
-  //   return Slidable(
-  //     actionPane: SlidableDrawerActionPane(),
-  //     secondaryActions: <Widget>[
-  //       IconSlideAction(
-  //         caption: 'Delete',
-  //         color: Colors.red,
-  //         icon: Icons.delete,
-  //         onTap: () => dao.deleteCategory(item.category),
-  //       )
-  //     ],
-  //     child: CheckboxListTile(
-  //       title: Text(item.category.description),
-  //       subtitle: Text(item.category.creationDate?.toString() ?? 'No date'),
-  //       secondary: _buildTag(item.tag),
-  //       value: item.category.active,
-  //       onChanged: (newValue) {
-  //         dao.updateCategory(item.category.copyWith(active: newValue));
-  //       },
-  //     ),
-  //   );
-  // }
-
-  // Column _buildTag(Tag tag) {
-  //   return Column(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: <Widget>[
-  //       if (tag != null) ...[
-  //         Container(
-  //           width: 10,
-  //           height: 10,
-  //           decoration: BoxDecoration(
-  //             shape: BoxShape.circle,
-  //             color: Color(tag.color),
-  //           ),
-  //         ),
-  //         Text(
-  //           tag.name,
-  //           style: TextStyle(
-  //             color: Colors.black.withOpacity(0.5),
-  //           ),
-  //         ),
-  //       ],
-  //     ],
-  //   );
-  // }
+  void _createCategoryEntry() {
+    if (controller.text.isNotEmpty) {
+      // We write the entry here. Notice how we don't have to call setState()
+      // or anything - moor will take care of updating the list automatically.
+      bloc.createCategory(controller.text);
+      controller.clear();
+    }
+  }
 }

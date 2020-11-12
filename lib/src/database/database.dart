@@ -29,17 +29,14 @@ class Tags extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 1, max: 20)();
   IntColumn get color => integer().nullable()();
-
-  // @override
-  // Set<Column> get primaryKey => {name};
 }
 
 class TagWithCount {
   TagWithCount(this.tag, this.count);
 
-  // can be null, in which case we count how many entries don't have a tag
+  // can be null, in which case we count how many categories don't have a tag
   final Tag tag;
-  final int count; // amount of entries in this tag
+  final int count; // amount of categories in this tag
 }
 
 class CategoryWithTag {
@@ -49,7 +46,6 @@ class CategoryWithTag {
   final Tag tag;
 }
 
-//@UseMoor(tables: [Categories, Tags], daos: [CategorieDao, TagDao])
 @UseMoor(
   tables: [Categories, Tags],
   queries: {
@@ -59,8 +55,6 @@ class CategoryWithTag {
 class AppDatabase extends _$AppDatabase {
   AppDatabase(QueryExecutor e) : super(e);
   final cs = ChangeStack();
-  // : super(FlutterQueryExecutor.inDatabaseFolder(
-  //       path: 'db.sqlite', logStatements: true));
 
   @override
   int get schemaVersion => 2;
@@ -182,53 +176,3 @@ class AppDatabase extends _$AppDatabase {
     });
   }
 }
-
-// @UseDao(
-//   tables: [Categories, Tags],
-// )
-// class CategoryDao extends DatabaseAccessor<AppDatabase>
-//     with _$CategoryDaoMixin {
-//   final AppDatabase db;
-
-//   CategoryDao(this.db) : super(db);
-
-//   Stream<List<CategoryWithTag>> watchAllCategories() {
-//     return (select(categories)
-//           ..orderBy(
-//             [
-//               (t) => OrderingTerm(expression: t.description),
-//             ],
-//           ))
-//         .join(
-//           [
-//             leftOuterJoin(tags, tags.name.equalsExp(categories.tag_name)),
-//           ],
-//         )
-//         .watch()
-//         .map((rows) => rows.map(
-//               (row) {
-//                 return CategoryWithTag(
-//                   category: row.readTable(categories),
-//                   tag: row.readTable(tags),
-//                 );
-//               },
-//             ).toList());
-//   }
-
-//   Future insertCategory(Insertable<Category> category) =>
-//       into(categories).insert(category);
-//   Future updateCategory(Insertable<Category> category) =>
-//       update(categories).replace(category);
-//   Future deleteCategory(Insertable<Category> category) =>
-//       delete(categories).delete(category);
-// }
-
-// @UseDao(tables: [Tags])
-// class TagDao extends DatabaseAccessor<AppDatabase> with _$TagDaoMixin {
-//   final AppDatabase db;
-
-//   TagDao(this.db) : super(db);
-
-//   Stream<List<Tag>> watchTags() => select(tags).watch();
-//   Future insertTag(Insertable<Tag> tag) => into(tags).insert(tag);
-// }
