@@ -3,7 +3,7 @@ import 'package:moor/moor.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:undo/undo.dart';
 
-import '../../database/database.dart';
+import '../database/database.dart';
 
 /// Class that keeps information about a tag and whether it's selected at
 /// the moment.
@@ -27,12 +27,12 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
 
   final BehaviorSubject<List<TagWithActiveInfo>> _allTags = BehaviorSubject();
 
-  Observable<List<CategoryWithTag>> _currentEntries;
+  Stream<List<CategoryWithTag>> _currentEntries;
 
   /// A stream of entries that should be displayed on the home screen.
-  Observable<List<CategoryWithTag>> get homeScreenEntries => _currentEntries;
+  Stream<List<CategoryWithTag>> get homeScreenEntries => _currentEntries;
 
-  Observable<List<TagWithActiveInfo>> get tags => _allTags;
+  Stream<List<TagWithActiveInfo>> get tags => _allTags;
 
   void init() {
     // listen for the tag to change. Then display all entries that are in
@@ -41,7 +41,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
 
     // also watch all tags so that they can be displayed in the navigation
     // drawer.
-    Observable.combineLatest2<List<TagWithCount>, Tag, List<TagWithActiveInfo>>(
+    Rx.combineLatest2<List<TagWithCount>, Tag, List<TagWithActiveInfo>>(
       db.tagsWithCount(),
       _activeTag,
       (allTags, selected) {
@@ -59,17 +59,17 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
     _activeTag.add(tag);
   }
 
-  void addTag(String name) async {
-    final name = await db.createTag(name, color);
+  void addTag(String description) async {
+    final id = await db.createTag(description);
     emit(db.cs);
-    showTag(Tag(name: name, color: null));
+    showTag(Tag(id: id, name: description));
   }
 
   void createCategory(String content) async {
     await db.createCategory(CategoriesCompanion(
       description: Value(content),
       code: Value(content),
-      tag_name: Value(_activeTag.value?.name),
+      tag: Value(_activeTag.value?.id),
     ));
     emit(db.cs);
   }

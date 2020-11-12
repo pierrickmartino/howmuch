@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howmuch/src/blocs/category.dart';
 
 //import 'package:responsive_framework/responsive_framework.dart'; // https://pub.dev/packages/responsive_framework
 
 import 'config/routes/router.dart';
-import 'config/routes/locator.dart';
+//import 'config/routes/locator.dart';
 import 'constants/const.dart';
-import 'database/database.dart';
+import 'src/database/database.dart';
+import 'plugins/desktop/desktop.dart';
 
 void main() {
-  setupLocator();
+  //setupLocator();
+  setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
@@ -29,18 +32,20 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return RepositoryProvider<AppDatabase>(
       create: (context) => constructDb(),
-      child: BlocProvider<TodoAppBloc>(
+      child: BlocProvider<HowMuchAppBloc>(
         create: (context) {
           final db = RepositoryProvider.of<AppDatabase>(context);
-          return TodoAppBloc(db);
+          return HowMuchAppBloc(db);
         },
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'moor Demo',
+          title: 'HowMuch app',
           theme: ThemeData(
             primarySwatch: Colors.orange,
           ),
-          home: HomeScreen(),
+          initialRoute: homeRoute,
+          onGenerateRoute: CustomRouter.generateRoute,
+          //home: HomeScreen(),
         ),
       ),
     );

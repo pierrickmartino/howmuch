@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moor/moor.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../database/database.dart';
+import '../src/blocs/category.dart';
 
 class NewCategorieInput extends StatefulWidget {
   const NewCategorieInput({
@@ -15,8 +16,9 @@ class NewCategorieInput extends StatefulWidget {
 
 class _NewCategorieInputState extends State<NewCategorieInput> {
   DateTime newCategorieDate;
-  Tag selectedTag;
+  //Tag selectedTag;
   TextEditingController controller;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _NewCategorieInputState extends State<NewCategorieInput> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildTextField(context),
-          _buildTagSelector(context),
+          //_buildTagSelector(context),
           _buildDateButton(context),
         ],
       ),
@@ -45,73 +47,75 @@ class _NewCategorieInputState extends State<NewCategorieInput> {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(hintText: 'Categorie Name'),
-        onSubmitted: (inputName) {
-          final dao = Provider.of<CategorieDao>(context, listen: false);
-          final categorie = CategoriesCompanion(
-            description: Value(inputName),
-            code: Value(inputName), // TODO
-            creationDate: Value(newCategorieDate),
-            tagName: Value(selectedTag?.name),
-          );
-          dao.insertCategorie(categorie);
-          resetValuesAfterSubmit();
-        },
+        onSubmitted: (_) => _addEntry(),
+
+        //onSubmitted: (inputName) {
+        // final dao = Provider.of<CategorieDao>(context, listen: false);
+        // final categorie = CategoriesCompanion(
+        //   description: Value(inputName),
+        //   code: Value(inputName), // TODO
+        //   creationDate: Value(newCategorieDate),
+        //   tagName: Value(selectedTag?.name),
+        // );
+        // dao.insertCategorie(categorie);
+        // resetValuesAfterSubmit();
+        //},
       ),
     );
   }
 
-  StreamBuilder<List<Tag>> _buildTagSelector(BuildContext context) {
-    return StreamBuilder<List<Tag>>(
-      stream: Provider.of<TagDao>(context).watchTags(),
-      builder: (context, snapshot) {
-        final tags = snapshot.data ?? List();
+  // StreamBuilder<List<Tag>> _buildTagSelector(BuildContext context) {
+  //   return StreamBuilder<List<Tag>>(
+  //     stream: Provider.of<TagDao>(context).watchTags(),
+  //     builder: (context, snapshot) {
+  //       final tags = snapshot.data ?? List();
 
-        DropdownMenuItem<Tag> dropdownFromTag(Tag tag) {
-          return DropdownMenuItem(
-            value: tag,
-            child: Row(
-              children: <Widget>[
-                Text(tag.name),
-                SizedBox(width: 5),
-                Container(
-                  width: 15,
-                  height: 15,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(tag.color),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
+  //       DropdownMenuItem<Tag> dropdownFromTag(Tag tag) {
+  //         return DropdownMenuItem(
+  //           value: tag,
+  //           child: Row(
+  //             children: <Widget>[
+  //               Text(tag.name),
+  //               SizedBox(width: 5),
+  //               Container(
+  //                 width: 15,
+  //                 height: 15,
+  //                 decoration: BoxDecoration(
+  //                   shape: BoxShape.circle,
+  //                   color: Color(tag.color),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         );
+  //       }
 
-        final dropdownMenuItems =
-            tags.map((tag) => dropdownFromTag(tag)).toList()
-              // Add a "no tag" item as the first element of the list
-              ..insert(
-                0,
-                DropdownMenuItem(
-                  value: null,
-                  child: Text('No Tag'),
-                ),
-              );
+  //       final dropdownMenuItems =
+  //           tags.map((tag) => dropdownFromTag(tag)).toList()
+  //             // Add a "no tag" item as the first element of the list
+  //             ..insert(
+  //               0,
+  //               DropdownMenuItem(
+  //                 value: null,
+  //                 child: Text('No Tag'),
+  //               ),
+  //             );
 
-        return Expanded(
-          child: DropdownButton(
-            onChanged: (Tag tag) {
-              setState(() {
-                selectedTag = tag;
-              });
-            },
-            isExpanded: true,
-            value: selectedTag,
-            items: dropdownMenuItems,
-          ),
-        );
-      },
-    );
-  }
+  //       return Expanded(
+  //         child: DropdownButton(
+  //           onChanged: (Tag tag) {
+  //             setState(() {
+  //               selectedTag = tag;
+  //             });
+  //           },
+  //           isExpanded: true,
+  //           value: selectedTag,
+  //           items: dropdownMenuItems,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   IconButton _buildDateButton(BuildContext context) {
     return IconButton(
@@ -127,11 +131,18 @@ class _NewCategorieInputState extends State<NewCategorieInput> {
     );
   }
 
-  void resetValuesAfterSubmit() {
-    setState(() {
-      newCategorieDate = null;
-      selectedTag = null;
-      controller.clear();
-    });
+  // void resetValuesAfterSubmit() {
+  //   setState(() {
+  //     newCategorieDate = null;
+  //     selectedTag = null;
+  //     controller.clear();
+  //   });
+  // }
+
+  void _addEntry() {
+    if (_controller.text.isNotEmpty) {
+      BlocProvider.of<HowMuchAppBloc>(context).addTag(_controller.text);
+      Navigator.of(context).pop();
+    }
   }
 }
