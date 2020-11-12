@@ -92,8 +92,9 @@ class AppDatabase extends _$AppDatabase {
             CategoriesCompanion(
               code: const Value('Rework persistence code'),
               tag: Value(workId),
+              description: const Value('Rework persistence code'),
               creationDate: Value(
-                DateTime.now().add(const Duration(days: 4)),
+                DateTime.now(),
               ),
             ),
           );
@@ -106,8 +107,8 @@ class AppDatabase extends _$AppDatabase {
     // select all tags and load how many associated entries there are for
     // each tag
     return customSelect(
-      'SELECT c.name, c.desc, '
-      '(SELECT COUNT(*) FROM categories WHERE category = c.id) AS amount '
+      'SELECT c.id, c.name, '
+      '(SELECT COUNT(*) FROM categories WHERE tag = c.id) AS amount '
       'FROM tags c '
       'UNION ALL SELECT null, null, '
       '(SELECT COUNT(*) FROM categories WHERE tag IS NULL)',
