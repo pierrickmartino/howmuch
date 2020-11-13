@@ -76,7 +76,7 @@ class _CategoriesState extends State<Categories> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('What needs to be done?'),
+                  Text('What is the category to create?'),
                   Container(
                     padding: EdgeInsets.only(bottom: 10.0),
                     child: Row(

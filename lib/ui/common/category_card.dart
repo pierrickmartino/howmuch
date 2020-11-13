@@ -16,22 +16,30 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget dueDate;
+    Widget creationDate;
+    Color categoryColor;
+
     if (entry.creationDate == null) {
-      dueDate = GestureDetector(
+      creationDate = GestureDetector(
         onTap: () {
           // BlocProvider.provideBloc(context).db.testTransaction(entry);
         },
         child: const Text(
-          'No due date set',
+          'No creation date set',
           style: TextStyle(color: Colors.grey, fontSize: 12),
         ),
       );
     } else {
-      dueDate = Text(
-        _format.format(entry.creationDate),
+      creationDate = Text(
+        'created on ' + _format.format(entry.creationDate),
         style: const TextStyle(fontSize: 12),
       );
+    }
+
+    if (entry.color == null) {
+      categoryColor = Colors.grey;
+    } else {
+      categoryColor = Color(entry.color).withOpacity(1);
     }
 
     return Card(
@@ -40,19 +48,24 @@ class CategoryCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
+            Icon(
+              Icons.warning_rounded,
+              size: 26.0,
+              color: categoryColor,
+            ),
+            const SizedBox(width: 12.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(entry.description),
-                  dueDate,
+                  creationDate,
                 ],
               ),
             ),
             IconButton(
               icon: const Icon(Icons.edit),
-              color: Colors.blue,
               onPressed: () {
                 showDialog(
                   context: context,
