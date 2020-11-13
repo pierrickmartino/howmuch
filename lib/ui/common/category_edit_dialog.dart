@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
@@ -18,11 +20,19 @@ class CategoryEditDialog extends StatefulWidget {
 }
 
 class _CategoryEditDialogState extends State<CategoryEditDialog> {
+  // standard field
   final TextEditingController textController = TextEditingController();
   DateTime _creationDate;
+  // color picker
   ColorSwatch _categoryColor;
   MaterialColor _categoryMaterialColor;
   ColorSwatch _tempCategoryColor;
+  // icon picker
+  Icon _categoryIcon;
+  Icon _icon;
+  bool isAdaptive = true;
+  bool showTooltips = false;
+  bool showSearch = true;
 
   @override
   void initState() {
@@ -40,6 +50,14 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
       _categoryColor = _categoryMaterialColor;
     }
 
+    if (widget.entry.icon == null) {
+      _categoryIcon = Icon(Icons.info_outline);
+      //_categoryMaterialColor = Colors.grey;
+    } else {
+      _categoryIcon =
+          Icon(IconData(widget.entry.icon, fontFamily: 'MaterialIcons'));
+    }
+
     super.initState();
   }
 
@@ -47,6 +65,22 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   void dispose() {
     textController.dispose();
     super.dispose();
+  }
+
+  void _openCategoryIcon() async {
+    IconData icon = await FlutterIconPicker.showIconPicker(
+      context,
+      adaptiveDialog: isAdaptive,
+      showTooltips: showTooltips,
+      showSearchBar: showSearch,
+      barrierDismissible: false,
+      iconPackMode: IconPack.material,
+    );
+
+    if (icon != null) {
+      _icon = Icon(icon);
+      setState(() => _categoryIcon = _icon);
+    }
   }
 
   void _openCategoryColorPicker() async {
@@ -109,7 +143,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             ),
           ),
           Row(
-            children: <Widget>[
+            children: [
               Text(formattedDate),
               Spacer(),
               IconButton(
@@ -135,8 +169,8 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             ],
           ),
           Row(
-            children: <Widget>[
-              Text('Category color'),
+            children: [
+              Text('Color'),
               Spacer(),
               CircleColor(color: _categoryColor, circleSize: 25),
               IconButton(
@@ -145,6 +179,17 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               ),
             ],
           ),
+          Row(
+            children: [
+              Text('Icon'),
+              Spacer(),
+              _categoryIcon,
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: _openCategoryIcon,
+              )
+            ],
+          )
         ],
       ),
       actions: [
@@ -163,6 +208,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               description: updatedContent.isNotEmpty ? updatedContent : null,
               creationDate: _creationDate,
               color: _categoryColor.value,
+              icon: _categoryIcon.icon.codePoint,
             );
 
             BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);

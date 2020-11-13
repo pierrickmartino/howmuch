@@ -16,7 +16,7 @@ class Categories extends Table {
   // ignore: non_constant_identifier_names
   IntColumn get tag =>
       integer().nullable().customConstraint('NULL REFERENCES tags(id)')();
-  TextColumn get icon => text().nullable()();
+  IntColumn get icon => integer().nullable()();
   IntColumn get color => integer().nullable()();
   DateTimeColumn get creationDate => dateTime().nullable()();
   DateTimeColumn get lastUpdateDate => dateTime().nullable()();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
@@ -18,6 +19,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget creationDate;
     Color categoryColor;
+    IconData categoryIcon;
 
     if (entry.creationDate == null) {
       creationDate = GestureDetector(
@@ -42,6 +44,12 @@ class CategoryCard extends StatelessWidget {
       categoryColor = Color(entry.color).withOpacity(1);
     }
 
+    if (entry.icon == null) {
+      categoryIcon = Icons.info_outline;
+    } else {
+      categoryIcon = IconData(entry.icon, fontFamily: 'MaterialIcons');
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -49,7 +57,7 @@ class CategoryCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Icon(
-              Icons.warning_rounded,
+              categoryIcon,
               size: 26.0,
               color: categoryColor,
             ),

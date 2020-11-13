@@ -12,7 +12,7 @@ class Category extends DataClass implements Insertable<Category> {
   final String description;
   final String code;
   final int tag;
-  final String icon;
+  final int icon;
   final int color;
   final DateTime creationDate;
   final DateTime lastUpdateDate;
@@ -40,7 +40,7 @@ class Category extends DataClass implements Insertable<Category> {
           .mapFromDatabaseResponse(data['${effectivePrefix}description']),
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
       tag: intType.mapFromDatabaseResponse(data['${effectivePrefix}tag']),
-      icon: stringType.mapFromDatabaseResponse(data['${effectivePrefix}icon']),
+      icon: intType.mapFromDatabaseResponse(data['${effectivePrefix}icon']),
       color: intType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
       creationDate: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}creation_date']),
@@ -66,7 +66,7 @@ class Category extends DataClass implements Insertable<Category> {
       map['tag'] = Variable<int>(tag);
     }
     if (!nullToAbsent || icon != null) {
-      map['icon'] = Variable<String>(icon);
+      map['icon'] = Variable<int>(icon);
     }
     if (!nullToAbsent || color != null) {
       map['color'] = Variable<int>(color);
@@ -113,7 +113,7 @@ class Category extends DataClass implements Insertable<Category> {
       description: serializer.fromJson<String>(json['description']),
       code: serializer.fromJson<String>(json['code']),
       tag: serializer.fromJson<int>(json['tag']),
-      icon: serializer.fromJson<String>(json['icon']),
+      icon: serializer.fromJson<int>(json['icon']),
       color: serializer.fromJson<int>(json['color']),
       creationDate: serializer.fromJson<DateTime>(json['creationDate']),
       lastUpdateDate: serializer.fromJson<DateTime>(json['lastUpdateDate']),
@@ -128,7 +128,7 @@ class Category extends DataClass implements Insertable<Category> {
       'description': serializer.toJson<String>(description),
       'code': serializer.toJson<String>(code),
       'tag': serializer.toJson<int>(tag),
-      'icon': serializer.toJson<String>(icon),
+      'icon': serializer.toJson<int>(icon),
       'color': serializer.toJson<int>(color),
       'creationDate': serializer.toJson<DateTime>(creationDate),
       'lastUpdateDate': serializer.toJson<DateTime>(lastUpdateDate),
@@ -141,7 +141,7 @@ class Category extends DataClass implements Insertable<Category> {
           String description,
           String code,
           int tag,
-          String icon,
+          int icon,
           int color,
           DateTime creationDate,
           DateTime lastUpdateDate,
@@ -210,7 +210,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> description;
   final Value<String> code;
   final Value<int> tag;
-  final Value<String> icon;
+  final Value<int> icon;
   final Value<int> color;
   final Value<DateTime> creationDate;
   final Value<DateTime> lastUpdateDate;
@@ -243,7 +243,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<String> description,
     Expression<String> code,
     Expression<int> tag,
-    Expression<String> icon,
+    Expression<int> icon,
     Expression<int> color,
     Expression<DateTime> creationDate,
     Expression<DateTime> lastUpdateDate,
@@ -267,7 +267,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<String> description,
       Value<String> code,
       Value<int> tag,
-      Value<String> icon,
+      Value<int> icon,
       Value<int> color,
       Value<DateTime> creationDate,
       Value<DateTime> lastUpdateDate,
@@ -301,7 +301,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       map['tag'] = Variable<int>(tag.value);
     }
     if (icon.present) {
-      map['icon'] = Variable<String>(icon.value);
+      map['icon'] = Variable<int>(icon.value);
     }
     if (color.present) {
       map['color'] = Variable<int>(color.value);
@@ -385,11 +385,11 @@ class $CategoriesTable extends Categories
   }
 
   final VerificationMeta _iconMeta = const VerificationMeta('icon');
-  GeneratedTextColumn _icon;
+  GeneratedIntColumn _icon;
   @override
-  GeneratedTextColumn get icon => _icon ??= _constructIcon();
-  GeneratedTextColumn _constructIcon() {
-    return GeneratedTextColumn(
+  GeneratedIntColumn get icon => _icon ??= _constructIcon();
+  GeneratedIntColumn _constructIcon() {
+    return GeneratedIntColumn(
       'icon',
       $tableName,
       true,
