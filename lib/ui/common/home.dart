@@ -53,22 +53,22 @@ class _HomeState extends State<Home> {
       ),
       CollapsibleItem(
         text: 'Accounts',
-        icon: Icons.cancel,
+        icon: Icons.account_balance_wallet,
         onPressed: () => setState(() => _selectedIndex = 1),
       ),
       CollapsibleItem(
         text: 'Transactions',
-        icon: Icons.search,
+        icon: Icons.compare_arrows,
         onPressed: () => setState(() => _selectedIndex = 2),
       ),
       CollapsibleItem(
         text: 'Categories',
-        icon: Icons.notifications,
+        icon: Icons.category,
         onPressed: () => setState(() => _selectedIndex = 3),
       ),
       CollapsibleItem(
         text: 'Filters',
-        icon: Icons.settings,
+        icon: Icons.filter_list,
         onPressed: () => setState(() => _selectedIndex = 4),
       ),
     ];
@@ -84,6 +84,8 @@ class _HomeState extends State<Home> {
         avatarImg: _avatarImg,
         title: 'John Smith',
         body: _body(size, context),
+        iconSize: 36.0,
+        textSize: 16.0,
       ),
     );
   }
