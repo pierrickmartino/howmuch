@@ -125,10 +125,10 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
   @override
   Widget build(BuildContext context) {
-    var formattedDate = 'No creation date set';
-    if (_creationDate != null) {
-      formattedDate = _dateFormat.format(_creationDate);
-    }
+    //var formattedDate = 'No creation date set';
+    // if (_creationDate != null) {
+    //   formattedDate = _dateFormat.format(_creationDate);
+    // }
 
     return AlertDialog(
       title: const Text('Edit category'),
@@ -142,32 +142,32 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               helperText: 'Content of entry',
             ),
           ),
-          Row(
-            children: [
-              Text(formattedDate),
-              Spacer(),
-              IconButton(
-                icon: const Icon(Icons.calendar_today),
-                onPressed: () async {
-                  final now = DateTime.now();
-                  final initialDate = _creationDate ?? now;
-                  final firstDate =
-                      initialDate.isBefore(now) ? initialDate : now;
+          // Row(
+          //   children: [
+          //     Text(formattedDate),
+          //     Spacer(),
+          //     IconButton(
+          //       icon: const Icon(Icons.calendar_today),
+          //       onPressed: () async {
+          //         final now = DateTime.now();
+          //         final initialDate = _creationDate ?? now;
+          //         final firstDate =
+          //             initialDate.isBefore(now) ? initialDate : now;
 
-                  final selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: initialDate,
-                      firstDate: firstDate,
-                      lastDate: DateTime(3000),
-                      helpText: 'Creation date');
+          //         final selectedDate = await showDatePicker(
+          //             context: context,
+          //             initialDate: initialDate,
+          //             firstDate: firstDate,
+          //             lastDate: DateTime(3000),
+          //             helpText: 'Creation date');
 
-                  setState(() {
-                    if (selectedDate != null) _creationDate = selectedDate;
-                  });
-                },
-              ),
-            ],
-          ),
+          //         setState(() {
+          //           if (selectedDate != null) _creationDate = selectedDate;
+          //         });
+          //       },
+          //     ),
+          //   ],
+          // ),
           Row(
             children: [
               Text('Color'),
@@ -206,7 +206,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             final updatedContent = textController.text;
             final entry = widget.entry.copyWith(
               description: updatedContent.isNotEmpty ? updatedContent : null,
-              creationDate: _creationDate,
+              creationDate: _creationDate ?? DateTime.now(),
               color: _categoryColor.value,
               icon: _categoryIcon.icon.codePoint,
             );

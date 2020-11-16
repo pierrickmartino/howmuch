@@ -67,10 +67,10 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
 
   void createCategory(String content) async {
     await db.createCategory(CategoriesCompanion(
-      description: Value(content),
-      code: Value(content),
-      tag: Value(_activeTag.value?.id),
-    ));
+        description: Value(content),
+        code: Value(content),
+        tag: Value(_activeTag.value?.id),
+        creationDate: Value(DateTime.now())));
     emit(db.cs);
   }
 
