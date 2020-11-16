@@ -18,6 +18,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget creationDate;
+    Widget lastUpdateDate;
     Color categoryColor;
     IconData categoryIcon;
 
@@ -27,14 +28,31 @@ class CategoryCard extends StatelessWidget {
           // BlocProvider.provideBloc(context).db.testTransaction(entry);
         },
         child: const Text(
-          'No creation date set',
+          'No creation date',
           style: TextStyle(color: Colors.grey, fontSize: 12),
         ),
       );
     } else {
       creationDate = Text(
         'created on ' + _format.format(entry.creationDate),
-        style: const TextStyle(fontSize: 12),
+        style: const TextStyle(color: Colors.grey, fontSize: 12),
+      );
+    }
+
+    if (entry.lastUpdateDate == null) {
+      lastUpdateDate = GestureDetector(
+        onTap: () {
+          // BlocProvider.provideBloc(context).db.testTransaction(entry);
+        },
+        child: const Text(
+          'No update date',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+      );
+    } else {
+      lastUpdateDate = Text(
+        'last update on ' + _format.format(entry.lastUpdateDate),
+        style: const TextStyle(color: Colors.grey, fontSize: 12),
       );
     }
 
@@ -69,6 +87,7 @@ class CategoryCard extends StatelessWidget {
                 children: [
                   Text(entry.description),
                   creationDate,
+                  lastUpdateDate
                 ],
               ),
             ),

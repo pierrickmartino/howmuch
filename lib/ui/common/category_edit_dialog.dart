@@ -206,7 +206,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             final updatedContent = textController.text;
             final entry = widget.entry.copyWith(
               description: updatedContent.isNotEmpty ? updatedContent : null,
-              creationDate: _creationDate ?? DateTime.now(),
+              lastUpdateDate: DateTime.now(),
               color: _categoryColor.value,
               icon: _categoryIcon.icon.codePoint,
             );
