@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
 
-final _dateFormat = DateFormat.yMMMd();
+// final _dateFormat = DateFormat.yMMMd();
 
 class CategoryEditDialog extends StatefulWidget {
   final Category entry;
@@ -22,7 +22,7 @@ class CategoryEditDialog extends StatefulWidget {
 class _CategoryEditDialogState extends State<CategoryEditDialog> {
   // standard field
   final TextEditingController textController = TextEditingController();
-  DateTime _creationDate;
+  //DateTime _creationDate;
   // color picker
   ColorSwatch _categoryColor;
   MaterialColor _categoryMaterialColor;
@@ -37,7 +37,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   @override
   void initState() {
     textController.text = widget.entry.description;
-    _creationDate = widget.entry.creationDate;
+    //_creationDate = widget.entry.creationDate;
 
     if (widget.entry.color == null) {
       _categoryColor = Colors.grey;
@@ -51,11 +51,14 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
     }
 
     if (widget.entry.icon == null) {
-      _categoryIcon = Icon(Icons.info_outline);
+      _categoryIcon = Icon(LineAwesomeIcons.info_circle);
       //_categoryMaterialColor = Colors.grey;
     } else {
       _categoryIcon =
-          Icon(IconData(widget.entry.icon, fontFamily: 'MaterialIcons'));
+          //Icon(IconData(widget.entry.icon, fontFamily: 'MaterialIcons'))
+          Icon(IconData(widget.entry.icon,
+              fontFamily: widget.entry.icon_family,
+              fontPackage: widget.entry.icon_package));
     }
 
     super.initState();
@@ -74,7 +77,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
       showTooltips: showTooltips,
       showSearchBar: showSearch,
       barrierDismissible: false,
-      iconPackMode: IconPack.material,
+      iconPackMode: IconPack.lineAwesomeIcons, //IconPack.material,
     );
 
     if (icon != null) {
@@ -174,7 +177,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               Spacer(),
               CircleColor(color: _categoryColor, circleSize: 25),
               IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const Icon(LineAwesomeIcons.edit),
                 onPressed: _openCategoryColorPicker,
               ),
             ],
@@ -185,7 +188,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               Spacer(),
               _categoryIcon,
               IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const Icon(LineAwesomeIcons.edit),
                 onPressed: _openCategoryIcon,
               )
             ],
@@ -209,6 +212,8 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               lastUpdateDate: DateTime.now(),
               color: _categoryColor.value,
               icon: _categoryIcon.icon.codePoint,
+              icon_family: _categoryIcon.icon.fontFamily,
+              icon_package: _categoryIcon.icon.fontPackage,
             );
 
             BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);

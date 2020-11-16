@@ -13,6 +13,8 @@ class Category extends DataClass implements Insertable<Category> {
   final String code;
   final int tag;
   final int icon;
+  final String icon_family;
+  final String icon_package;
   final int color;
   final DateTime creationDate;
   final DateTime lastUpdateDate;
@@ -23,6 +25,8 @@ class Category extends DataClass implements Insertable<Category> {
       @required this.code,
       this.tag,
       this.icon,
+      this.icon_family,
+      this.icon_package,
       this.color,
       this.creationDate,
       this.lastUpdateDate,
@@ -41,6 +45,10 @@ class Category extends DataClass implements Insertable<Category> {
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
       tag: intType.mapFromDatabaseResponse(data['${effectivePrefix}tag']),
       icon: intType.mapFromDatabaseResponse(data['${effectivePrefix}icon']),
+      icon_family: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}icon_family']),
+      icon_package: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}icon_package']),
       color: intType.mapFromDatabaseResponse(data['${effectivePrefix}color']),
       creationDate: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}creation_date']),
@@ -68,6 +76,12 @@ class Category extends DataClass implements Insertable<Category> {
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<int>(icon);
     }
+    if (!nullToAbsent || icon_family != null) {
+      map['icon_family'] = Variable<String>(icon_family);
+    }
+    if (!nullToAbsent || icon_package != null) {
+      map['icon_package'] = Variable<String>(icon_package);
+    }
     if (!nullToAbsent || color != null) {
       map['color'] = Variable<int>(color);
     }
@@ -92,6 +106,12 @@ class Category extends DataClass implements Insertable<Category> {
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
       tag: tag == null && nullToAbsent ? const Value.absent() : Value(tag),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
+      icon_family: icon_family == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icon_family),
+      icon_package: icon_package == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icon_package),
       color:
           color == null && nullToAbsent ? const Value.absent() : Value(color),
       creationDate: creationDate == null && nullToAbsent
@@ -114,6 +134,8 @@ class Category extends DataClass implements Insertable<Category> {
       code: serializer.fromJson<String>(json['code']),
       tag: serializer.fromJson<int>(json['tag']),
       icon: serializer.fromJson<int>(json['icon']),
+      icon_family: serializer.fromJson<String>(json['icon_family']),
+      icon_package: serializer.fromJson<String>(json['icon_package']),
       color: serializer.fromJson<int>(json['color']),
       creationDate: serializer.fromJson<DateTime>(json['creationDate']),
       lastUpdateDate: serializer.fromJson<DateTime>(json['lastUpdateDate']),
@@ -129,6 +151,8 @@ class Category extends DataClass implements Insertable<Category> {
       'code': serializer.toJson<String>(code),
       'tag': serializer.toJson<int>(tag),
       'icon': serializer.toJson<int>(icon),
+      'icon_family': serializer.toJson<String>(icon_family),
+      'icon_package': serializer.toJson<String>(icon_package),
       'color': serializer.toJson<int>(color),
       'creationDate': serializer.toJson<DateTime>(creationDate),
       'lastUpdateDate': serializer.toJson<DateTime>(lastUpdateDate),
@@ -142,6 +166,8 @@ class Category extends DataClass implements Insertable<Category> {
           String code,
           int tag,
           int icon,
+          String icon_family,
+          String icon_package,
           int color,
           DateTime creationDate,
           DateTime lastUpdateDate,
@@ -152,6 +178,8 @@ class Category extends DataClass implements Insertable<Category> {
         code: code ?? this.code,
         tag: tag ?? this.tag,
         icon: icon ?? this.icon,
+        icon_family: icon_family ?? this.icon_family,
+        icon_package: icon_package ?? this.icon_package,
         color: color ?? this.color,
         creationDate: creationDate ?? this.creationDate,
         lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
@@ -165,6 +193,8 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('code: $code, ')
           ..write('tag: $tag, ')
           ..write('icon: $icon, ')
+          ..write('icon_family: $icon_family, ')
+          ..write('icon_package: $icon_package, ')
           ..write('color: $color, ')
           ..write('creationDate: $creationDate, ')
           ..write('lastUpdateDate: $lastUpdateDate, ')
@@ -185,11 +215,15 @@ class Category extends DataClass implements Insertable<Category> {
                   $mrjc(
                       icon.hashCode,
                       $mrjc(
-                          color.hashCode,
+                          icon_family.hashCode,
                           $mrjc(
-                              creationDate.hashCode,
-                              $mrjc(lastUpdateDate.hashCode,
-                                  active.hashCode)))))))));
+                              icon_package.hashCode,
+                              $mrjc(
+                                  color.hashCode,
+                                  $mrjc(
+                                      creationDate.hashCode,
+                                      $mrjc(lastUpdateDate.hashCode,
+                                          active.hashCode)))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -199,6 +233,8 @@ class Category extends DataClass implements Insertable<Category> {
           other.code == this.code &&
           other.tag == this.tag &&
           other.icon == this.icon &&
+          other.icon_family == this.icon_family &&
+          other.icon_package == this.icon_package &&
           other.color == this.color &&
           other.creationDate == this.creationDate &&
           other.lastUpdateDate == this.lastUpdateDate &&
@@ -211,6 +247,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> code;
   final Value<int> tag;
   final Value<int> icon;
+  final Value<String> icon_family;
+  final Value<String> icon_package;
   final Value<int> color;
   final Value<DateTime> creationDate;
   final Value<DateTime> lastUpdateDate;
@@ -221,6 +259,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.code = const Value.absent(),
     this.tag = const Value.absent(),
     this.icon = const Value.absent(),
+    this.icon_family = const Value.absent(),
+    this.icon_package = const Value.absent(),
     this.color = const Value.absent(),
     this.creationDate = const Value.absent(),
     this.lastUpdateDate = const Value.absent(),
@@ -232,6 +272,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     @required String code,
     this.tag = const Value.absent(),
     this.icon = const Value.absent(),
+    this.icon_family = const Value.absent(),
+    this.icon_package = const Value.absent(),
     this.color = const Value.absent(),
     this.creationDate = const Value.absent(),
     this.lastUpdateDate = const Value.absent(),
@@ -244,6 +286,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<String> code,
     Expression<int> tag,
     Expression<int> icon,
+    Expression<String> icon_family,
+    Expression<String> icon_package,
     Expression<int> color,
     Expression<DateTime> creationDate,
     Expression<DateTime> lastUpdateDate,
@@ -255,6 +299,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       if (code != null) 'code': code,
       if (tag != null) 'tag': tag,
       if (icon != null) 'icon': icon,
+      if (icon_family != null) 'icon_family': icon_family,
+      if (icon_package != null) 'icon_package': icon_package,
       if (color != null) 'color': color,
       if (creationDate != null) 'creation_date': creationDate,
       if (lastUpdateDate != null) 'last_update_date': lastUpdateDate,
@@ -268,6 +314,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<String> code,
       Value<int> tag,
       Value<int> icon,
+      Value<String> icon_family,
+      Value<String> icon_package,
       Value<int> color,
       Value<DateTime> creationDate,
       Value<DateTime> lastUpdateDate,
@@ -278,6 +326,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       code: code ?? this.code,
       tag: tag ?? this.tag,
       icon: icon ?? this.icon,
+      icon_family: icon_family ?? this.icon_family,
+      icon_package: icon_package ?? this.icon_package,
       color: color ?? this.color,
       creationDate: creationDate ?? this.creationDate,
       lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
@@ -303,6 +353,12 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (icon.present) {
       map['icon'] = Variable<int>(icon.value);
     }
+    if (icon_family.present) {
+      map['icon_family'] = Variable<String>(icon_family.value);
+    }
+    if (icon_package.present) {
+      map['icon_package'] = Variable<String>(icon_package.value);
+    }
     if (color.present) {
       map['color'] = Variable<int>(color.value);
     }
@@ -326,6 +382,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('code: $code, ')
           ..write('tag: $tag, ')
           ..write('icon: $icon, ')
+          ..write('icon_family: $icon_family, ')
+          ..write('icon_package: $icon_package, ')
           ..write('color: $color, ')
           ..write('creationDate: $creationDate, ')
           ..write('lastUpdateDate: $lastUpdateDate, ')
@@ -396,6 +454,34 @@ class $CategoriesTable extends Categories
     );
   }
 
+  final VerificationMeta _icon_familyMeta =
+      const VerificationMeta('icon_family');
+  GeneratedTextColumn _icon_family;
+  @override
+  GeneratedTextColumn get icon_family =>
+      _icon_family ??= _constructIconFamily();
+  GeneratedTextColumn _constructIconFamily() {
+    return GeneratedTextColumn(
+      'icon_family',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _icon_packageMeta =
+      const VerificationMeta('icon_package');
+  GeneratedTextColumn _icon_package;
+  @override
+  GeneratedTextColumn get icon_package =>
+      _icon_package ??= _constructIconPackage();
+  GeneratedTextColumn _constructIconPackage() {
+    return GeneratedTextColumn(
+      'icon_package',
+      $tableName,
+      true,
+    );
+  }
+
   final VerificationMeta _colorMeta = const VerificationMeta('color');
   GeneratedIntColumn _color;
   @override
@@ -452,6 +538,8 @@ class $CategoriesTable extends Categories
         code,
         tag,
         icon,
+        icon_family,
+        icon_package,
         color,
         creationDate,
         lastUpdateDate,
@@ -492,6 +580,18 @@ class $CategoriesTable extends Categories
     if (data.containsKey('icon')) {
       context.handle(
           _iconMeta, icon.isAcceptableOrUnknown(data['icon'], _iconMeta));
+    }
+    if (data.containsKey('icon_family')) {
+      context.handle(
+          _icon_familyMeta,
+          icon_family.isAcceptableOrUnknown(
+              data['icon_family'], _icon_familyMeta));
+    }
+    if (data.containsKey('icon_package')) {
+      context.handle(
+          _icon_packageMeta,
+          icon_package.isAcceptableOrUnknown(
+              data['icon_package'], _icon_packageMeta));
     }
     if (data.containsKey('color')) {
       context.handle(

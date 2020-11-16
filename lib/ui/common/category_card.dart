@@ -63,9 +63,10 @@ class CategoryCard extends StatelessWidget {
     }
 
     if (entry.icon == null) {
-      categoryIcon = Icons.info_outline;
+      categoryIcon = LineAwesomeIcons.info_circle;
     } else {
-      categoryIcon = IconData(entry.icon, fontFamily: 'MaterialIcons');
+      categoryIcon = IconData(entry.icon,
+          fontFamily: entry.icon_family, fontPackage: entry.icon_package);
     }
 
     return Card(
@@ -92,7 +93,7 @@ class CategoryCard extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.edit),
+              icon: const Icon(LineAwesomeIcons.edit),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -102,7 +103,7 @@ class CategoryCard extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.delete),
+              icon: const Icon(LineAwesomeIcons.remove),
               color: Colors.red,
               onPressed: () {
                 // We delete the entry here. Again, notice how we don't have to call setState() or

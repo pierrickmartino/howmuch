@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart'; // https://pub.dev/packages/collapsible_sidebar
 import 'package:howmuch/ui/common/dashboard.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import 'accounts.dart';
 import 'categories.dart';
@@ -47,28 +48,28 @@ class _HomeState extends State<Home> {
     return [
       CollapsibleItem(
         text: 'Home',
-        icon: Icons.assessment,
+        icon: LineAwesomeIcons.area_chart,
         onPressed: () => setState(() => _selectedIndex = 0),
         isSelected: true,
       ),
       CollapsibleItem(
         text: 'Accounts',
-        icon: Icons.account_balance_wallet,
+        icon: LineAwesomeIcons.google_wallet,
         onPressed: () => setState(() => _selectedIndex = 1),
       ),
       CollapsibleItem(
         text: 'Transactions',
-        icon: Icons.compare_arrows,
+        icon: LineAwesomeIcons.arrow_left,
         onPressed: () => setState(() => _selectedIndex = 2),
       ),
       CollapsibleItem(
         text: 'Categories',
-        icon: Icons.category,
+        icon: LineAwesomeIcons.bookmark,
         onPressed: () => setState(() => _selectedIndex = 3),
       ),
       CollapsibleItem(
         text: 'Filters',
-        icon: Icons.filter_list,
+        icon: LineAwesomeIcons.filter,
         onPressed: () => setState(() => _selectedIndex = 4),
       ),
     ];

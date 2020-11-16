@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/blocs/category.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../src/blocs/category.dart';
 import 'index.dart';
@@ -92,7 +93,7 @@ class _TagDrawerEntry extends StatelessWidget {
       rowContent.addAll([
         Spacer(),
         IconButton(
-          icon: const Icon(Icons.delete_outline),
+          icon: const Icon(LineAwesomeIcons.remove),
           color: Colors.red,
           onPressed: () async {
             final confirmed = await showDialog<bool>(

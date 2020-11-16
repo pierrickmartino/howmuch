@@ -13,10 +13,13 @@ class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get description => text()();
   TextColumn get code => text()();
-  // ignore: non_constant_identifier_names
   IntColumn get tag =>
       integer().nullable().customConstraint('NULL REFERENCES tags(id)')();
   IntColumn get icon => integer().nullable()();
+  // ignore: non_constant_identifier_names
+  TextColumn get icon_family => text().nullable()();
+  // ignore: non_constant_identifier_names
+  TextColumn get icon_package => text().nullable()();
   IntColumn get color => integer().nullable()();
   DateTimeColumn get creationDate => dateTime().nullable()();
   DateTimeColumn get lastUpdateDate => dateTime().nullable()();

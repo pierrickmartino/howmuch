@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:undo/undo.dart';
 
 import 'index.dart';
@@ -23,7 +24,7 @@ class _CategoriesState extends State<Categories> {
           title: Text('Categories'),
           actions: [
             IconButton(
-              icon: Icon(Icons.undo),
+              icon: Icon(LineAwesomeIcons.arrow_left),
               onPressed: !bloc.canUndo
                   ? null
                   : () {
@@ -34,7 +35,7 @@ class _CategoriesState extends State<Categories> {
                     },
             ),
             IconButton(
-              icon: Icon(Icons.redo),
+              icon: Icon(LineAwesomeIcons.arrow_right),
               onPressed: !bloc.canRedo
                   ? null
                   : () {
@@ -88,7 +89,7 @@ class _CategoriesState extends State<Categories> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.send),
+                          icon: Icon(LineAwesomeIcons.send),
                           color: Theme.of(context).accentColor,
                           onPressed: _createCategoryEntry,
                         ),
