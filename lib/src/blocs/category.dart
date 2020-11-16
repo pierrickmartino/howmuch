@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:moor/moor.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:undo/undo.dart';
@@ -18,6 +19,10 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   HowMuchAppBloc(this.db) : super(db.cs) {
     init();
   }
+
+  var loggerNoStack = Logger(
+    printer: PrettyPrinter(methodCount: 0, colors: false, printTime: true),
+  );
 
   final AppDatabase db;
 
@@ -72,16 +77,35 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
         tag: Value(_activeTag.value?.id),
         creationDate: Value(DateTime.now())));
     emit(db.cs);
+    loggerNoStack.i('Create category');
+    loggerNoStack.v(
+        {'description': content, 'code': content, 'tag': _activeTag.value?.id});
   }
 
   void updateCategory(Category entry) async {
     db.updateCategory(entry);
     emit(db.cs);
+    loggerNoStack.i('Update category');
+    loggerNoStack.v({
+      'description': entry.description,
+      'code': entry.code,
+      'tag': entry.tag,
+      'color': entry.color,
+      'icon': entry.icon,
+      'icon_family': entry.icon_family,
+      'icon_package': entry.icon_package
+    });
   }
 
   void deleteCategory(Category entry) async {
     db.deleteCategory(entry);
     emit(db.cs);
+    loggerNoStack.i('Delete category');
+    loggerNoStack.v({
+      'description': entry.description,
+      'code': entry.code,
+      'tag': entry.tag
+    });
   }
 
   void deleteTag(Tag tag) async {
