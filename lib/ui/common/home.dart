@@ -85,8 +85,9 @@ class _HomeState extends State<Home> {
         avatarImg: _avatarImg,
         title: 'John Smith',
         body: _body(size, context),
-        iconSize: 36.0,
-        textSize: 16.0,
+        iconSize: 32.0,
+        textSize: 14.0,
+        minWidth: 70,
       ),
     );
   }
