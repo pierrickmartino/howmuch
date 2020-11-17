@@ -88,6 +88,7 @@ class _HomeState extends State<Home> {
         iconSize: 32.0,
         textSize: 14.0,
         minWidth: 70,
+        maxWidth: 200,
       ),
     );
   }
