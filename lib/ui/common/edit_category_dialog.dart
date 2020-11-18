@@ -4,6 +4,7 @@ import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 //import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
@@ -135,6 +136,8 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
     return AlertDialog(
       title: const Text('Edit category'),
+      actionsPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+      contentPadding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 24.0),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -171,6 +174,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           //     ),
           //   ],
           // ),
+          SizedBox(height: 12),
           Row(
             children: [
               Text('Color'),
@@ -192,7 +196,22 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                 onPressed: _openCategoryIcon,
               )
             ],
-          )
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Text('Perf'),
+              Spacer(),
+              ToggleSwitch(
+                initialLabelIndex: 0,
+                cornerRadius: 12.0,
+                labels: ['included', 'or not'],
+                onToggle: (index) {
+                  print('switched to: $index');
+                },
+              ),
+            ],
+          ),
         ],
       ),
       actions: [
