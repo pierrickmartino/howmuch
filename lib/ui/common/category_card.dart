@@ -73,6 +73,7 @@ class CategoryCard extends StatelessWidget {
     return Slidable(
       actionPane: SlidableStrechActionPane(),
       actionExtentRatio: 0.25,
+      movementDuration: const Duration(milliseconds: 100),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

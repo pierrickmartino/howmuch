@@ -48,23 +48,23 @@ class _HomeState extends State<Home> {
     return [
       CollapsibleItem(
         text: 'Home',
-        icon: LineAwesomeIcons.area_chart,
+        icon: LineAwesomeIcons.binoculars,
         onPressed: () => setState(() => _selectedIndex = 0),
         isSelected: true,
       ),
       CollapsibleItem(
         text: 'Accounts',
-        icon: LineAwesomeIcons.google_wallet,
+        icon: LineAwesomeIcons.briefcase,
         onPressed: () => setState(() => _selectedIndex = 1),
       ),
       CollapsibleItem(
         text: 'Transactions',
-        icon: LineAwesomeIcons.arrow_left,
+        icon: LineAwesomeIcons.retweet,
         onPressed: () => setState(() => _selectedIndex = 2),
       ),
       CollapsibleItem(
         text: 'Categories',
-        icon: LineAwesomeIcons.bookmark,
+        icon: LineAwesomeIcons.tags,
         onPressed: () => setState(() => _selectedIndex = 3),
       ),
       CollapsibleItem(
@@ -80,15 +80,18 @@ class _HomeState extends State<Home> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.blueGrey[50],
       body: CollapsibleSidebar(
+        toggleButtonIcon: LineAwesomeIcons.chevron_circle_right,
         items: _items,
         avatarImg: _avatarImg,
         title: 'John Smith',
         body: _body(size, context),
-        iconSize: 32.0,
+        iconSize: 30.0,
         textSize: 14.0,
         minWidth: 70,
         maxWidth: 200,
+        borderRadius: 12,
       ),
     );
   }

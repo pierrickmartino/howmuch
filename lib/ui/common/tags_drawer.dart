@@ -136,7 +136,7 @@ class _TagDrawerEntry extends StatelessWidget {
         color: isActive
             ? Colors.orangeAccent.withOpacity(0.3)
             : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: () {
             bloc.showTag(entry.tagWithCount.tag);
