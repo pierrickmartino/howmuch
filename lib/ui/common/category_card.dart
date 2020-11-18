@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
@@ -69,51 +70,62 @@ class CategoryCard extends StatelessWidget {
           fontFamily: entry.icon_family, fontPackage: entry.icon_package);
     }
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Icon(
-              categoryIcon,
-              size: 26.0,
-              color: categoryColor,
-            ),
-            const SizedBox(width: 12.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(entry.description),
-                  creationDate,
-                  lastUpdateDate
-                ],
+    return Slidable(
+      actionPane: SlidableStrechActionPane(),
+      actionExtentRatio: 0.15,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Icon(
+                categoryIcon,
+                size: 26.0,
+                color: categoryColor,
               ),
-            ),
-            IconButton(
-              icon: const Icon(LineAwesomeIcons.edit),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (ctx) => CategoryEditDialog(entry: entry),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(LineAwesomeIcons.remove),
-              color: Colors.red,
-              onPressed: () {
-                // We delete the entry here. Again, notice how we don't have to call setState() or
-                // inform the parent widget. The animated list will take care of this automatically.
-                BlocProvider.of<HowMuchAppBloc>(context).deleteCategory(entry);
-              },
-            )
-          ],
+              const SizedBox(width: 12.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(entry.description),
+                    creationDate,
+                    lastUpdateDate
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+      actions: <Widget>[
+        IconSlideAction(
+          caption: 'Edit',
+          color: Colors.blue,
+          icon: LineAwesomeIcons.edit,
+          onTap: () {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (ctx) => CategoryEditDialog(entry: entry),
+            );
+          },
+        ),
+      ],
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: LineAwesomeIcons.trash,
+          onTap: () {
+            // We delete the entry here. Again, notice how we don't have to call setState() or
+            // inform the parent widget. The animated list will take care of this automatically.
+            BlocProvider.of<HowMuchAppBloc>(context).deleteCategory(entry);
+          },
+        ),
+      ],
     );
   }
 }

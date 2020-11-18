@@ -27,7 +27,7 @@ class _CategoriesState extends State<Categories> {
                   showDialog(
                       context: context, builder: (_) => AddCategoryDialog());
                 },
-                tooltip: 'Increment',
+                tooltip: 'New category',
                 child: Icon(LineAwesomeIcons.plus),
               ), // This trailing comma makes auto-formatting nicer for build methods.
               body: Container(
