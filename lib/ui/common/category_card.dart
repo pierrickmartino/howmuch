@@ -8,7 +8,7 @@ import '../../src/blocs/category.dart';
 import '../../src/database/database.dart';
 import 'index.dart';
 
-final DateFormat _format = DateFormat.yMMMd();
+final DateFormat _format = DateFormat.yMd();
 
 /// Card that displays an entry and an icon button to delete that entry
 class CategoryCard extends StatelessWidget {

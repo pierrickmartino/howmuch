@@ -44,13 +44,20 @@ class _CategoriesState extends State<Categories> {
                             Fluid(
                                 child: Container(
                               //color: Colors.blue,
-                              height: 80,
+                              height: 50,
                               width: double.infinity,
-                              child: Center(
-                                  child: CustomCard(
-                                color: Colors.white,
-                                child: Center(child: Text('Categories')),
-                              )),
+                              child: Text(
+                                'Categories',
+                                style: Theme.of(context).textTheme.headline4,
+                                //   CustomCard(
+                                //   color: Colors.white,
+                                //   child: Center(
+                                //       child: Text(
+                                //     'Categories',
+                                //     style: Theme.of(context).textTheme.headline1,
+                                //   )),
+                                // )
+                              ),
                             )),
                             SizedBox(height: 24),
                             Container(
