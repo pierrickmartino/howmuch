@@ -32,6 +32,7 @@ dependencies:
   fluid_layout: ^0.1.0
   flutter_iconpicker: ^2.2.2
   line_awesome_icons: ^1.0.4+2
+  toggle_switch: ^0.1.8
 
   # Moor / DB
   moor: ^3.4.0
