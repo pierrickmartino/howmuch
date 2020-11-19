@@ -36,9 +36,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'HowMuch app',
-          theme: ThemeData(
-            primarySwatch: Colors.orange,
-          ),
+          theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Manrope'),
           initialRoute: homeRoute,
           onGenerateRoute: CustomRouter.generateRoute,
         ),
