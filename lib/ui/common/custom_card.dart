@@ -14,11 +14,11 @@ class CustomCard extends StatelessWidget {
       color: color ?? Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
-          child: Padding(child: child, padding: EdgeInsets.all(20)),
+          child: Padding(child: child, padding: EdgeInsets.all(10)),
           onTap: onTap,
           borderRadius: BorderRadius.circular(12)),
       shadowColor: Colors.grey,
-      elevation: 12,
+      elevation: 8,
     );
   }
 }

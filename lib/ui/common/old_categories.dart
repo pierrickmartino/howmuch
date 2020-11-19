@@ -69,7 +69,7 @@ class _CategoriesState extends State<Categories> {
           },
         ),
         bottomSheet: Material(
-          elevation: 12.0,
+          elevation: 8.0,
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
