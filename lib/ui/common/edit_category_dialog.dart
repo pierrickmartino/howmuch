@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:http/http.dart';
 //import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../src/blocs/category.dart';
-import '../../src/database/database.dart';
+import '../../src/model/category.dart';
+import '../../src/utils/category_utils.dart';
+//import '../../src/bloc/category.dart';
+//import '../../src/database/database.dart';
 
 // final _dateFormat = DateFormat.yMMMd();
 
 class CategoryEditDialog extends StatefulWidget {
   final Category entry;
+  final Function() notifyParent;
 
-  const CategoryEditDialog({Key key, this.entry}) : super(key: key);
+  const CategoryEditDialog({Key key, this.entry, @required this.notifyParent})
+      : super(key: key);
 
   @override
   _CategoryEditDialogState createState() => _CategoryEditDialogState();
@@ -37,7 +42,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
   @override
   void initState() {
-    textController.text = widget.entry.description;
+    textController.text = widget.entry.name;
     //_creationDate = widget.entry.creationDate;
 
     if (widget.entry.color == null) {
@@ -58,18 +63,18 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
       _categoryIcon =
           //Icon(IconData(widget.entry.icon, fontFamily: 'MaterialIcons'))
           Icon(IconData(widget.entry.icon,
-              fontFamily: widget.entry.icon_family,
-              fontPackage: widget.entry.icon_package));
+              fontFamily: widget.entry.iconfamily,
+              fontPackage: widget.entry.iconpackage));
     }
 
     super.initState();
   }
 
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
+  //@override
+  // void dispose() {
+  //   textController.dispose();
+  //   super.dispose();
+  // }
 
   void _openCategoryIcon() async {
     IconData icon = await FlutterIconPicker.showIconPicker(
@@ -226,16 +231,35 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           child: const Text('Save'),
           onPressed: () {
             final updatedContent = textController.text;
-            final entry = widget.entry.copyWith(
-              description: updatedContent.isNotEmpty ? updatedContent : null,
-              lastUpdateDate: DateTime.now(),
-              color: _categoryColor.value,
-              icon: _categoryIcon.icon.codePoint,
-              icon_family: _categoryIcon.icon.fontFamily,
-              icon_package: _categoryIcon.icon.fontPackage,
-            );
+            final entry = widget.entry;
+            entry.name = updatedContent.isNotEmpty ? updatedContent : null;
+            entry.color = _categoryColor.value;
+            entry.icon = _categoryIcon.icon.codePoint;
+            entry.iconfamily = _categoryIcon.icon.fontFamily;
+            entry.iconpackage = _categoryIcon.icon.fontPackage;
 
-            BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);
+            CategoryUtils.updateCategory(entry).then((res) {
+              Response response = res;
+
+              if (response.statusCode == 200) {
+                //Successfully Deleted
+                textController.text = "";
+                //_scaffoldKey.currentState.showSnackBar(SnackBar(content: (Text("Updated!"))));
+                widget.notifyParent();
+              } else {
+                //Handle error
+              }
+            });
+            // final entry = widget.entry.copyWith(
+            //   description: updatedContent.isNotEmpty ? updatedContent : null,
+            //   lastUpdateDate: DateTime.now(),
+            //   color: _categoryColor.value,
+            //   icon: _categoryIcon.icon.codePoint,
+            //   icon_family: _categoryIcon.icon.fontFamily,
+            //   icon_package: _categoryIcon.icon.fontPackage,
+            // );
+
+            //BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);
             Navigator.pop(context);
           },
         ),

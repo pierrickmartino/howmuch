@@ -5,6 +5,9 @@ const String transactionsRoute = '/transactions';
 const String filtersRoute = '/filters';
 const String categoriesRoute = '/categories';
 
+const kParseApplicationId = "axplp1L2PDf3loznmDk0T5LWN6w6mcoIJrNFHkz2";
+const kParseRestApiKey = "jXqqQdOcTISh5R78s15PmHk1VgPTubCuqNNTMVxQ";
+
 class Constants {
   static String appName = "howMuch";
 

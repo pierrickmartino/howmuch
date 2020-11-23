@@ -39,6 +39,7 @@ dependencies:
   # Moor / DB
   moor: ^3.4.0
   sqlite3_flutter_libs: ^0.2.0 
+  graphql_flutter: ^3.1.0
 
   # Other
   rxdart: ^0.24.1
@@ -51,6 +52,7 @@ dependencies:
   provider: ^4.3.2+2
   get_it: ^4.0.2
   logger: ^0.9.4
+  http: ^0.12.2
 
 dev_dependencies:
   moor_generator: ^3.4.0
@@ -89,19 +91,19 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: assets/fonts/Manrope-ExtraLight.ttf
+        - asset: asset/font/Manrope-ExtraLight.ttf
           weight: 200
-        - asset: assets/fonts/Manrope-Light.ttf
+        - asset: asset/font/Manrope-Light.ttf
           weight: 300
-        - asset: assets/fonts/Manrope-Regular.ttf
+        - asset: asset/font/Manrope-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Manrope-Medium.ttf
+        - asset: asset/font/Manrope-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Manrope-SemiBold.ttf
+        - asset: asset/font/Manrope-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Manrope-Bold.ttf
+        - asset: asset/font/Manrope-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Manrope-ExtraBold.ttf
+        - asset: asset/font/Manrope-ExtraBold.ttf
           weight: 800
 
   # For details regarding fonts from package dependencies,

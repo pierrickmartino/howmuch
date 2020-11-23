@@ -1,73 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:howmuch/src/utils/category_utils.dart';
+import 'package:http/http.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../src/blocs/category.dart';
-import '../../src/database/database.dart';
+import '../../src/model/category.dart';
+//import '../../src/bloc/category.dart';
+//import '../../src/database/database.dart';
 import 'index.dart';
 
-final DateFormat _format = DateFormat.yMd();
+//final DateFormat _format = DateFormat.yMd();
 
 /// Card that displays an entry and an icon button to delete that entry
-class CategoryCard extends StatelessWidget {
+class CategoryCard extends StatefulWidget {
   final Category entry;
+  final Function() notifyParent;
 
-  CategoryCard(this.entry) : super(key: ObjectKey(entry.id));
+  CategoryCard({this.entry, @required this.notifyParent})
+      : super(key: ObjectKey(entry.objectId));
 
   @override
+  _CategoryCardState createState() => _CategoryCardState();
+}
+
+class _CategoryCardState extends State<CategoryCard> {
+  @override
   Widget build(BuildContext context) {
-    Widget creationDate;
-    Widget lastUpdateDate;
+    //Widget creationDate;
+    //Widget lastUpdateDate;
     Color categoryColor;
     IconData categoryIcon;
 
-    if (entry.creationDate == null) {
-      creationDate = GestureDetector(
-        onTap: () {
-          // BlocProvider.provideBloc(context).db.testTransaction(entry);
-        },
-        child: const Text(
-          'No creation date',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
-        ),
-      );
-    } else {
-      creationDate = Text(
-        'created on ' + _format.format(entry.creationDate),
-        style: const TextStyle(color: Colors.grey, fontSize: 12),
-      );
-    }
+    // if (entry.creationDate == null) {
+    // creationDate = GestureDetector(
+    //   onTap: () {
+    //     // BlocProvider.provideBloc(context).db.testTransaction(entry);
+    //   },
+    //   child: const Text(
+    //     'No creation date',
+    //     style: TextStyle(color: Colors.grey, fontSize: 12),
+    //   ),
+    // );
+    //}
+    //else {
+    //   creationDate = Text(
+    //     'created on ' + _format.format(entry.creationDate),
+    //     style: const TextStyle(color: Colors.grey, fontSize: 12),
+    //   );
+    // }
 
-    if (entry.lastUpdateDate == null) {
-      lastUpdateDate = GestureDetector(
-        onTap: () {
-          // BlocProvider.provideBloc(context).db.testTransaction(entry);
-        },
-        child: const Text(
-          'No update date',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
-        ),
-      );
-    } else {
-      lastUpdateDate = Text(
-        'last update on ' + _format.format(entry.lastUpdateDate),
-        style: const TextStyle(color: Colors.grey, fontSize: 12),
-      );
-    }
+    //if (entry.lastUpdateDate == null) {
+    // lastUpdateDate = GestureDetector(
+    //   onTap: () {
+    //     // BlocProvider.provideBloc(context).db.testTransaction(entry);
+    //   },
+    //   child: const Text(
+    //     'No update date',
+    //     style: TextStyle(color: Colors.grey, fontSize: 12),
+    //   ),
+    // );
+    //}
+    // else {
+    //   lastUpdateDate = Text(
+    //     'last update on ' + _format.format(entry.lastUpdateDate),
+    //     style: const TextStyle(color: Colors.grey, fontSize: 12),
+    //   );
+    // }
 
-    if (entry.color == null) {
+    if (widget.entry.color == null) {
       categoryColor = Colors.grey;
     } else {
-      categoryColor = Color(entry.color).withOpacity(1);
+      categoryColor = Color(widget.entry.color).withOpacity(1);
     }
 
-    if (entry.icon == null) {
+    if (widget.entry.icon == null) {
       categoryIcon = LineAwesomeIcons.info_circle;
     } else {
-      categoryIcon = IconData(entry.icon,
-          fontFamily: entry.icon_family, fontPackage: entry.icon_package);
+      categoryIcon = IconData(widget.entry.icon,
+          fontFamily: widget.entry.iconfamily,
+          fontPackage: widget.entry.iconpackage);
     }
 
     return Slidable(
@@ -92,9 +105,7 @@ class CategoryCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(entry.description),
-                    creationDate,
-                    lastUpdateDate
+                    Text(widget.entry.name) /*, creationDate, lastUpdateDate*/
                   ],
                 ),
               ),
@@ -111,7 +122,10 @@ class CategoryCard extends StatelessWidget {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (ctx) => CategoryEditDialog(entry: entry),
+              builder: (ctx) => CategoryEditDialog(
+                entry: widget.entry,
+                notifyParent: widget.notifyParent,
+              ),
             );
           },
         ),
@@ -122,12 +136,40 @@ class CategoryCard extends StatelessWidget {
           color: Colors.red,
           icon: LineAwesomeIcons.trash,
           onTap: () {
+            deleteCategory(widget.entry.objectId);
+
             // We delete the entry here. Again, notice how we don't have to call setState() or
             // inform the parent widget. The animated list will take care of this automatically.
-            BlocProvider.of<HowMuchAppBloc>(context).deleteCategory(entry);
+            //BlocProvider.of<HowMuchAppBloc>(context).deleteCategory(entry);
           },
         ),
       ],
     );
+  }
+
+  void deleteCategory(String objectId) {
+    // _scaffoldKey.currentState.showSnackBar(SnackBar(content: Row(
+    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   children: <Widget>[
+    //     Text("Deleting todo"),
+    //     CircularProgressIndicator(),
+    //   ],
+    // ),
+    //   duration: Duration(minutes: 1),
+    // ),);
+
+    CategoryUtils.deleteCategory(objectId).then((res) {
+      //_scaffoldKey.currentState.hideCurrentSnackBar();
+
+      Response response = res;
+      if (response.statusCode == 200) {
+        //Successfully Deleted
+        //_scaffoldKey.currentState.showSnackBar(SnackBar(content: (Text("Deleted!")),duration: Duration(seconds: 1),));
+        widget.notifyParent();
+        //setState(() {});
+      } else {
+        //Handle error
+      }
+    });
   }
 }

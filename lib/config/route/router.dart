@@ -5,7 +5,7 @@ import '../../ui/common/home.dart';
 import '../../ui/common/transactions.dart';
 import '../../ui/common/categories.dart';
 import '../../ui/common/filters.dart';
-import '../../constants/const.dart';
+import '../../constant/const.dart';
 
 class CustomRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
