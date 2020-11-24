@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import '../chart/example_bar_chart.dart';
@@ -94,9 +95,23 @@ class _CategoriesState extends State<Categories> {
                               return ListView.builder(
                                 padding: EdgeInsets.symmetric(vertical: 16.0),
                                 itemBuilder: (_, position) {
-                                  return CategoryCard(
-                                      entry: categoryList[position],
-                                      notifyParent: refresh);
+                                  return Badge(
+                                      position: BadgePosition.topEnd(
+                                          top: 10, end: 10),
+                                      child: CategoryCard(
+                                          entry: categoryList[position],
+                                          notifyParent: refresh),
+                                      badgeColor: Colors.red,
+                                      animationType: BadgeAnimationType.scale,
+                                      animationDuration:
+                                          Duration(milliseconds: 500),
+                                      shape: BadgeShape.circle,
+                                      badgeContent: Text(
+                                          categoryList[position]
+                                              .counter
+                                              .toString(),
+                                          style:
+                                              TextStyle(color: Colors.white)));
                                 },
                                 itemCount: categoryList.length,
                               );

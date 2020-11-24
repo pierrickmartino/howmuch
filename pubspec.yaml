@@ -35,10 +35,9 @@ dependencies:
   toggle_switch: ^0.1.8
   syncfusion_flutter_charts: ^18.3.50
   fl_chart: ^0.12.0
+  badges: ^1.1.4
 
   # Moor / DB
-  moor: ^3.4.0
-  sqlite3_flutter_libs: ^0.2.0 
   graphql_flutter: ^3.1.0
 
   # Other
@@ -46,18 +45,12 @@ dependencies:
   intl: ^0.16.0
   path_provider: ^1.6.24
   path: ^1.7.0
-  undo: ^1.3.0+1
-  bloc: ^6.0.3
-  flutter_bloc: ^6.0.5
   provider: ^4.3.2+2
   get_it: ^4.0.2
   logger: ^0.9.4
   http: ^0.12.2
 
 dev_dependencies:
-  moor_generator: ^3.4.0
-  build_runner: ^1.10.4
-  build_web_compilers: ^2.13.0
   flutter_test:
     sdk: flutter
 

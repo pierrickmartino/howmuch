@@ -19,6 +19,7 @@ class Category {
   int icon;
   String iconfamily;
   String iconpackage;
+  int counter;
 
   Category(
       {this.objectId,
@@ -26,7 +27,8 @@ class Category {
       this.color,
       this.icon,
       this.iconfamily,
-      this.iconpackage});
+      this.iconpackage,
+      this.counter});
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         objectId: json["objectId"],
@@ -35,6 +37,7 @@ class Category {
         icon: json["icon"],
         iconfamily: json["iconfamily"],
         iconpackage: json["iconpackage"],
+        counter: json["counter"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,5 +47,6 @@ class Category {
         "icon": icon,
         "iconfamily": iconfamily,
         "iconpackage": iconpackage,
+        "counter": counter,
       };
 }
