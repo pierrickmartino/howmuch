@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:howmuch/src/utils/category_utils.dart';
 import 'package:http/http.dart';
-//import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../src/model/category.dart';
-//import '../../src/bloc/category.dart';
-//import '../../src/database/database.dart';
 import 'index.dart';
 
 //final DateFormat _format = DateFormat.yMd();
@@ -26,6 +23,10 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     //Widget creationDate;
@@ -125,6 +126,7 @@ class _CategoryCardState extends State<CategoryCard> {
               builder: (ctx) => CategoryEditDialog(
                 entry: widget.entry,
                 notifyParent: widget.notifyParent,
+                contextParent: context,
               ),
             );
           },
@@ -159,14 +161,17 @@ class _CategoryCardState extends State<CategoryCard> {
     // ),);
 
     CategoryUtils.deleteCategory(objectId).then((res) {
-      //_scaffoldKey.currentState.hideCurrentSnackBar();
-
       Response response = res;
       if (response.statusCode == 200) {
         //Successfully Deleted
-        //_scaffoldKey.currentState.showSnackBar(SnackBar(content: (Text("Deleted!")),duration: Duration(seconds: 1),));
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Category deleted'),
+          ),
+        );
+
         widget.notifyParent();
-        //setState(() {});
       } else {
         //Handle error
       }

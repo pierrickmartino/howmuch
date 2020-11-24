@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'config/route/router.dart';
 import 'constant/const.dart';
-// import 'src/database/database.dart';
-//import 'src/bloc/category.dart';
-//import 'plugin/desktop/desktop.dart';
 
 void main() {
-  //setupLocator();
-  //setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
@@ -26,23 +20,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // RepositoryProvider<AppDatabase>(
-        //   create: (context) => constructDb(),
-        // child: BlocProvider<HowMuchAppBloc>(
-        //   create: (context) {
-        //     final db = RepositoryProvider.of<AppDatabase>(context);
-        //     return HowMuchAppBloc(db);
-        //   },
-        //child:
-        MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'HowMuch app',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Manrope'),
       initialRoute: homeRoute,
       onGenerateRoute: CustomRouter.generateRoute,
-      // ),
-      //),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:http/http.dart';
@@ -9,16 +8,16 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../src/model/category.dart';
 import '../../src/utils/category_utils.dart';
-//import '../../src/bloc/category.dart';
-//import '../../src/database/database.dart';
 
 // final _dateFormat = DateFormat.yMMMd();
 
 class CategoryEditDialog extends StatefulWidget {
   final Category entry;
   final Function() notifyParent;
+  final BuildContext contextParent;
 
-  const CategoryEditDialog({Key key, this.entry, @required this.notifyParent})
+  const CategoryEditDialog(
+      {Key key, this.entry, this.contextParent, @required this.notifyParent})
       : super(key: key);
 
   @override
@@ -58,13 +57,10 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
     if (widget.entry.icon == null) {
       _categoryIcon = Icon(LineAwesomeIcons.info_circle);
-      //_categoryMaterialColor = Colors.grey;
     } else {
-      _categoryIcon =
-          //Icon(IconData(widget.entry.icon, fontFamily: 'MaterialIcons'))
-          Icon(IconData(widget.entry.icon,
-              fontFamily: widget.entry.iconfamily,
-              fontPackage: widget.entry.iconpackage));
+      _categoryIcon = Icon(IconData(widget.entry.icon,
+          fontFamily: widget.entry.iconfamily,
+          fontPackage: widget.entry.iconpackage));
     }
 
     super.initState();
@@ -83,7 +79,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
       showTooltips: showTooltips,
       showSearchBar: showSearch,
       barrierDismissible: false,
-      iconPackMode: IconPack.lineAwesomeIcons, //IconPack.material,
+      iconPackMode: IconPack.lineAwesomeIcons,
     );
 
     if (icon != null) {
@@ -153,32 +149,6 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               helperText: 'Content of entry',
             ),
           ),
-          // Row(
-          //   children: [
-          //     Text(formattedDate),
-          //     Spacer(),
-          //     IconButton(
-          //       icon: const Icon(Icons.calendar_today),
-          //       onPressed: () async {
-          //         final now = DateTime.now();
-          //         final initialDate = _creationDate ?? now;
-          //         final firstDate =
-          //             initialDate.isBefore(now) ? initialDate : now;
-
-          //         final selectedDate = await showDatePicker(
-          //             context: context,
-          //             initialDate: initialDate,
-          //             firstDate: firstDate,
-          //             lastDate: DateTime(3000),
-          //             helpText: 'Creation date');
-
-          //         setState(() {
-          //           if (selectedDate != null) _creationDate = selectedDate;
-          //         });
-          //       },
-          //     ),
-          //   ],
-          // ),
           SizedBox(height: 12),
           Row(
             children: [
@@ -244,7 +214,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
               if (response.statusCode == 200) {
                 //Successfully Deleted
                 textController.text = "";
-                //_scaffoldKey.currentState.showSnackBar(SnackBar(content: (Text("Updated!"))));
+
+                ScaffoldMessenger.of(widget.contextParent).showSnackBar(
+                  SnackBar(
+                    content: const Text('Category updated'),
+                  ),
+                );
+
                 widget.notifyParent();
               } else {
                 //Handle error
