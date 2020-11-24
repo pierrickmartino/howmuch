@@ -82,7 +82,7 @@ class _CategoriesState extends State<Categories> {
                     SizedBox(height: 24),
                     Fluid(
                         child: Container(
-                      height: MediaQuery.of(context).size.height - 380,
+                      height: MediaQuery.of(context).size.height - 278,
                       width: double.infinity,
                       child: Center(
                         child: FutureBuilder(
