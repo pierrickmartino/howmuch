@@ -82,11 +82,7 @@ class _CategoriesState extends State<Categories> {
                     SizedBox(height: 24),
                     Fluid(
                         child: Container(
-                      height: MediaQuery.of(context).size.height -
-                          180 -
-                          24 -
-                          24 -
-                          80,
+                      height: MediaQuery.of(context).size.height - 380,
                       width: double.infinity,
                       child: Center(
                         child: FutureBuilder(
@@ -96,6 +92,7 @@ class _CategoriesState extends State<Categories> {
                               List<Category> categoryList = snapshot.data;
 
                               return ListView.builder(
+                                padding: EdgeInsets.symmetric(vertical: 16.0),
                                 itemBuilder: (_, position) {
                                   return CategoryCard(
                                       entry: categoryList[position],

@@ -27,7 +27,7 @@ class CategoryUtils {
 
   //Read
   static Future getCategoryList() async {
-    String apiUrl = _baseUrl + "Category";
+    String apiUrl = _baseUrl + "Category" + '?order=name';
 
     Response response = await get(apiUrl, headers: {
       'X-Parse-Application-Id': kParseApplicationId,

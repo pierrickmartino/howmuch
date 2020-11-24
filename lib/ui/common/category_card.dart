@@ -89,7 +89,7 @@ class _CategoryCardState extends State<CategoryCard> {
       actionExtentRatio: 0.25,
       movementDuration: const Duration(milliseconds: 100),
       child: Card(
-        elevation: 8,
+        elevation: 4,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
