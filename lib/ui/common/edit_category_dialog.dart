@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:http/http.dart';
 //import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../src/model/category.dart';
-import '../../src/utils/category_utils.dart';
+import '../../src/utils/category_utils_graphql.dart';
 
 // final _dateFormat = DateFormat.yMMMd();
 
 class CategoryEditDialog extends StatefulWidget {
-  final Category entry;
-  final Function() notifyParent;
+  final entry;
+  //final Function() notifyParent;
   final BuildContext contextParent;
 
-  const CategoryEditDialog(
-      {Key key, this.entry, this.contextParent, @required this.notifyParent})
+  const CategoryEditDialog({Key key, this.entry, this.contextParent})
       : super(key: key);
 
   @override
@@ -41,26 +38,27 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
   @override
   void initState() {
-    textController.text = widget.entry.name;
+    textController.text = widget.entry["node"]['name'];
     //_creationDate = widget.entry.creationDate;
 
-    if (widget.entry.color == null) {
+    if (widget.entry["node"]['color'] == null) {
       _categoryColor = Colors.grey;
       _categoryMaterialColor = Colors.grey;
     } else {
       Map<int, Color> color = {
-        100: Color(widget.entry.color).withOpacity(1),
+        100: Color(widget.entry["node"]['color']).withOpacity(1),
       };
-      _categoryMaterialColor = MaterialColor(widget.entry.color, color);
+      _categoryMaterialColor =
+          MaterialColor(widget.entry["node"]['color'], color);
       _categoryColor = _categoryMaterialColor;
     }
 
-    if (widget.entry.icon == null) {
+    if (widget.entry["node"]['icon'] == null) {
       _categoryIcon = Icon(LineAwesomeIcons.info_circle);
     } else {
-      _categoryIcon = Icon(IconData(widget.entry.icon,
-          fontFamily: widget.entry.iconfamily,
-          fontPackage: widget.entry.iconpackage));
+      _categoryIcon = Icon(IconData(widget.entry["node"]['icon'],
+          fontFamily: widget.entry["node"]['iconfamily'],
+          fontPackage: widget.entry["node"]['iconpackage']));
     }
 
     super.initState();
@@ -202,40 +200,35 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           onPressed: () {
             final updatedContent = textController.text;
             final entry = widget.entry;
-            entry.name = updatedContent.isNotEmpty ? updatedContent : null;
-            entry.color = _categoryColor.value;
-            entry.icon = _categoryIcon.icon.codePoint;
-            entry.iconfamily = _categoryIcon.icon.fontFamily;
-            entry.iconpackage = _categoryIcon.icon.fontPackage;
+            entry["node"]['name'] =
+                updatedContent.isNotEmpty ? updatedContent : null;
+            entry["node"]['color'] = _categoryColor.value;
+            entry["node"]['icon'] = _categoryIcon.icon.codePoint;
+            entry["node"]['iconfamily'] = _categoryIcon.icon.fontFamily;
+            entry["node"]['iconpackage'] = _categoryIcon.icon.fontPackage;
 
-            CategoryUtils.updateCategory(entry).then((res) {
-              Response response = res;
+            CategoryUtilsGraphQL utils;
 
-              if (response.statusCode == 200) {
-                //Successfully Deleted
-                textController.text = "";
+            // if (entry["node"]['name'] &&
+            //     entry["node"]['color'].toString().isNotEmpty &&
+            //     entry.icon.toString().isNotEmpty) {
+            utils = CategoryUtilsGraphQL(
+                id: entry["node"]['id'],
+                name: entry["node"]['name'],
+                color: entry["node"]['color'],
+                icon: entry["node"]['icon'],
+                iconfamily: entry["node"]['iconfamily'],
+                iconpackage: entry["node"]['iconpackage'],
+                counter: 0);
+            utils.updateData().whenComplete(
+                () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(
+                      SnackBar(
+                        content: const Text('Category updated'),
+                      ),
+                    ));
 
-                ScaffoldMessenger.of(widget.contextParent).showSnackBar(
-                  SnackBar(
-                    content: const Text('Category updated'),
-                  ),
-                );
+            textController.text = "";
 
-                widget.notifyParent();
-              } else {
-                //Handle error
-              }
-            });
-            // final entry = widget.entry.copyWith(
-            //   description: updatedContent.isNotEmpty ? updatedContent : null,
-            //   lastUpdateDate: DateTime.now(),
-            //   color: _categoryColor.value,
-            //   icon: _categoryIcon.icon.codePoint,
-            //   icon_family: _categoryIcon.icon.fontFamily,
-            //   icon_package: _categoryIcon.icon.fontPackage,
-            // );
-
-            //BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);
             Navigator.pop(context);
           },
         ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+//import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:howmuch/src/utils/category_utils_graphql.dart';
+//import 'package:http/http.dart';
 
 import '../../src/model/category.dart';
-import '../../src/utils/category_utils.dart';
+//import '../../src/utils/category_utils.dart';
 
 class AddCategoryDialog extends StatefulWidget {
-  final Function() notifyParent;
   final GlobalKey<ScaffoldState> scaffoldKeyParent;
   final BuildContext contextParent;
 
-  AddCategoryDialog(
-      {Key key, this.notifyParent, this.scaffoldKeyParent, this.contextParent})
+  AddCategoryDialog({Key key, this.scaffoldKeyParent, this.contextParent})
       : super(key: key);
 
   @override
@@ -62,22 +62,21 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
 
   void addCategory() {
     Category category = Category(name: _controller.text);
+    CategoryUtilsGraphQL utils;
 
-    CategoryUtils.addCategory(category).then((res) {
-      Response response = res;
-      if (response.statusCode == 201) {
-        //Successful
-        _controller.text = "";
+    if (category.name.isNotEmpty) {
+      utils = CategoryUtilsGraphQL(
+        name: category.name,
+      );
+      utils.sendData().whenComplete(
+          () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(
+                SnackBar(
+                  content: const Text('Category added!'),
+                ),
+              ));
 
-        ScaffoldMessenger.of(widget.contextParent).showSnackBar(
-          SnackBar(
-            content: const Text('Category added!'),
-          ),
-        );
-
-        widget.notifyParent();
-      }
-    });
+      _controller.text = "";
+    }
 
     Navigator.of(context).pop();
   }
