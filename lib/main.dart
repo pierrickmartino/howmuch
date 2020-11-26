@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'config/route/router.dart';
 import 'constant/const.dart';
-import 'src/api/graphQL_conf.dart';
+import 'src/graphql/graphql_conf.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 void main() {

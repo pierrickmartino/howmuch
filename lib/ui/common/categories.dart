@@ -57,7 +57,6 @@ class _CategoriesState extends State<Categories> {
                                     showDialog(
                                         context: context,
                                         builder: (_) => AddCategoryDialog(
-                                              scaffoldKeyParent: _scaffoldKey,
                                               contextParent: context,
                                             ));
                                   },

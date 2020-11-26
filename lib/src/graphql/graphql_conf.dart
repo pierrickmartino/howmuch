@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:graphql_flutter/graphql_flutter.dart";
-import 'package:howmuch/constant/const.dart';
+
+import '../../constant/const.dart';
 
 class GraphQLConfiguration {
   static HttpLink httpLink = HttpLink(

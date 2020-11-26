@@ -1,7 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../api/category_api.dart';
-import '../api/graphQL_conf.dart';
+import '../graphql/graphql_conf.dart';
 
 class CategoryUtilsGraphQL {
   final String id, objectId, name, iconfamily, iconpackage;

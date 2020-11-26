@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-//import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:howmuch/src/utils/category_utils_graphql.dart';
-//import 'package:http/http.dart';
 
+import '../../src/utils/category_utils_graphql.dart';
 import '../../src/model/category.dart';
-//import '../../src/utils/category_utils.dart';
 
-class AddCategoryDialog extends StatefulWidget {
-  final GlobalKey<ScaffoldState> scaffoldKeyParent;
+class AddCategoryDialog extends StatelessWidget {
   final BuildContext contextParent;
 
-  AddCategoryDialog({Key key, this.scaffoldKeyParent, this.contextParent})
-      : super(key: key);
+  AddCategoryDialog({Key key, this.contextParent}) : super(key: key);
 
-  @override
-  _AddCategoryDialogState createState() => _AddCategoryDialogState();
-}
-
-class _AddCategoryDialogState extends State<AddCategoryDialog> {
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -41,7 +31,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
               decoration: InputDecoration(
                 labelText: 'What is the category to create?',
               ),
-              onSubmitted: (_) => addCategory(),
+              onSubmitted: (_) => addCategory(context),
             ),
             ButtonBar(
               children: [
@@ -49,7 +39,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   child: const Text('Add'),
                   textColor: Theme.of(context).accentColor,
                   onPressed: () {
-                    addCategory();
+                    addCategory(context);
                   },
                 ),
               ],
@@ -60,7 +50,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
     );
   }
 
-  void addCategory() {
+  void addCategory(BuildContext context) {
     Category category = Category(name: _controller.text);
     CategoryUtilsGraphQL utils;
 
@@ -69,7 +59,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
         name: category.name,
       );
       utils.sendData().whenComplete(
-          () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(
+          () => ScaffoldMessenger.of(this.contextParent).showSnackBar(
                 SnackBar(
                   content: const Text('Category added!'),
                 ),
