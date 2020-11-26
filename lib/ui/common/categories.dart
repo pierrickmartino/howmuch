@@ -138,6 +138,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color categoryColor;
     IconData categoryIcon;
+    Color performanceColor;
 
     if (category["node"]['color'] == null) {
       categoryColor = Colors.grey;
@@ -151,6 +152,12 @@ class CategoryItem extends StatelessWidget {
       categoryIcon = IconData(category["node"]['icon'],
           fontFamily: category["node"]['iconfamily'],
           fontPackage: category["node"]['iconpackage']);
+    }
+
+    if (category["node"]['performance'] == 0) {
+      performanceColor = Colors.green;
+    } else {
+      performanceColor = Colors.red;
     }
 
     return Slidable(
@@ -186,7 +193,7 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
           ),
-          badgeColor: Colors.red,
+          badgeColor: performanceColor,
           animationType: BadgeAnimationType.scale,
           animationDuration: Duration(milliseconds: 500),
           shape: BadgeShape.circle,

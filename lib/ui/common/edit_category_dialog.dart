@@ -35,10 +35,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   bool isAdaptive = true;
   bool showTooltips = false;
   bool showSearch = true;
+  int performance = 0;
 
   @override
   void initState() {
     textController.text = widget.entry["node"]['name'];
+    performance = widget.entry["node"]['performance'] ??
+        0; // 0 if it's null; otherwise, the integer
     //_creationDate = widget.entry.creationDate;
 
     if (widget.entry["node"]['color'] == null) {
@@ -173,14 +176,16 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           SizedBox(height: 12),
           Row(
             children: [
-              Text('Perf'),
+              Text('Perf.'),
               Spacer(),
               ToggleSwitch(
-                initialLabelIndex: 0,
+                initialLabelIndex: performance,
                 cornerRadius: 12.0,
-                labels: ['included', 'or not'],
+                minWidth: 65,
+                labels: ['incl.', 'or not'],
                 onToggle: (index) {
-                  print('switched to: $index');
+                  performance = index;
+//                  print('switched to: $index');
                 },
               ),
             ],
@@ -199,13 +204,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           child: const Text('Save'),
           onPressed: () {
             final updatedContent = textController.text;
-            final entry = widget.entry;
-            entry["node"]['name'] =
-                updatedContent.isNotEmpty ? updatedContent : null;
-            entry["node"]['color'] = _categoryColor.value;
-            entry["node"]['icon'] = _categoryIcon.icon.codePoint;
-            entry["node"]['iconfamily'] = _categoryIcon.icon.fontFamily;
-            entry["node"]['iconpackage'] = _categoryIcon.icon.fontPackage;
+            final entry = widget.entry["node"];
+            entry['name'] = updatedContent.isNotEmpty ? updatedContent : null;
+            entry['color'] = _categoryColor.value;
+            entry['icon'] = _categoryIcon.icon.codePoint;
+            entry['iconfamily'] = _categoryIcon.icon.fontFamily;
+            entry['iconpackage'] = _categoryIcon.icon.fontPackage;
+            entry['performance'] = performance;
 
             CategoryUtilsGraphQL utils;
 
@@ -213,12 +218,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             //     entry["node"]['color'].toString().isNotEmpty &&
             //     entry.icon.toString().isNotEmpty) {
             utils = CategoryUtilsGraphQL(
-                id: entry["node"]['id'],
-                name: entry["node"]['name'],
-                color: entry["node"]['color'],
-                icon: entry["node"]['icon'],
-                iconfamily: entry["node"]['iconfamily'],
-                iconpackage: entry["node"]['iconpackage'],
+                id: entry['id'],
+                name: entry['name'],
+                color: entry['color'],
+                icon: entry['icon'],
+                iconfamily: entry['iconfamily'],
+                iconpackage: entry['iconpackage'],
+                performance: entry['performance'],
                 counter: 0);
             utils.updateData().whenComplete(
                 () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(

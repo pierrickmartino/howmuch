@@ -5,7 +5,7 @@ import '../graphql/graphql_conf.dart';
 
 class CategoryUtilsGraphQL {
   final String id, objectId, name, iconfamily, iconpackage;
-  final int color, icon, counter;
+  final int color, icon, performance, counter;
 
   CategoryUtilsGraphQL(
       {this.id = "",
@@ -15,6 +15,7 @@ class CategoryUtilsGraphQL {
       this.icon = 0,
       this.iconfamily = "",
       this.iconpackage = "",
+      this.performance = 0,
       this.counter = 0});
 
   Future<QueryResult> deleteData() async {
@@ -58,6 +59,7 @@ class CategoryUtilsGraphQL {
         "icon": icon,
         "iconfamily": iconfamily,
         "iconpackage": iconpackage,
+        "performance": performance,
         "counter": counter
       }
     };

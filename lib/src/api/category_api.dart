@@ -12,6 +12,7 @@ query findCategories {
         icon
         iconfamily
         iconpackage
+        performance
         counter
       }
     }
