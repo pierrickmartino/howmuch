@@ -138,7 +138,8 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color categoryColor;
     IconData categoryIcon;
-    Color performanceColor;
+    //Color performanceColor;
+    Chip performanceChip;
 
     if (category["node"]['color'] == null) {
       categoryColor = Colors.grey;
@@ -155,9 +156,13 @@ class CategoryItem extends StatelessWidget {
     }
 
     if (category["node"]['performance'] == 0) {
-      performanceColor = Colors.green;
+      performanceChip = Chip(label: Text('perf. incl.'));
     } else {
-      performanceColor = Colors.red;
+      performanceChip = Chip(
+        label: Text(
+          'perf. excl.',
+        ),
+      );
     }
 
     return Slidable(
@@ -167,6 +172,7 @@ class CategoryItem extends StatelessWidget {
       child: Badge(
           position: BadgePosition.topEnd(top: 10, end: 10),
           child: Card(
+            color: const Color(0xff2F4047), //const Color(0xff2B3138),
             elevation: 4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -178,14 +184,22 @@ class CategoryItem extends StatelessWidget {
                     size: 26.0,
                     color: categoryColor,
                   ),
-                  const SizedBox(width: 12.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(category["node"]
-                            ['name']) /*, creationDate, lastUpdateDate*/
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3.0),
+                          child: Text(
+                            category["node"]['name'],
+                            style: TextStyle(color: const Color(0xffC0C7D0)),
+                          ),
+                        ),
+                        const SizedBox(height: 12.0),
+                        performanceChip,
+                        /*, creationDate, lastUpdateDate*/
                       ],
                     ),
                   ),
@@ -193,12 +207,12 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
           ),
-          badgeColor: performanceColor,
+          badgeColor: const Color(0xff4AC6EA),
           animationType: BadgeAnimationType.scale,
           animationDuration: Duration(milliseconds: 500),
           shape: BadgeShape.circle,
           badgeContent: Text(category["node"]['counter'].toString(),
-              style: TextStyle(color: Colors.white))),
+              style: TextStyle(color: const Color(0xff2B3138)))),
       actions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
