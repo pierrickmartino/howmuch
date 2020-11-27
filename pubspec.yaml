@@ -39,7 +39,8 @@ dependencies:
 
   # Moor / DB
   graphql_flutter: ^3.1.0
-
+  faker: ^1.3.0
+  
   # Other
   rxdart: ^0.24.1
   intl: ^0.16.0

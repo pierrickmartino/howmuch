@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:howmuch/constant/const.dart';
+import 'package:howmuch/src/model/category.dart';
 //import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -37,31 +39,61 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   bool showSearch = true;
   int performance = 0;
 
+  String storedCategoryId,
+      storedCategoryName,
+      storedCategoryIconFamily,
+      storedCategoryIconPackage;
+  int storedCategoryColor,
+      storedCategoryPerformance,
+      storedCategoryCounter,
+      storedCategoryIcon;
+
   @override
   void initState() {
-    textController.text = widget.entry["node"]['name'];
-    performance = widget.entry["node"]['performance'] ??
+    if (dataMode == 'fake') {
+      Category fakeCategory = widget.entry;
+
+      storedCategoryId = fakeCategory.id;
+      storedCategoryName = fakeCategory.name;
+      storedCategoryColor = fakeCategory.color;
+      storedCategoryPerformance = fakeCategory.performance;
+      storedCategoryCounter = fakeCategory.counter;
+      storedCategoryIcon = fakeCategory.icon;
+      storedCategoryIconFamily = fakeCategory.iconfamily;
+      storedCategoryIconPackage = fakeCategory.iconpackage;
+    } else {
+      storedCategoryId = widget.entry["node"]['id'];
+      storedCategoryName = widget.entry["node"]['name'];
+      storedCategoryColor = widget.entry["node"]['color'];
+      storedCategoryPerformance = widget.entry["node"]['performance'];
+      storedCategoryCounter = widget.entry["node"]['counter'];
+      storedCategoryIcon = widget.entry["node"]['icon'];
+      storedCategoryIconFamily = widget.entry["node"]['iconfamily'];
+      storedCategoryIconPackage = widget.entry["node"]['iconpackage'];
+    }
+
+    textController.text = storedCategoryName;
+    performance = storedCategoryPerformance ??
         0; // 0 if it's null; otherwise, the integer
     //_creationDate = widget.entry.creationDate;
 
-    if (widget.entry["node"]['color'] == null) {
+    if (storedCategoryColor == null) {
       _categoryColor = Colors.grey;
       _categoryMaterialColor = Colors.grey;
     } else {
       Map<int, Color> color = {
-        100: Color(widget.entry["node"]['color']).withOpacity(1),
+        100: Color(storedCategoryColor).withOpacity(1),
       };
-      _categoryMaterialColor =
-          MaterialColor(widget.entry["node"]['color'], color);
+      _categoryMaterialColor = MaterialColor(storedCategoryColor, color);
       _categoryColor = _categoryMaterialColor;
     }
 
-    if (widget.entry["node"]['icon'] == null) {
+    if (storedCategoryIcon == null) {
       _categoryIcon = Icon(LineAwesomeIcons.info_circle);
     } else {
-      _categoryIcon = Icon(IconData(widget.entry["node"]['icon'],
-          fontFamily: widget.entry["node"]['iconfamily'],
-          fontPackage: widget.entry["node"]['iconpackage']));
+      _categoryIcon = Icon(IconData(storedCategoryIcon,
+          fontFamily: storedCategoryIconFamily,
+          fontPackage: storedCategoryIconPackage));
     }
 
     super.initState();
@@ -204,35 +236,36 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
           child: const Text('Save'),
           onPressed: () {
             final updatedContent = textController.text;
-            final entry = widget.entry["node"];
-            entry['name'] = updatedContent.isNotEmpty ? updatedContent : null;
-            entry['color'] = _categoryColor.value;
-            entry['icon'] = _categoryIcon.icon.codePoint;
-            entry['iconfamily'] = _categoryIcon.icon.fontFamily;
-            entry['iconpackage'] = _categoryIcon.icon.fontPackage;
-            entry['performance'] = performance;
+            // final entry = widget.entry["node"];
+            // entry['name'] = updatedContent.isNotEmpty ? updatedContent : null;
+            // entry['color'] = _categoryColor.value;
+            // entry['icon'] = _categoryIcon.icon.codePoint;
+            // entry['iconfamily'] = _categoryIcon.icon.fontFamily;
+            // entry['iconpackage'] = _categoryIcon.icon.fontPackage;
+            // entry['performance'] = performance;
 
-            CategoryUtilsGraphQL utils;
+            //CategoryUtilsGraphQL utils;
 
             // if (entry["node"]['name'] &&
             //     entry["node"]['color'].toString().isNotEmpty &&
             //     entry.icon.toString().isNotEmpty) {
-            utils = CategoryUtilsGraphQL(
-                id: entry['id'],
-                name: entry['name'],
-                color: entry['color'],
-                icon: entry['icon'],
-                iconfamily: entry['iconfamily'],
-                iconpackage: entry['iconpackage'],
-                performance: entry['performance'],
-                counter: 0);
-            utils.updateData().whenComplete(
-                () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(
-                      SnackBar(
-                        content: const Text('Category updated'),
-                      ),
-                    ));
+            // utils = CategoryUtilsGraphQL(
+            //     id: entry['id'],
+            //     name: entry['name'],
+            //     color: entry['color'],
+            //     icon: entry['icon'],
+            //     iconfamily: entry['iconfamily'],
+            //     iconpackage: entry['iconpackage'],
+            //     performance: entry['performance'],
+            //     counter: 0);
+            // utils.updateData().whenComplete(
+            //     () => ScaffoldMessenger.of(widget.contextParent).showSnackBar(
+            //           SnackBar(
+            //             content: const Text('Category updated'),
+            //           ),
+            //         ));
 
+            print('edit category: ' + updatedContent);
             textController.text = "";
 
             Navigator.pop(context);

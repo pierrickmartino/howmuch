@@ -23,15 +23,19 @@ class CategoryUtilsGraphQL {
       "id": id,
     };
 
-    GraphQLConfiguration configuration = GraphQLConfiguration();
-    GraphQLClient client = configuration.clientToQuery();
+    // déjà dispo dans le main.dart et passé sous client
+    // réellement besoin de le redéfinir ici ?
 
-    QueryResult queryResult = await client.query(
-      QueryOptions(
-          documentNode: gql(deleteCategoryMutation), variables: variable),
-    );
+    //GraphQLConfiguration configuration = GraphQLConfiguration();
+    //GraphQLClient client = configuration.clientToQuery();
 
-    return queryResult;
+    // QueryResult queryResult = await client.query(
+    //   QueryOptions(
+    //       documentNode: gql(deleteCategoryMutation), variables: variable),
+    // );
+
+    //return queryResult;
+    return null;
   }
 
   Future<QueryResult> sendData() async {
@@ -39,15 +43,19 @@ class CategoryUtilsGraphQL {
       "name": name,
     };
 
-    GraphQLConfiguration configuration = GraphQLConfiguration();
-    GraphQLClient client = configuration.clientToQuery();
+    // déjà dispo dans le main.dart et passé sous client
+    // réellement besoin de le redéfinir ici ?
 
-    QueryResult queryResult = await client.query(
-      QueryOptions(
-          documentNode: gql(createCategoryMutation), variables: variable),
-    );
+    // GraphQLConfiguration configuration = GraphQLConfiguration();
+    // GraphQLClient client = configuration.clientToQuery();
 
-    return queryResult;
+    // QueryResult queryResult = await client.query(
+    //   QueryOptions(
+    //       documentNode: gql(createCategoryMutation), variables: variable),
+    // );
+
+    // return queryResult;
+    return null;
   }
 
   Future<QueryResult> updateData() async {
@@ -64,14 +72,18 @@ class CategoryUtilsGraphQL {
       }
     };
 
-    GraphQLConfiguration configuration = GraphQLConfiguration();
-    GraphQLClient client = configuration.clientToQuery();
+    // déjà dispo dans le main.dart et passé sous client
+    // réellement besoin de le redéfinir ici ?
 
-    QueryResult queryResult = await client.query(
-      QueryOptions(
-          documentNode: gql(updateCategoryMutation), variables: variable),
-    );
+    // GraphQLConfiguration configuration = GraphQLConfiguration();
+    // GraphQLClient client = configuration.clientToQuery();
 
-    return queryResult;
+    // QueryResult queryResult = await client.query(
+    //   QueryOptions(
+    //       documentNode: gql(updateCategoryMutation), variables: variable),
+    // );
+
+    // return queryResult;
+    return null;
   }
 }

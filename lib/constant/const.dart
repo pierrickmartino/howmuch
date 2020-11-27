@@ -1,3 +1,5 @@
+const String dataMode = 'fake';
+
 const String homeRoute = '/';
 const String loginRoute = '/login';
 const String accountsRoute = '/accounts';

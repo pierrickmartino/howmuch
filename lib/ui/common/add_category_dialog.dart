@@ -52,18 +52,20 @@ class AddCategoryDialog extends StatelessWidget {
 
   void addCategory(BuildContext context) {
     Category category = Category(name: _controller.text);
-    CategoryUtilsGraphQL utils;
+    //CategoryUtilsGraphQL utils;
 
     if (category.name.isNotEmpty) {
-      utils = CategoryUtilsGraphQL(
-        name: category.name,
-      );
-      utils.sendData().whenComplete(
-          () => ScaffoldMessenger.of(this.contextParent).showSnackBar(
-                SnackBar(
-                  content: const Text('Category added!'),
-                ),
-              ));
+      // utils = CategoryUtilsGraphQL(
+      //   name: category.name,
+      // );
+      // utils.sendData().whenComplete(
+      //     () => ScaffoldMessenger.of(this.contextParent).showSnackBar(
+      //           SnackBar(
+      //             content: const Text('Category added!'),
+      //           ),
+      //         ));
+
+      print('add category: ' + category.name);
 
       _controller.text = "";
     }
