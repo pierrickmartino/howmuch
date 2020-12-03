@@ -228,9 +228,12 @@ class CategoryItem extends StatelessWidget {
     }
 
     if (storedCategoryPerformance == 0) {
-      performanceChip = Chip(label: Text('perf. incl.'));
+      performanceChip = Chip(
+          backgroundColor: Color(chipBackgroundColor),
+          label: Text('perf. incl.'));
     } else {
       performanceChip = Chip(
+        backgroundColor: Color(chipBackgroundColor),
         label: Text(
           'perf. excl.',
         ),
@@ -244,7 +247,7 @@ class CategoryItem extends StatelessWidget {
       child: Badge(
           position: BadgePosition.topEnd(top: 10, end: 10),
           child: Card(
-            color: const Color(0xff2F4047), //const Color(0xff2B3138),
+            color: Color(cardBackgroundColor),
             elevation: 4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -266,7 +269,7 @@ class CategoryItem extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 3.0),
                           child: Text(
                             storedCategoryName,
-                            style: TextStyle(color: const Color(0xffC0C7D0)),
+                            style: TextStyle(color: Color(cardTextColor)),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -279,12 +282,12 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
           ),
-          badgeColor: const Color(0xff4AC6EA),
+          badgeColor: const Color(badgeBackgroundColor),
           animationType: BadgeAnimationType.scale,
           animationDuration: Duration(milliseconds: 500),
           shape: BadgeShape.circle,
           badgeContent: Text(storedCategoryCounter.toString(),
-              style: TextStyle(color: const Color(0xff2B3138)))),
+              style: TextStyle(color: Color(badgeTextColor)))),
       actions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
