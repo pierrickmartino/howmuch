@@ -7,7 +7,8 @@ import 'package:howmuch/src/model/category.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../src/utils/category_utils_graphql.dart';
+// UNUSED IN FAKE DATA MODE
+// import '../../src/utils/category_utils_graphql.dart';
 
 // final _dateFormat = DateFormat.yMMMd();
 

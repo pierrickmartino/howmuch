@@ -1,5 +1,4 @@
 import 'package:faker/faker.dart';
-import 'package:flutter/material.dart';
 
 class FakeData {
   // Fake Category

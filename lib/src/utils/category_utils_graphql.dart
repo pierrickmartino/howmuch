@@ -1,7 +1,8 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../api/category_api.dart';
-import '../graphql/graphql_conf.dart';
+// UNUSED IN FAKE DATA MODE
+// import '../api/category_api.dart';
+// import '../graphql/graphql_conf.dart';
 
 class CategoryUtilsGraphQL {
   final String id, objectId, name, iconfamily, iconpackage;
@@ -19,9 +20,9 @@ class CategoryUtilsGraphQL {
       this.counter = 0});
 
   Future<QueryResult> deleteData() async {
-    final variable = {
-      "id": id,
-    };
+    // final variable = {
+    //   "id": id,
+    // };
 
     // déjà dispo dans le main.dart et passé sous client
     // réellement besoin de le redéfinir ici ?
@@ -39,9 +40,9 @@ class CategoryUtilsGraphQL {
   }
 
   Future<QueryResult> sendData() async {
-    final variable = {
-      "name": name,
-    };
+    // final variable = {
+    //   "name": name,
+    // };
 
     // déjà dispo dans le main.dart et passé sous client
     // réellement besoin de le redéfinir ici ?
@@ -59,18 +60,18 @@ class CategoryUtilsGraphQL {
   }
 
   Future<QueryResult> updateData() async {
-    final variable = {
-      "id": id,
-      "input": {
-        "name": name,
-        "color": color,
-        "icon": icon,
-        "iconfamily": iconfamily,
-        "iconpackage": iconpackage,
-        "performance": performance,
-        "counter": counter
-      }
-    };
+    // final variable = {
+    //   "id": id,
+    //   "input": {
+    //     "name": name,
+    //     "color": color,
+    //     "icon": icon,
+    //     "iconfamily": iconfamily,
+    //     "iconpackage": iconpackage,
+    //     "performance": performance,
+    //     "counter": counter
+    //   }
+    // };
 
     // déjà dispo dans le main.dart et passé sous client
     // réellement besoin de le redéfinir ici ?

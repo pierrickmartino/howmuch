@@ -3,7 +3,6 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:howmuch/constant/const.dart';
 import 'package:howmuch/src/model/category.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -11,9 +10,11 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'add_category_dialog.dart';
 import 'edit_category_dialog.dart';
 import '../chart/example_bar_chart.dart';
-import '../../src/api/category_api.dart';
-import '../../src/utils/category_utils_graphql.dart';
-import '../../constant/fake_data.dart';
+
+// UNUSED IN FAKE DATA MODE
+// import 'package:graphql_flutter/graphql_flutter.dart';
+// import '../../src/api/category_api.dart';
+// import '../../src/utils/category_utils_graphql.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -53,78 +54,95 @@ class _CategoriesState extends State<Categories> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-        color: Colors.grey[200],
+        color: Color(backgroundColor),
         child: FluidLayout(
           child: Builder(
             builder: (context) => SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: FluidLayout.of(context).horizontalPadding),
-                child: Column(
-                  children: <Widget>[
-                    Fluid(
-                        child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Categories',
-                            style: Theme.of(context).textTheme.headline4,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 6),
+                  Fluid(
+                      child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Color(menuBackgroundColor),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                              5.0) //         <--- border radius here
                           ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => AddCategoryDialog(
-                                        contextParent: context,
-                                      ));
-                            },
-                            tooltip: 'New category',
-                            icon: Icon(LineAwesomeIcons.plus),
-                          )
-                        ],
-                      ),
-                    )),
-                    SizedBox(height: 24),
-                    Container(
-                      height: 180,
-                      child: ListView.separated(
-                        itemCount: 2,
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                FluidLayout.of(context).horizontalPadding +
-                                    FluidLayout.of(context).fluidPadding),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => ExempleBarChart(),
-                        separatorBuilder: (_, __) => SizedBox(
-                            width: FluidLayout.of(context).horizontalPadding),
-                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(menuBackgroundColor),
+                          blurRadius: 10,
+                          spreadRadius: 0.01,
+                          offset: Offset(3, 3),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 24),
-                    Fluid(
-                        child: Container(
-                      height: MediaQuery.of(context).size.height - 278,
-                      width: double.infinity,
-                      child: Center(
-                        child:
-                            //result.hasException ?
-                            // Text(result.exception.toString())
-                            //: result.loading
-                            //    ? CircularProgressIndicator()
-                            //:
-                            // CategoryList(
-                            //     list: result.data["categories"]
-                            //         ["edges"]),
+                    height: 50,
+                    width: double.infinity,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Categories',
+                          style: TextStyle(color: Color(menuTextColor)),
+                        ),
+                        Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AddCategoryDialog(
+                                      contextParent: context,
+                                    ));
+                          },
+                          tooltip: 'New category',
+                          icon: Icon(
+                            LineAwesomeIcons.plus,
+                            size: 16,
+                            color: Color(menuTextColor),
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+                  SizedBox(height: 24),
+                  Container(
+                    height: 180,
+                    child: ListView.separated(
+                      itemCount: 2,
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              FluidLayout.of(context).horizontalPadding +
+                                  FluidLayout.of(context).fluidPadding),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => ExempleBarChart(),
+                      separatorBuilder: (_, __) => SizedBox(
+                          width: FluidLayout.of(context).horizontalPadding),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Fluid(
+                      child: Container(
+                    height: MediaQuery.of(context).size.height - 284,
+                    width: double.infinity,
+                    child: Center(
+                      child:
+                          //result.hasException ?
+                          // Text(result.exception.toString())
+                          //: result.loading
+                          //    ? CircularProgressIndicator()
+                          //:
+                          // CategoryList(
+                          //     list: result.data["categories"]
+                          //         ["edges"]),
 
-                            CategoryList(list: fakeCategoryList),
-                      ),
-                    )),
-                  ],
-                ),
+                          CategoryList(list: fakeCategoryList),
+                    ),
+                  )),
+                ],
               ),
+              //),
             ),
           ),
         ),

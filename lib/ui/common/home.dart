@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart'; // https://pub.dev/packages/collapsible_sidebar
-import 'package:howmuch/ui/common/dashboard.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import 'accounts.dart';
@@ -8,6 +7,7 @@ import 'categories.dart';
 import 'filters.dart';
 import 'transactions.dart';
 import 'dashboard.dart';
+import '../../constant/const.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -80,28 +80,44 @@ class _HomeState extends State<Home> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
+      backgroundColor: Color(backgroundColor), //Colors.blueGrey[50],
       body: CollapsibleSidebar(
-        toggleButtonIcon: LineAwesomeIcons.chevron_circle_right,
-        items: _items,
-        avatarImg: _avatarImg,
-        title: 'John Smith',
-        body: _body(size, context),
-        iconSize: 30.0,
-        textSize: 14.0,
-        minWidth: 70,
-        maxWidth: 200,
-        borderRadius: 12,
-      ),
+          items: _items,
+          backgroundColor: Color(menuBackgroundColor),
+          unselectedIconColor: Color(menuTextColor),
+          unselectedTextColor: Color(menuTextColor),
+          toggleButtonIcon: LineAwesomeIcons.chevron_circle_right,
+          avatarImg: _avatarImg,
+          title: 'John Smith',
+          body: _body(size, context),
+          iconSize: 30.0,
+          textSize: 14.0,
+          minWidth: 70,
+          maxWidth: 200,
+          screenPadding: 6,
+          borderRadius: 15),
     );
   }
 
   Widget _body(Size size, BuildContext context) {
     return Container(
+      //decoration: myBoxDecoration(),
       height: double.infinity,
       width: double.infinity,
-      color: Colors.blueGrey[50],
       child: _showContent(_selectedIndex),
     );
   }
 }
+
+// myBoxDecoration() {
+//   return BoxDecoration(
+//     color: Color(backgroundColor), //Colors.blueGrey[50],
+//     border: Border(
+//       left: BorderSide(
+//         //                   <--- left side
+//         color: Color(menuSeparatorColor),
+//         width: 2.0,
+//       ),
+//     ),
+//   );
+// }

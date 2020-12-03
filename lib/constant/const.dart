@@ -14,6 +14,12 @@ const String kParseClientKey = "fXOJNoDaQcFNgxZ2q3U3Nu05uAgvZrUYgozmaO37";
 const String kParseMasterKey = "gsdAU5OJ37NrspksXFHUpjmDp9yu5bKCNFOIBhUd";
 const String kUrl = "https://parseapi.back4app.com/graphql";
 
+// Theme Data
+const int backgroundColor = 0xfff9f9f9;
+const int menuBackgroundColor = 0xffe1e7ea; //0xffffffff;
+const int menuTextColor = 0xffaeb7c0;
+const int menuSeparatorColor = 0xffe1e7ea;
+
 class Constants {
   static String appName = "howMuch";
 

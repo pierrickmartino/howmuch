@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../src/utils/category_utils_graphql.dart';
 import '../../src/model/category.dart';
+
+// UNUSED IN FAKE DATA MODE
+// import '../../src/utils/category_utils_graphql.dart';
 
 class AddCategoryDialog extends StatelessWidget {
   final BuildContext contextParent;

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:logger/logger.dart';
 
 import 'config/route/router.dart';
 import 'constant/const.dart';
-import 'src/graphql/graphql_conf.dart';
+
+// UNUSED IN FAKE DATA MODE
+// import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'src/graphql/graphql_conf.dart';
 
 //GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 void main() {
-  var logger = Logger();
+  var logger = Logger(
+    printer: PrettyPrinter(methodCount: 0),
+  );
   if (dataMode == 'fake') {
     logger.w(' Fake Mode ACTIVATED');
   }
