@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'HowMuch app',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Manrope'),
-      initialRoute: homeRoute,
+      initialRoute: loginRoute, //homeRoute,
       onGenerateRoute: CustomRouter.generateRoute,
       //),
       //client: graphQLConfiguration.client,

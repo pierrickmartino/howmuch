@@ -1,7 +1,7 @@
 const String dataMode = 'fake';
 
 const String homeRoute = '/';
-const String loginRoute = '/login';
+const String loginRoute = '/auth';
 const String accountsRoute = '/accounts';
 const String transactionsRoute = '/transactions';
 const String filtersRoute = '/filters';
@@ -29,7 +29,9 @@ const int badgeBackgroundColor = 0xfff4663b;
 const int badgeTextColor = 0xffffffff;
 
 class Constants {
-  static String appName = "howMuch";
+  static String appName = 'howMuch';
+  static String logoTag = 'near.huscarl.loginsample.logo';
+  static String titleTag = 'near.huscarl.loginsample.title';
 
   // This file contains all the routing constants used within the app
   static const String homeRoute = '/';
