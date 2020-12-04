@@ -261,22 +261,39 @@ class CategoryItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 3.0),
-                          child: Text(
-                            storedCategoryName,
-                            style: TextStyle(color: Color(cardTextColor)),
+                    child: context.breakpoint.isLargerThanM
+// in case of a big size screen
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 3.0),
+                                child: Text(
+                                  storedCategoryName,
+                                  style: TextStyle(color: Color(cardTextColor)),
+                                ),
+                              ),
+                              const SizedBox(height: 12.0),
+                              performanceChip,
+                              /*, creationDate, lastUpdateDate*/
+                            ],
+                          )
+// otherwise
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 3.0),
+                                child: Text(
+                                  storedCategoryName,
+                                  style: TextStyle(color: Color(cardTextColor)),
+                                ),
+                              ),
+                              /*, creationDate, lastUpdateDate*/
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 12.0),
-                        performanceChip,
-                        /*, creationDate, lastUpdateDate*/
-                      ],
-                    ),
                   ),
                 ],
               ),
