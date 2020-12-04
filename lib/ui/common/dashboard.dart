@@ -16,29 +16,35 @@ class _DashboardState extends State<Dashboard> {
         child: Builder(
             builder: (context) => CustomScrollView(
                   slivers: <Widget>[
-                    SliverToBoxAdapter(
-                      child: Container(
-                        color: Color(backgroundColor),
-                        margin: EdgeInsets.symmetric(vertical: 6),
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        height: 100,
-                        child: Center(child: Text('Expanded')),
-                      ),
-                    ),
                     SliverFluidGrid(
+                      spacing: 20,
                       children: [
+// Header
+                        FluidCell.withFixedHeight(
+                          size: context.fluid(12, s: 12, xs: 12),
+                          height: 80,
+                          child: Container(
+                              // decoration: BoxDecoration(
+                              //   color: Color(menuBackgroundColor),
+                              // ),
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text('Welcome !')),
+                        ),
 // Ligne du haut
                         FluidCell.withFluidHeight(
                             size: context.fluid(4, s: 12, xs: 12),
                             heightSize: context.fluid(4, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('A')),
+                              child: Center(
+                                  child: Text('Top 5 transactions by size')),
                             )),
                         FluidCell.withFluidHeight(
                             size: context.fluid(4, s: 12, xs: 12),
-                            heightSize: context.fluid(4, s: 12, xs: 12),
+                            heightSize: context.fluid(2, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('B')),
+                              child: Center(
+                                  child:
+                                      Text('Total expense / income / balance')),
                             )),
                         FluidCell.withFluidHeight(
                             size: context.fluid(4, s: 12, xs: 12),
@@ -46,24 +52,45 @@ class _DashboardState extends State<Dashboard> {
                             child: CustomCard(
                               child: Center(child: Text('C')),
                             )),
+                        FluidCell.withFluidHeight(
+                            size: context.fluid(4, s: 12, xs: 12),
+                            heightSize: context.fluid(2, s: 12, xs: 12),
+                            child: CustomCard(
+                              child:
+                                  Center(child: Text('Number of transactions')),
+                            )),
+
 // Ligne du bas
                         FluidCell.withFluidHeight(
                             size: context.fluid(6, s: 12, xs: 12),
-                            heightSize: context.fluid(6, s: 12, xs: 12),
+                            heightSize: context.fluid(5, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('A')),
+                              child: Center(
+                                  child:
+                                      Text('Chart bar daily in/out per month')),
                             )),
                         FluidCell.withFluidHeight(
                             size: context.fluid(6, s: 12, xs: 12),
-                            heightSize: context.fluid(6, s: 12, xs: 12),
+                            heightSize: context.fluid(5, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('B')),
+                              child: Center(
+                                  child: Text(
+                                      'Chart radar of the top 6 categories per period')),
+                            )),
+// Bottom
+                        FluidCell.withFluidHeight(
+                            size: context.fluid(9, s: 12, xs: 12),
+                            heightSize: context.fluid(4, s: 12, xs: 12),
+                            child: CustomCard(
+                              child: Center(child: Text('Transaction list')),
                             )),
                         FluidCell.withFluidHeight(
-                            size: context.fluid(12, s: 12, xs: 12),
-                            heightSize: context.fluid(3, s: 12, xs: 12),
+                            size: context.fluid(3, s: 12, xs: 12),
+                            heightSize: context.fluid(4, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('Bottom')),
+                              child: Center(
+                                  child: Text(
+                                      'Number of transactions without category')),
                             ))
                       ],
                     ),
