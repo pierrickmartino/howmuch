@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
+import 'package:howmuch/constant/const.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:path/path.dart';
 
 import '../chart/date_time_axis_chart.dart';
 import '../chart/customized_radial_bar_chart.dart';
@@ -11,6 +14,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  Future<bool> _goToLogin(BuildContext context) {
+    return Navigator.of(context)
+        .pushReplacementNamed(loginRoute)
+        // we dont want to pop the screen, just replace it completely
+        .then((_) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FluidLayout(
@@ -29,7 +39,19 @@ class _DashboardState extends State<Dashboard> {
                               //   color: Color(menuBackgroundColor),
                               // ),
                               margin: EdgeInsets.only(top: 10),
-                              child: Text('Welcome !')),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Welcome Joe !',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Spacer(),
+                                  IconButton(
+                                    icon: Icon(LineAwesomeIcons.sign_out),
+                                    onPressed: () => _goToLogin(context),
+                                  )
+                                ],
+                              )),
                         ),
 // Ligne du haut
                         FluidCell.withFluidHeight(

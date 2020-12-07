@@ -11,3 +11,7 @@ class FakeData {
       List.generate(a, (i) => [faker.company.name(), 0, 0], growable: false);
   //print(tList);
 }
+
+const mockUsers = const {
+  'toto@gmail.com': '501251',
+};

@@ -42,7 +42,7 @@ class CustomizedRadialBarChart extends StatelessWidget {
       title: ChartTitle(
           text: context.breakpoint.isLargerThanM ? 'Top 5 categories' : ''),
       legend: Legend(
-        isVisible: true,
+        isVisible: context.breakpoint.isLargerThanM ? true : false,
         overflowMode: LegendItemOverflowMode.wrap,
         legendItemBuilder:
             (String name, dynamic series, dynamic point, int index) {
@@ -96,12 +96,13 @@ class CustomizedRadialBarChart extends StatelessWidget {
           height: '90%',
           width: '90%',
           widget: Container(
-            child: Text('Pic'),
-            // Image.asset(
-            //   'images/person.png',
-            //   height: 100.0,
-            //   width: 100.0,
-            // ),
+            child:
+                //Text('Pic'),
+                Image.asset(
+              'asset/images/person.png',
+              height: 100.0,
+              width: 100.0,
+            ),
           ),
         ),
       ],
