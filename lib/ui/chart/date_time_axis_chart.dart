@@ -11,89 +11,58 @@ class DateTimeAxisChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-        plotAreaBorderWidth: 0,
-        title: ChartTitle(
-            text: context.breakpoint.isLargerThanM
-                ? 'Euro to USD monthly exchange rate - 2015 to 2018'
-                : ''),
-        primaryXAxis: DateTimeAxis(majorGridLines: MajorGridLines(width: 0)),
-        primaryYAxis: NumericAxis(
-          minimum: 1,
-          maximum: 1.35,
-          interval: 0.05,
-          labelFormat: '\${value}',
-          title: AxisTitle(
-              text: context.breakpoint.isLargerThanM ? 'Dollars' : ''),
-          axisLine: AxisLine(width: 0),
-          majorTickLines: MajorTickLines(size: 0),
-        ),
-        series: _getDefaultDateTimeSeries(),
-        trackballBehavior: TrackballBehavior(
-            enable: true,
-            activationMode: ActivationMode.singleTap,
-            tooltipSettings: InteractiveTooltip(
-                format: 'point.x : point.y', borderWidth: 0)));
+      plotAreaBorderWidth: 0,
+      title: ChartTitle(
+          text: context.breakpoint.isLargerThanM
+              ? 'Land area of various cities (sq.km)'
+              : ''),
+      primaryXAxis: CategoryAxis(
+        labelStyle: const TextStyle(color: Colors.black),
+        axisLine: AxisLine(width: 0),
+        labelPosition: ChartDataLabelPosition.outside,
+        majorTickLines: MajorTickLines(width: 0),
+        majorGridLines: MajorGridLines(width: 0),
+      ),
+      primaryYAxis: NumericAxis(isVisible: false, minimum: 0, maximum: 10000),
+      series: _getRoundedColumnSeries(context),
+      tooltipBehavior: TooltipBehavior(
+          enable: true,
+          canShowMarker: false,
+          format: 'point.x : point.y',
+          header: ''),
+    );
   }
 
-  /// Returns the line chart with default data time axis.
-  List<LineSeries<ChartSampleData, DateTime>> _getDefaultDateTimeSeries() {
+  List<ColumnSeries<ChartSampleData, String>> _getRoundedColumnSeries(
+      BuildContext context) {
     final List<ChartSampleData> chartData = <ChartSampleData>[
-      ChartSampleData(x: DateTime(2015, 1, 1), yValue: 1.13),
-      ChartSampleData(x: DateTime(2015, 2, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2015, 3, 1), yValue: 1.08),
-      ChartSampleData(x: DateTime(2015, 4, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2015, 5, 1), yValue: 1.1),
-      ChartSampleData(x: DateTime(2015, 6, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2015, 7, 1), yValue: 1.1),
-      ChartSampleData(x: DateTime(2015, 8, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2015, 9, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2015, 10, 1), yValue: 1.1),
-      ChartSampleData(x: DateTime(2015, 11, 1), yValue: 1.06),
-      ChartSampleData(x: DateTime(2015, 12, 1), yValue: 1.09),
-      ChartSampleData(x: DateTime(2016, 1, 1), yValue: 1.09),
-      ChartSampleData(x: DateTime(2016, 2, 1), yValue: 1.09),
-      ChartSampleData(x: DateTime(2016, 3, 1), yValue: 1.14),
-      ChartSampleData(x: DateTime(2016, 4, 1), yValue: 1.14),
-      ChartSampleData(x: DateTime(2016, 5, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2016, 6, 1), yValue: 1.11),
-      ChartSampleData(x: DateTime(2016, 7, 1), yValue: 1.11),
-      ChartSampleData(x: DateTime(2016, 8, 1), yValue: 1.11),
-      ChartSampleData(x: DateTime(2016, 9, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2016, 10, 1), yValue: 1.1),
-      ChartSampleData(x: DateTime(2016, 11, 1), yValue: 1.08),
-      ChartSampleData(x: DateTime(2016, 12, 1), yValue: 1.05),
-      ChartSampleData(x: DateTime(2017, 1, 1), yValue: 1.08),
-      ChartSampleData(x: DateTime(2017, 2, 1), yValue: 1.06),
-      ChartSampleData(x: DateTime(2017, 3, 1), yValue: 1.07),
-      ChartSampleData(x: DateTime(2017, 4, 1), yValue: 1.09),
-      ChartSampleData(x: DateTime(2017, 5, 1), yValue: 1.12),
-      ChartSampleData(x: DateTime(2017, 6, 1), yValue: 1.14),
-      ChartSampleData(x: DateTime(2017, 7, 1), yValue: 1.17),
-      ChartSampleData(x: DateTime(2017, 8, 1), yValue: 1.18),
-      ChartSampleData(x: DateTime(2017, 9, 1), yValue: 1.18),
-      ChartSampleData(x: DateTime(2017, 10, 1), yValue: 1.16),
-      ChartSampleData(x: DateTime(2017, 11, 1), yValue: 1.18),
-      ChartSampleData(x: DateTime(2017, 12, 1), yValue: 1.2),
-      ChartSampleData(x: DateTime(2018, 1, 1), yValue: 1.25),
-      ChartSampleData(x: DateTime(2018, 2, 1), yValue: 1.22),
-      ChartSampleData(x: DateTime(2018, 3, 1), yValue: 1.23),
-      ChartSampleData(x: DateTime(2018, 4, 1), yValue: 1.21),
-      ChartSampleData(x: DateTime(2018, 5, 1), yValue: 1.17),
-      ChartSampleData(x: DateTime(2018, 6, 1), yValue: 1.17),
-      ChartSampleData(x: DateTime(2018, 7, 1), yValue: 1.17),
-      ChartSampleData(x: DateTime(2018, 8, 1), yValue: 1.17),
-      ChartSampleData(x: DateTime(2018, 9, 1), yValue: 1.16),
-      ChartSampleData(x: DateTime(2018, 10, 1), yValue: 1.13),
-      ChartSampleData(x: DateTime(2018, 11, 1), yValue: 1.14),
-      ChartSampleData(x: DateTime(2018, 12, 1), yValue: 1.15)
+      ChartSampleData(x: 'Jan', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Feb', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Mar', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Apr', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'May', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Jun', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Jul', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Aug', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Sep', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Oct', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Nov', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(x: 'Dec', y: faker.randomGenerator.integer(10000)),
     ];
-    return <LineSeries<ChartSampleData, DateTime>>[
-      LineSeries<ChartSampleData, DateTime>(
+    return <ColumnSeries<ChartSampleData, String>>[
+      ColumnSeries<ChartSampleData, String>(
+        width: 0.9,
+        dataLabelSettings: DataLabelSettings(
+            isVisible: context.breakpoint.isLargerThanM ? true : false,
+            labelAlignment: ChartDataLabelAlignment.top),
         dataSource: chartData,
-        xValueMapper: (ChartSampleData data, _) => data.x,
-        yValueMapper: (ChartSampleData data, _) => data.yValue,
-        color: const Color.fromRGBO(242, 117, 7, 1),
-      )
+
+        /// If we set the border radius value for column series,
+        /// then the series will appear as rounder corner.
+        borderRadius: BorderRadius.circular(15),
+        xValueMapper: (ChartSampleData sales, _) => sales.x,
+        yValueMapper: (ChartSampleData sales, _) => sales.y,
+      ),
     ];
   }
 }
