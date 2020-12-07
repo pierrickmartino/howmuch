@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter_login/flutter_login.dart';
+import 'package:logger/logger.dart';
 
 import 'custom_route.dart';
 import '../common/home.dart';
@@ -33,6 +34,10 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var logger = Logger(
+      printer: PrettyPrinter(methodCount: 0),
+    );
+
     final inputBorder = BorderRadius.vertical(
       bottom: Radius.circular(10.0),
       top: Radius.circular(20.0),
@@ -146,13 +151,13 @@ class LoginScreen extends StatelessWidget {
         return null;
       },
       onLogin: (loginData) {
-        print('Login info');
+        logger.d('Login info');
         print('Name: ${loginData.name}');
         print('Password: ${loginData.password}');
         return _loginUser(loginData);
       },
       onSignup: (loginData) {
-        print('Signup info');
+        logger.d('Signup info');
         print('Name: ${loginData.name}');
         print('Password: ${loginData.password}');
         return _loginUser(loginData);
@@ -163,7 +168,7 @@ class LoginScreen extends StatelessWidget {
         ));
       },
       onRecoverPassword: (name) {
-        print('Recover password info');
+        logger.d('Recover password info');
         print('Name: $name');
         return _recoverPassword(name);
         // Show new password dialog
