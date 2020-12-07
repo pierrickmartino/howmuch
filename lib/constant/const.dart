@@ -16,6 +16,7 @@ const String kUrl = "https://parseapi.back4app.com/graphql";
 
 // Theme Data
 const int backgroundColor = 0xfff9f9f9;
+const int primaryColor = 0xfff4663b;
 const int menuBackgroundColor = 0xffe1e7ea;
 const int menuTextColor = 0xffaeb7c0;
 const int menuSelectedTextColor = 0xfff4663b;
@@ -27,6 +28,7 @@ const int cardTextColor = 0xffaeb7c0;
 const int chipBackgroundColor = 0xffe1e7ea;
 const int badgeBackgroundColor = 0xfff4663b;
 const int badgeTextColor = 0xffffffff;
+const int buttonColor = 0xffaeb7c0; // exemple Logout
 
 class Constants {
   static String appName = 'howMuch';
