@@ -2,12 +2,13 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:path/path.dart';
 
 import '../chart/date_time_axis_chart.dart';
 import '../chart/customized_radial_bar_chart.dart';
 import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
+import '../dashboard/top_transaction_list.dart';
+import '../dashboard/top_category_list.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 class Dashboard extends StatefulWidget {
@@ -62,6 +63,26 @@ class _DashboardState extends State<Dashboard> {
                                     style: TextStyle(fontSize: 24),
                                   ),
                                   Spacer(),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: ElevatedButton(
+                                      child: Text('Last week'),
+                                      onPressed: () => null,
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    child: Text('Last month'),
+                                    onPressed: () => null,
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: ElevatedButton(
+                                      child: Text('Last year'),
+                                      onPressed: () => null,
+                                    ),
+                                  ),
                                   IconButton(
                                     icon: Icon(LineAwesomeIcons.sign_out),
                                     color: Color(buttonColor),
@@ -75,26 +96,7 @@ class _DashboardState extends State<Dashboard> {
                             size: context.fluid(4, s: 12, xs: 12),
                             heightSize: context.fluid(4, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Top 5 transactions by size',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  Divider(
-                                    color: Color(menuBackgroundColor),
-                                    height: 20,
-                                    thickness: 2,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TransactionList(list: fakeTransactionList),
-                                ],
-                              ),
+                              child: TopTransactionList(),
                             )),
                         FluidCell.withFluidHeight(
                             size: context.fluid(4, s: 12, xs: 12),
@@ -108,7 +110,7 @@ class _DashboardState extends State<Dashboard> {
                             size: context.fluid(4, s: 12, xs: 12),
                             heightSize: context.fluid(4, s: 12, xs: 12),
                             child: CustomCard(
-                              child: Center(child: Text('C')),
+                              child: TopCategoryList(),
                             )),
                         FluidCell.withFluidHeight(
                             size: context.fluid(4, s: 12, xs: 12),
@@ -155,72 +157,5 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ],
                 )));
-  }
-}
-
-class TransactionList extends StatelessWidget {
-  TransactionList({@required this.list});
-
-  final list;
-
-  @override
-  Widget build(BuildContext transactionListContext) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: this.list.length,
-      itemBuilder: (transactionListContext, index) {
-        Transaction transaction = this.list[index];
-
-        return TransactionItem(transaction: transaction);
-      },
-    );
-  }
-}
-
-class TransactionItem extends StatelessWidget {
-  TransactionItem({@required this.transaction});
-
-  final transaction;
-
-  @override
-  Widget build(BuildContext transactionItemContext) {
-    String transactionDescription, transactionAmount;
-
-    transactionDescription = transaction.description;
-    transactionAmount = transaction.amount.toString();
-
-    return ListTile(
-      title: Text(transactionDescription),
-      trailing: Text(transactionAmount),
-    );
-
-    // return Card(
-    //   color: Color(cardBackgroundColor),
-    //   elevation: 4,
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(8.0),
-    //     child: Row(
-    //       mainAxisSize: MainAxisSize.max,
-    //       children: <Widget>[
-    //         Expanded(
-    //             child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             Padding(
-    //               padding: EdgeInsets.symmetric(horizontal: 3.0),
-    //               child: Text(
-    //                 transactionDescription,
-    //                 style: TextStyle(color: Color(cardTextColor)),
-    //               ),
-    //             ),
-
-    //             /*, creationDate, lastUpdateDate*/
-    //           ],
-    //         )),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
