@@ -91,22 +91,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   
   fonts:
-    - family: Manrope
+    - family: Lato
       fonts:
-        - asset: asset/font/Manrope-ExtraLight.ttf
-          weight: 200
-        - asset: asset/font/Manrope-Light.ttf
+        - asset: asset/font/lato/Lato-Thin.ttf
+          weight: 100
+        - asset: asset/font/lato/Lato-Light.ttf
           weight: 300
-        - asset: asset/font/Manrope-Regular.ttf
+        - asset: asset/font/lato/Lato-Regular.ttf
           weight: 400
-        - asset: asset/font/Manrope-Medium.ttf
-          weight: 500
-        - asset: asset/font/Manrope-SemiBold.ttf
-          weight: 600
-        - asset: asset/font/Manrope-Bold.ttf
+        - asset: asset/font/lato/Lato-Bold.ttf
           weight: 700
-        - asset: asset/font/Manrope-ExtraBold.ttf
-          weight: 800
+        - asset: asset/font/lato/Lato-Black.ttf
+          weight: 900
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

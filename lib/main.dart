@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'HowMuch app',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Manrope'),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Lato'),
       initialRoute: loginRoute, //homeRoute,
       onGenerateRoute: CustomRouter.generateRoute,
       //),
