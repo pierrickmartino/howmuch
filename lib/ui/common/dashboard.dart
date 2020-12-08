@@ -9,6 +9,7 @@ import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
 import '../dashboard/top_category_list.dart';
+import '../dashboard/frequency_transaction.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 class Dashboard extends StatefulWidget {
@@ -116,8 +117,7 @@ class _DashboardState extends State<Dashboard> {
                             size: context.fluid(4, s: 12, xs: 12),
                             heightSize: context.fluid(2, s: 12, xs: 12),
                             child: CustomCard(
-                              child:
-                                  Center(child: Text('Number of transactions')),
+                              child: FrequencyTransaction(),
                             )),
 
 // Ligne du bas
