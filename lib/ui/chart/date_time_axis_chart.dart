@@ -13,9 +13,7 @@ class DateTimeAxisChart extends StatelessWidget {
     return SfCartesianChart(
       plotAreaBorderWidth: 0,
       title: ChartTitle(
-          text: context.breakpoint.isLargerThanM
-              ? 'Land area of various cities (sq.km)'
-              : ''),
+          text: context.breakpoint.isLargerThanM ? 'Expenses and incomes' : ''),
       primaryXAxis: CategoryAxis(
         labelStyle: const TextStyle(color: Colors.black),
         axisLine: AxisLine(width: 0),
