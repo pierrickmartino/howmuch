@@ -2,6 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 import '../chart/date_time_axis_chart.dart';
 import '../../constant/const.dart';
@@ -375,7 +376,63 @@ class MiddleLayoutWidget extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomCard(
-                        child: Text('LIME'),
+                        color: Color(menuBackgroundColor),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Weekly Balance',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(menuTextColor),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  IconButton(
+                                    visualDensity:
+                                        VisualDensity.adaptivePlatformDensity,
+                                    icon: Icon(LineAwesomeIcons.ellipsis_h),
+                                    color: Color(buttonColor),
+                                    onPressed: () => null,
+                                  )
+                                ],
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  '16040.35',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(creditColor),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: 30,
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: LiquidLinearProgressIndicator(
+                                  value: 0.75,
+                                  valueColor: AlwaysStoppedAnimation(
+                                      Color(menuSelectedIconColor)),
+                                  backgroundColor: Color(menuTextColor),
+                                  borderRadius: 12.0,
+                                  direction: Axis.horizontal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       )),
                     ]),
               ),
