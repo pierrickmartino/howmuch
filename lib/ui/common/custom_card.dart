@@ -18,7 +18,7 @@ class CustomCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(12)),
       shadowColor: Colors.grey,
-      elevation: 8,
+      elevation: 2,
     );
   }
 }

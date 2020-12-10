@@ -38,10 +38,10 @@ class LoginScreen extends StatelessWidget {
       printer: PrettyPrinter(methodCount: 0),
     );
 
-    final inputBorder = BorderRadius.vertical(
-      bottom: Radius.circular(10.0),
-      top: Radius.circular(20.0),
-    );
+    // final inputBorder = BorderRadius.vertical(
+    //   bottom: Radius.circular(10.0),
+    //   top: Radius.circular(20.0),
+    // );
 
     return FlutterLogin(
       title: Constants.appName,

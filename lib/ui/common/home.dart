@@ -104,23 +104,9 @@ class _HomeState extends State<Home> {
 
   Widget _body(Size size, BuildContext context) {
     return Container(
-      //decoration: myBoxDecoration(),
       height: double.infinity,
       width: double.infinity,
       child: _showContent(_selectedIndex),
     );
   }
 }
-
-// myBoxDecoration() {
-//   return BoxDecoration(
-//     color: Color(backgroundColor), //Colors.blueGrey[50],
-//     border: Border(
-//       left: BorderSide(
-//         //                   <--- left side
-//         color: Color(menuSeparatorColor),
-//         width: 2.0,
-//       ),
-//     ),
-//   );
-// }

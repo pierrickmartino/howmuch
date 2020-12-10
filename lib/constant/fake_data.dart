@@ -13,5 +13,5 @@ class FakeData {
 }
 
 const mockUsers = const {
-  'toto@gmail.com': '501251',
+  'toto@gmail.com': 'pick',
 };
