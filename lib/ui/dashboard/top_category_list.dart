@@ -1,8 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:howmuch/constant/const.dart';
 import 'package:howmuch/src/model/transaction.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class TopCategoryList extends StatelessWidget {
   @override
@@ -22,36 +20,10 @@ class TopCategoryList extends StatelessWidget {
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            IconButton(
-              icon: Icon(LineAwesomeIcons.bars),
-              color: Color(buttonColor),
-              iconSize: 20,
-              onPressed: () => null,
-            ),
-            Spacer(),
-            Text(
-              'Top 5 categories',
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            CategoryList(list: fakeTransactionList),
-          ],
-        )
+        CategoryList(list: fakeTransactionList),
       ],
     );
   }
