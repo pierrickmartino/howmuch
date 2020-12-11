@@ -6,6 +6,8 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:intl/intl.dart';
 
 final _dateFormat = DateFormat.yMMMd();
+final _numberFormat =
+    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
 
 class TopTransactionList extends StatelessWidget {
   @override
@@ -64,7 +66,7 @@ class TransactionItem extends StatelessWidget {
     String transactionDescription, transactionAmount, transactionDate;
 
     transactionDescription = transaction.description;
-    transactionAmount = transaction.amount.toString();
+    transactionAmount = _numberFormat.format(transaction.amount);
     transactionDate = _dateFormat.format(transaction.date);
 
     return ListTile(

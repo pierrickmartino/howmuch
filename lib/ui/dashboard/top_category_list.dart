@@ -1,6 +1,10 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:howmuch/src/model/transaction.dart';
+import 'package:intl/intl.dart';
+
+final _numberFormat =
+    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
 
 class TopCategoryList extends StatelessWidget {
   @override
@@ -58,7 +62,7 @@ class CategoryItem extends StatelessWidget {
     String transactionDescription, transactionAmount;
 
     transactionDescription = transaction.description;
-    transactionAmount = transaction.amount.toString();
+    transactionAmount = _numberFormat.format(transaction.amount);
 
     return ListTile(
       minVerticalPadding: 2,
@@ -66,34 +70,5 @@ class CategoryItem extends StatelessWidget {
       title: Text(transactionDescription, style: TextStyle(fontSize: 14)),
       trailing: Text(transactionAmount),
     );
-
-    // return Card(
-    //   color: Color(cardBackgroundColor),
-    //   elevation: 4,
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(8.0),
-    //     child: Row(
-    //       mainAxisSize: MainAxisSize.max,
-    //       children: <Widget>[
-    //         Expanded(
-    //             child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             Padding(
-    //               padding: EdgeInsets.symmetric(horizontal: 3.0),
-    //               child: Text(
-    //                 transactionDescription,
-    //                 style: TextStyle(color: Color(cardTextColor)),
-    //               ),
-    //             ),
-
-    //             /*, creationDate, lastUpdateDate*/
-    //           ],
-    //         )),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
