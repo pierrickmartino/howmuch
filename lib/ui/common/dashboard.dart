@@ -218,12 +218,10 @@ class LeftLayoutWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            width: containerWidth,
-            child: TopLayoutWidget(),
-          ),
+        Container(
+          height: 100.0,
+          width: containerWidth,
+          child: TopLayoutWidget(),
         ),
         Expanded(
           flex: 3,
@@ -257,7 +255,7 @@ class HeaderLayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
-        ((MediaQuery.of(context).size.height - 20) * 3 / 12);
+        ((MediaQuery.of(context).size.height - 20 - 100) * 3 / 11);
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +307,7 @@ class MiddleLayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
-        ((MediaQuery.of(context).size.height - 20) * 3 / 12);
+        ((MediaQuery.of(context).size.height - 20 - 100) * 3 / 11);
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -452,7 +450,7 @@ class BottomLayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
-        ((MediaQuery.of(context).size.height - 20) * 5 / 12);
+        ((MediaQuery.of(context).size.height - 20 - 100) * 5 / 11);
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -553,27 +551,14 @@ class _TopLayoutWidgetState extends State<TopLayoutWidget> {
       printer: PrettyPrinter(methodCount: 0),
     );
 
-    double containerHeight = (MediaQuery.of(context).size.height - 20) -
-        ((MediaQuery.of(context).size.height - 20) * 1 / 12);
+    double containerHeight = 100;
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 5,
-            child: Container(
-              height: containerHeight,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomCard(
-                  child: Text('Search'),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
+            flex: 1,
             child: Container(
               height: containerHeight,
               child: Padding(
