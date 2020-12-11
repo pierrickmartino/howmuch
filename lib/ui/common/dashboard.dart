@@ -1,16 +1,19 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluid_layout/fluid_layout.dart';
+import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
-import '../chart/date_time_axis_chart.dart';
 import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
 import '../dashboard/top_category_list.dart';
-import '../dashboard/frequency_transaction.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
+
+final _numberFormat =
+    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
+
+final Faker faker = Faker();
 
 class Dashboard extends StatefulWidget {
   @override
@@ -18,7 +21,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  static Faker faker = Faker();
   List<Transaction> fakeTransactionList = List.generate(
       5,
       (index) => Transaction(
@@ -409,11 +411,12 @@ class MiddleLayoutWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
-                                  '16040.35',
+                                  _numberFormat.format(
+                                      faker.randomGenerator.integer(1000000)),
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(creditColor),
+                                    color: Color(menuSelectedTextColor),
                                   ),
                                 ),
                               ),
@@ -574,16 +577,16 @@ class TopLayoutWidget extends StatelessWidget {
                   spacing: 10.0,
                   children: [
                     ChoiceChip(
-                      label: Text("Last week"),
+                      label: Text("This week"),
                       selected: true,
                       //padding: EdgeInsets.symmetric(horizontal: 10),
                     ),
                     ChoiceChip(
-                      label: Text("Last month"),
+                      label: Text("This month"),
                       selected: false,
                     ),
                     ChoiceChip(
-                      label: Text("Last year"),
+                      label: Text("This year"),
                       selected: false,
                       //padding: EdgeInsets.symmetric(horizontal: 10),
                     ),
