@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:logger/logger.dart';
 
 import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
@@ -531,8 +532,13 @@ class BottomLayoutWidget extends StatelessWidget {
   }
 }
 
-class TopLayoutWidget extends StatelessWidget {
-  TopLayoutWidget();
+class TopLayoutWidget extends StatefulWidget {
+  @override
+  _TopLayoutWidgetState createState() => _TopLayoutWidgetState();
+}
+
+class _TopLayoutWidgetState extends State<TopLayoutWidget> {
+  int _periodValue = 1;
 
   Future<bool> _goToLogin(BuildContext context) {
     return Navigator.of(context)
@@ -543,6 +549,10 @@ class TopLayoutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var logger = Logger(
+      printer: PrettyPrinter(methodCount: 0),
+    );
+
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
         ((MediaQuery.of(context).size.height - 20) * 1 / 12);
 
@@ -566,9 +576,6 @@ class TopLayoutWidget extends StatelessWidget {
             flex: 3,
             child: Container(
               height: containerHeight,
-              // decoration: BoxDecoration(
-              //   color: Colors.amber,
-              // ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Wrap(
@@ -577,19 +584,35 @@ class TopLayoutWidget extends StatelessWidget {
                   spacing: 10.0,
                   children: [
                     ChoiceChip(
-                      label: Text("This week"),
-                      selected: true,
-                      //padding: EdgeInsets.symmetric(horizontal: 10),
-                    ),
+                        label: Text("This week"),
+                        selected: _periodValue == 1,
+                        onSelected: (bool value) {
+                          setState(() {
+                            _periodValue = value ? 1 : null;
+                            logger.d('Period filter update');
+                            print('Period: ' + _periodValue.toString());
+                          });
+                        }),
                     ChoiceChip(
-                      label: Text("This month"),
-                      selected: false,
-                    ),
+                        label: Text("This month"),
+                        selected: _periodValue == 2,
+                        onSelected: (bool value) {
+                          setState(() {
+                            _periodValue = value ? 2 : null;
+                            logger.d('Period filter update');
+                            print('Period: ' + _periodValue.toString());
+                          });
+                        }),
                     ChoiceChip(
-                      label: Text("This year"),
-                      selected: false,
-                      //padding: EdgeInsets.symmetric(horizontal: 10),
-                    ),
+                        label: Text("This year"),
+                        selected: _periodValue == 3,
+                        onSelected: (bool value) {
+                          setState(() {
+                            _periodValue = value ? 3 : null;
+                            logger.d('Period filter update');
+                            print('Period: ' + _periodValue.toString());
+                          });
+                        }),
                     IconButton(
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                       icon: Icon(LineAwesomeIcons.bell),
