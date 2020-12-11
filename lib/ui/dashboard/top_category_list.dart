@@ -1,7 +1,9 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:howmuch/constant/const.dart';
 import 'package:howmuch/src/model/transaction.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
@@ -65,9 +67,15 @@ class CategoryItem extends StatelessWidget {
     transactionAmount = _numberFormat.format(transaction.amount);
 
     return ListTile(
-      minVerticalPadding: 2,
+      leading: Icon(
+        LineAwesomeIcons.gift,
+        color: Color(buttonColor),
+        size: 20,
+      ),
+      minVerticalPadding: 0,
       dense: true,
-      title: Text(transactionDescription, style: TextStyle(fontSize: 14)),
+      title: Text(transactionDescription,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
       trailing: Text(transactionAmount),
     );
   }
