@@ -248,7 +248,7 @@ class CategoryItem extends StatelessWidget {
           position: BadgePosition.topEnd(top: 10, end: 10),
           child: Card(
             color: Color(cardBackgroundColor),
-            elevation: 4,
+            elevation: 2,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
