@@ -12,8 +12,7 @@ class DateTimeAxisChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfCartesianChart(
       plotAreaBorderWidth: 0,
-      title: ChartTitle(
-          text: context.breakpoint.isLargerThanM ? 'Expenses and incomes' : ''),
+      //title: ChartTitle(text: context.breakpoint.isLargerThanM ? '' : ''),
       primaryXAxis: CategoryAxis(
         labelStyle: const TextStyle(color: Colors.black),
         axisLine: AxisLine(width: 0),
