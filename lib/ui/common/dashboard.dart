@@ -9,7 +9,8 @@ import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
 import '../dashboard/top_category_list.dart';
-import '../../ui/chart/default_line_chart.dart';
+import '../chart/balance_analysis_per_month.dart';
+import '../chart/balance_analysis_per_year.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 final _numberFormat =
@@ -488,7 +489,7 @@ class BottomLayoutWidget extends StatelessWidget {
                           child: CustomCard(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: LineDefault(),
+                          child: BalanceAnalysisPerMonth(),
                         ),
                       )),
                     ]),
@@ -524,7 +525,10 @@ class BottomLayoutWidget extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomCard(
-                        child: Text('RED'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: BalanceAnalysisPerYear(),
+                        ),
                       )),
                     ]),
               ),
