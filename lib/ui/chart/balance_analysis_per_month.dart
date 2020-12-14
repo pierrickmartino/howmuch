@@ -6,7 +6,7 @@ import 'package:faker/faker.dart';
 
 Faker faker = Faker();
 
-class LineDefault extends StatelessWidget {
+class BalanceAnalysisPerMonth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
