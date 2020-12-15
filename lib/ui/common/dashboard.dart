@@ -4,8 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
+import '../../src/model/dashboard_filter.dart';
 import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
 import '../dashboard/top_category_list.dart';
@@ -15,7 +17,8 @@ import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
-final _percentFormat = NumberFormat.percentPattern('de_CH');
+final _percentFormat =
+    NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 2);
 
 final Faker faker = Faker();
 
@@ -262,9 +265,25 @@ class SummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String subtitle, variationTitle;
+    String subtitle, variationTitle, periodLabel;
     IconData icon, iconVariation;
     Color colorVariation;
+
+    // period selected in the top widget of the dashboard
+    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    switch (_periodValue) {
+      case 1:
+        periodLabel = 'Week';
+        break;
+      case 2:
+        periodLabel = 'Month';
+        break;
+      case 3:
+        periodLabel = 'Year';
+        break;
+      default:
+        periodLabel = 'N/A';
+    }
 
     colorVariation =
         this.variation < 0 ? Color(debitColor) : Color(creditColor);
@@ -273,17 +292,17 @@ class SummaryWidget extends StatelessWidget {
         : LineAwesomeIcons.chevron_circle_up;
 
     if (this.widgetType == 'INCOME') {
-      subtitle = 'Income In this Month';
+      subtitle = 'Income In this ' + periodLabel;
       variationTitle = 'Balance Up by';
       icon = LineAwesomeIcons.battery_full;
     }
     if (this.widgetType == 'OUTCOME') {
-      subtitle = 'Outcome In this Month';
+      subtitle = 'Outcome In this ' + periodLabel;
       variationTitle = 'Balance Down by';
       icon = LineAwesomeIcons.battery_quarter;
     }
     if (this.widgetType == 'SAVINGS') {
-      subtitle = 'Saved In this Month';
+      subtitle = 'Saved In this ' + periodLabel;
       variationTitle = 'Saved Up by';
       icon = LineAwesomeIcons.leaf;
     }
@@ -448,6 +467,24 @@ class MiddleLayoutWidget extends StatelessWidget {
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
         ((MediaQuery.of(context).size.height - 20 - 100) * 3 / 11);
 
+    String periodLabel;
+
+    // period selected in the top widget of the dashboard
+    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    switch (_periodValue) {
+      case 1:
+        periodLabel = 'Weekly';
+        break;
+      case 2:
+        periodLabel = 'Monthly';
+        break;
+      case 3:
+        periodLabel = 'Yearly';
+        break;
+      default:
+        periodLabel = 'N/A';
+    }
+
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -528,7 +565,7 @@ class MiddleLayoutWidget extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Weekly Balance',
+                                    periodLabel + ' Balance',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -675,13 +712,11 @@ class BottomLayoutWidget extends StatelessWidget {
   }
 }
 
-class TopLayoutWidget extends StatefulWidget {
-  @override
-  _TopLayoutWidgetState createState() => _TopLayoutWidgetState();
-}
-
-class _TopLayoutWidgetState extends State<TopLayoutWidget> {
-  int _periodValue = 1;
+class TopLayoutWidget extends StatelessWidget {
+  void setPeriodFilter(BuildContext context, int _period) {
+    Provider.of<DashboardFilter>(context, listen: false)
+        .setPeriodFilter(_period);
+  }
 
   Future<bool> _goToLogin(BuildContext context) {
     return Navigator.of(context)
@@ -696,6 +731,7 @@ class _TopLayoutWidgetState extends State<TopLayoutWidget> {
       printer: PrettyPrinter(methodCount: 0),
     );
 
+    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
     double containerHeight = 100;
 
     return Row(
@@ -717,31 +753,37 @@ class _TopLayoutWidgetState extends State<TopLayoutWidget> {
                         label: Text("This week"),
                         selected: _periodValue == 1,
                         onSelected: (bool value) {
-                          setState(() {
-                            _periodValue = value ? 1 : null;
-                            logger.d('Period filter update');
-                            print('Period: ' + _periodValue.toString());
-                          });
+                          //setState(() {
+                          _periodValue = value ? 1 : null;
+                          Provider.of<DashboardFilter>(context, listen: false)
+                              .setPeriodFilter(_periodValue);
+                          logger.d('Period filter update');
+                          print('Period: ' + _periodValue.toString());
+                          //});
                         }),
                     ChoiceChip(
                         label: Text("This month"),
                         selected: _periodValue == 2,
                         onSelected: (bool value) {
-                          setState(() {
-                            _periodValue = value ? 2 : null;
-                            logger.d('Period filter update');
-                            print('Period: ' + _periodValue.toString());
-                          });
+                          //setState(() {
+                          _periodValue = value ? 2 : null;
+                          Provider.of<DashboardFilter>(context, listen: false)
+                              .setPeriodFilter(_periodValue);
+                          logger.d('Period filter update');
+                          print('Period: ' + _periodValue.toString());
+                          // });
                         }),
                     ChoiceChip(
                         label: Text("This year"),
                         selected: _periodValue == 3,
                         onSelected: (bool value) {
-                          setState(() {
-                            _periodValue = value ? 3 : null;
-                            logger.d('Period filter update');
-                            print('Period: ' + _periodValue.toString());
-                          });
+                          //setState(() {
+                          _periodValue = value ? 3 : null;
+                          Provider.of<DashboardFilter>(context, listen: false)
+                              .setPeriodFilter(_periodValue);
+                          logger.d('Period filter update');
+                          print('Period: ' + _periodValue.toString());
+                          // });
                         }),
                     IconButton(
                       visualDensity: VisualDensity.adaptivePlatformDensity,
