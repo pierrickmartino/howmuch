@@ -586,8 +586,9 @@ class MiddleLayoutWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
-                                  _numberFormat.format(faker.randomGenerator
-                                      .integer(1000000, min: -100000)),
+                                  'CHF  ' +
+                                      _numberFormat.format(faker.randomGenerator
+                                          .integer(1000000, min: -100000)),
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
