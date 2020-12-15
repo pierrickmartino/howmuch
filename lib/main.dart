@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import 'config/route/router.dart';
 import 'constant/const.dart';
+import 'src/model/dashboard_filter.dart';
 
 // UNUSED IN FAKE DATA MODE
 // import 'package:graphql_flutter/graphql_flutter.dart';
@@ -35,14 +37,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     //return GraphQLProvider(
     //child:
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'HowMuch app',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Lato'),
-      initialRoute: loginRoute, //homeRoute,
-      onGenerateRoute: CustomRouter.generateRoute,
-      //),
-      //client: graphQLConfiguration.client,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: DashboardFilter(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'HowMuch app',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: 'Lato',
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+
+        initialRoute: loginRoute, //homeRoute,
+        onGenerateRoute: CustomRouter.generateRoute,
+        //),
+        //client: graphQLConfiguration.client,
+      ),
     );
   }
 }
