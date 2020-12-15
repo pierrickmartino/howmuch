@@ -14,7 +14,8 @@ import '../chart/balance_analysis_per_year.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
 final _numberFormat =
-    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+final _percentFormat = NumberFormat.percentPattern('de_CH');
 
 final Faker faker = Faker();
 
@@ -31,7 +32,7 @@ class _DashboardState extends State<Dashboard> {
             objectId: faker.guid.guid(),
             description: faker.company.name(),
             color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-            amount: faker.randomGenerator.integer(10000),
+            amount: faker.randomGenerator.integer(10000, min: -10000),
             date: null, //faker.date.dateTime(),
           ),
       growable: false);
@@ -226,7 +227,7 @@ class LeftLayoutWidget extends StatelessWidget {
           child: TopLayoutWidget(),
         ),
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Container(
             width: containerWidth,
             child: HeaderLayoutWidget(),
@@ -240,13 +241,122 @@ class LeftLayoutWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 5,
+          flex: 6,
           child: Container(
             width: containerWidth,
             child: BottomLayoutWidget(),
           ),
         )
       ],
+    );
+  }
+}
+
+class SummaryWidget extends StatelessWidget {
+  final String widgetType;
+  final double amount, variation;
+  SummaryWidget(
+      {@required this.widgetType,
+      @required this.amount,
+      @required this.variation});
+
+  @override
+  Widget build(BuildContext context) {
+    String subtitle, variationTitle;
+    IconData icon, iconVariation;
+    Color colorVariation;
+
+    colorVariation =
+        this.variation < 0 ? Color(debitColor) : Color(creditColor);
+    iconVariation = this.variation < 0
+        ? LineAwesomeIcons.chevron_circle_down
+        : LineAwesomeIcons.chevron_circle_up;
+
+    if (this.widgetType == 'INCOME') {
+      subtitle = 'Income In this Month';
+      variationTitle = 'Balance Up by';
+      icon = LineAwesomeIcons.battery_full;
+    }
+    if (this.widgetType == 'OUTCOME') {
+      subtitle = 'Outcome In this Month';
+      variationTitle = 'Balance Down by';
+      icon = LineAwesomeIcons.battery_quarter;
+    }
+    if (this.widgetType == 'SAVINGS') {
+      subtitle = 'Saved In this Month';
+      variationTitle = 'Saved Up by';
+      icon = LineAwesomeIcons.leaf;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 6.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Icon(icon, size: 36),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'CHF  ' + _numberFormat.format(this.amount),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(buttonColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(variationTitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(buttonColor),
+                  )),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(right: 6.0),
+                child: Icon(
+                  iconVariation,
+                  size: 22,
+                  color: colorVariation,
+                ),
+              ),
+              Text(
+                _percentFormat.format(this.variation),
+                style: TextStyle(
+                  color: colorVariation,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -270,7 +380,16 @@ class HeaderLayoutWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CustomCard(
-                  child: Text('BLUE'),
+                  child: SummaryWidget(
+                    widgetType: 'INCOME',
+                    amount: faker.randomGenerator
+                        .integer(10000, min: -10000)
+                        .ceilToDouble(),
+                    variation: faker.randomGenerator
+                            .integer(20, min: -20)
+                            .ceilToDouble() /
+                        100.0,
+                  ),
                 ),
               ),
             ),
@@ -282,7 +401,16 @@ class HeaderLayoutWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CustomCard(
-                  child: Text('BROWN'),
+                  child: SummaryWidget(
+                    widgetType: 'OUTCOME',
+                    amount: faker.randomGenerator
+                        .integer(10000, min: -10000)
+                        .ceilToDouble(),
+                    variation: faker.randomGenerator
+                            .integer(20, min: -20)
+                            .ceilToDouble() /
+                        100.0,
+                  ),
                 ),
               ),
             ),
@@ -294,7 +422,16 @@ class HeaderLayoutWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CustomCard(
-                  child: Text('PINK'),
+                  child: SummaryWidget(
+                    widgetType: 'SAVINGS',
+                    amount: faker.randomGenerator
+                        .integer(10000, min: -10000)
+                        .ceilToDouble(),
+                    variation: faker.randomGenerator
+                            .integer(20, min: -20)
+                            .ceilToDouble() /
+                        100.0,
+                  ),
                 ),
               ),
             ),
@@ -412,8 +549,8 @@ class MiddleLayoutWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
-                                  _numberFormat.format(
-                                      faker.randomGenerator.integer(1000000)),
+                                  _numberFormat.format(faker.randomGenerator
+                                      .integer(1000000, min: -100000)),
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
