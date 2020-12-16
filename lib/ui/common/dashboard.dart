@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -7,8 +6,8 @@ import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
+import '../../constant/fake_data.dart';
 import '../../src/model/dashboard_filter.dart';
-import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
 import '../dashboard/top_category_list.dart';
 import '../chart/balance_analysis_per_month.dart';
@@ -20,26 +19,12 @@ final _numberFormat =
 final _percentFormat =
     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 2);
 
-final Faker faker = Faker();
-
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  List<Transaction> fakeTransactionList = List.generate(
-      5,
-      (index) => Transaction(
-            id: faker.guid.guid(),
-            objectId: faker.guid.guid(),
-            description: faker.company.name(),
-            color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-            amount: faker.randomGenerator.integer(10000, min: -10000),
-            date: null, //faker.date.dateTime(),
-          ),
-      growable: false);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -401,13 +386,8 @@ class HeaderLayoutWidget extends StatelessWidget {
                 child: CustomCard(
                   child: SummaryWidget(
                     widgetType: 'INCOME',
-                    amount: faker.randomGenerator
-                        .integer(10000, min: -10000)
-                        .ceilToDouble(),
-                    variation: faker.randomGenerator
-                            .integer(20, min: -20)
-                            .ceilToDouble() /
-                        100.0,
+                    amount: FakeData.fakeIncome,
+                    variation: FakeData.fakeIncomeVariation / 100.0,
                   ),
                 ),
               ),
@@ -422,13 +402,8 @@ class HeaderLayoutWidget extends StatelessWidget {
                 child: CustomCard(
                   child: SummaryWidget(
                     widgetType: 'OUTCOME',
-                    amount: faker.randomGenerator
-                        .integer(10000, min: -10000)
-                        .ceilToDouble(),
-                    variation: faker.randomGenerator
-                            .integer(20, min: -20)
-                            .ceilToDouble() /
-                        100.0,
+                    amount: FakeData.fakeOutcome,
+                    variation: FakeData.fakeOutcomeVariation / 100.0,
                   ),
                 ),
               ),
@@ -443,13 +418,8 @@ class HeaderLayoutWidget extends StatelessWidget {
                 child: CustomCard(
                   child: SummaryWidget(
                     widgetType: 'SAVINGS',
-                    amount: faker.randomGenerator
-                        .integer(10000, min: -10000)
-                        .ceilToDouble(),
-                    variation: faker.randomGenerator
-                            .integer(20, min: -20)
-                            .ceilToDouble() /
-                        100.0,
+                    amount: FakeData.fakeSavings,
+                    variation: FakeData.fakeSavingsVariation / 100.0,
                   ),
                 ),
               ),
@@ -587,8 +557,8 @@ class MiddleLayoutWidget extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   'CHF  ' +
-                                      _numberFormat.format(faker.randomGenerator
-                                          .integer(1000000, min: -100000)),
+                                      _numberFormat
+                                          .format(FakeData.fakeBalance),
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
