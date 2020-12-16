@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 final _numberFormat =
-    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
 class TopCategoryList extends StatelessWidget {
   @override
@@ -19,7 +19,7 @@ class TopCategoryList extends StatelessWidget {
               objectId: faker.guid.guid(),
               description: faker.sport.name(),
               color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-              amount: faker.randomGenerator.integer(10000),
+              amount: faker.randomGenerator.integer(10000, min: -10000),
               date: null, //faker.date.dateTime(),
             ),
         growable: false);
@@ -62,9 +62,12 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext transactionItemContext) {
     String transactionDescription, transactionAmount;
+    Color colorAmount;
 
     transactionDescription = transaction.description;
     transactionAmount = _numberFormat.format(transaction.amount);
+    colorAmount =
+        transaction.amount < 0 ? Color(debitColor) : Color(creditColor);
 
     return ListTile(
       leading: Icon(
@@ -76,7 +79,10 @@ class CategoryItem extends StatelessWidget {
       dense: true,
       title: Text(transactionDescription,
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-      trailing: Text(transactionAmount),
+      trailing: Text(
+        'CHF  ' + transactionAmount,
+        style: TextStyle(fontWeight: FontWeight.bold, color: colorAmount),
+      ),
     );
   }
 }
