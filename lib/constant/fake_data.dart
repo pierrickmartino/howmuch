@@ -4,6 +4,19 @@ import 'package:howmuch/src/model/transaction.dart';
 class FakeData {
   static Faker faker = Faker();
 
+  // Account List : 3
+  static List<Transaction> fakeAccountList = List.generate(
+      3,
+      (index) => Transaction(
+            id: faker.guid.guid(),
+            objectId: faker.guid.guid(),
+            description: faker.sport.name(),
+            color: faker.randomGenerator.integer(4300000000, min: 4200000000),
+            amount: faker.randomGenerator.integer(10000, min: -10000),
+            date: null, //faker.date.dateTime(),
+          ),
+      growable: false);
+
   // Category List : 5
   static List<Transaction> fakeCategoryList = List.generate(
       5,
