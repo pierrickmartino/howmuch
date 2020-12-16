@@ -1,9 +1,10 @@
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:howmuch/constant/const.dart';
-import 'package:howmuch/src/model/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+
+import '../../constant/fake_data.dart';
+import '../../constant/const.dart';
+import '../../src/model/transaction.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
@@ -11,25 +12,12 @@ final _numberFormat =
 class TopCategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Faker faker = Faker();
-    List<Transaction> fakeTransactionList = List.generate(
-        5,
-        (index) => Transaction(
-              id: faker.guid.guid(),
-              objectId: faker.guid.guid(),
-              description: faker.sport.name(),
-              color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-              amount: faker.randomGenerator.integer(10000, min: -10000),
-              date: null, //faker.date.dateTime(),
-            ),
-        growable: false);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        CategoryList(list: fakeTransactionList),
+        CategoryList(list: FakeData.fakeCategoryList),
       ],
     );
   }
