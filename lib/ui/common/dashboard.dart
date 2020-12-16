@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:howmuch/ui/dashboard/account_list.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
@@ -65,6 +66,7 @@ class MainLayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerHeight = MediaQuery.of(context).size.height - 20;
+    double containerWidth = MediaQuery.of(context).size.width;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +89,7 @@ class MainLayoutWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomCard(
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -99,23 +101,37 @@ class MainLayoutWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.all(10.0),
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 6.0),
-                                child: Text(
-                                  'Title',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20.0),
+                                  child: Text(
+                                    'Accounts',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                Spacer(),
+                                IconButton(
+                                  visualDensity:
+                                      VisualDensity.adaptivePlatformDensity,
+                                  icon: Icon(LineAwesomeIcons.ellipsis_h),
+                                  color: Color(buttonColor),
+                                  onPressed: () => null,
+                                )
+                              ],
+                            ),
+                            AccountList(containerWidth: containerWidth),
+                          ],
                         ),
                       ),
                       Padding(
