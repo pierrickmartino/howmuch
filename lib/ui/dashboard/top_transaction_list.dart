@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 final _dateFormat = DateFormat.yMMMd();
 final _numberFormat =
-    NumberFormat.currency(locale: 'de_CH', symbol: 'CHF', decimalDigits: 2);
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
 class TopTransactionList extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class TopTransactionList extends StatelessWidget {
               objectId: faker.guid.guid(),
               description: faker.company.name(),
               color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-              amount: faker.randomGenerator.integer(10000),
+              amount: faker.randomGenerator.integer(10000, min: -10000),
               date: faker.date.dateTime(
                   minYear: 2020, maxYear: 2021), //faker.date.dateTime(),
             ),
@@ -64,10 +64,14 @@ class TransactionItem extends StatelessWidget {
   @override
   Widget build(BuildContext transactionItemContext) {
     String transactionDescription, transactionAmount, transactionDate;
+    Color colorAmount;
 
     transactionDescription = transaction.description;
     transactionAmount = _numberFormat.format(transaction.amount);
     transactionDate = _dateFormat.format(transaction.date);
+
+    colorAmount =
+        transaction.amount < 0 ? Color(debitColor) : Color(creditColor);
 
     return ListTile(
       leading: Icon(
@@ -82,7 +86,10 @@ class TransactionItem extends StatelessWidget {
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
       subtitle: Text(transactionDate,
           style: TextStyle(fontSize: 12, color: Color(buttonColor))),
-      trailing: Text(transactionAmount),
+      trailing: Text(
+        'CHF  ' + transactionAmount,
+        style: TextStyle(fontWeight: FontWeight.bold, color: colorAmount),
+      ),
     );
   }
 }
