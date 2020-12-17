@@ -17,14 +17,6 @@ class AccountList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Column(
-    //   mainAxisAlignment: MainAxisAlignment.start,
-    //   crossAxisAlignment: CrossAxisAlignment.center,
-    //   mainAxisSize: MainAxisSize.max,
-    //   children: [
-    //     AccountListView(list: FakeData.fakeAccountList),
-    //   ],
-    // );
     return AccountListView(
         list: FakeData.fakeAccountList, containerWidth: containerWidth);
   }
@@ -83,12 +75,21 @@ class AccountItem extends StatelessWidget {
             child: CustomCard(
                 color: Color(menuBackgroundColor),
                 child: Padding(
-                  padding: EdgeInsets.all(2),
-                  child: Text('Toto',
-                      style: TextStyle(
-                        color: Color(menuTextColor),
-                      )),
-                )),
+                    padding: EdgeInsets.all(2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Toto',
+                            style: TextStyle(
+                              color: Color(menuTextColor),
+                            )),
+                        Icon(
+                          LineAwesomeIcons.google_wallet,
+                          color: Color(menuTextColor),
+                        )
+                      ],
+                    ))),
           ),
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
@@ -100,7 +101,7 @@ class AccountItem extends StatelessWidget {
                 'CHF  ' + transactionAmount,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 24,
                 ),
               ),
             ),
