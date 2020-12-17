@@ -7,7 +7,6 @@ import '../chart/date_time_axis_chart.dart';
 import '../../constant/const.dart';
 import '../../src/model/transaction.dart';
 import '../dashboard/top_transaction_list.dart';
-import '../dashboard/top_category_list.dart';
 import '../dashboard/frequency_transaction.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
 
@@ -161,7 +160,7 @@ class _FiltersState extends State<Filters> {
                                     height: 10,
                                   ),
                                   CustomCard(
-                                    child: TopCategoryList(),
+                                    child: Text(''),
                                   )
                                 ])),
 // Right panel
