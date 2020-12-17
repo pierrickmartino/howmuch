@@ -99,7 +99,6 @@ class AccountItem extends StatelessWidget {
                 'CHF  ' + transactionAmount,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: colorAmount,
                   fontSize: 24,
                 ),
               ),
