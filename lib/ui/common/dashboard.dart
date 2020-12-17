@@ -10,7 +10,6 @@ import '../../constant/const.dart';
 import '../../constant/fake_data.dart';
 import '../../src/model/dashboard_filter.dart';
 import '../dashboard/top_transaction_list.dart';
-import '../dashboard/top_category_list.dart';
 import '../chart/balance_analysis_per_month.dart';
 import '../chart/balance_analysis_per_year.dart';
 import 'custom_card.dart'; // https://pub.dev/packages/fluid_layout
@@ -198,7 +197,51 @@ class MainLayoutWidget extends StatelessWidget {
                                 )
                               ],
                             ),
-                            TopCategoryList(),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    ListTile(
+                                      minVerticalPadding: 0,
+                                      dense: true,
+                                      title: Text('Number of transactions',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      trailing: Text(
+                                        '0',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      minVerticalPadding: 0,
+                                      dense: true,
+                                      title: Text(
+                                          'Number of transactions without category',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      trailing: Text(
+                                        '0',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -492,7 +535,7 @@ class MiddleLayoutWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 6.0),
                             child: Text(
-                              'Title',
+                              'Category Analytic',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),

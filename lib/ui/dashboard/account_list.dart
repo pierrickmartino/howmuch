@@ -52,12 +52,9 @@ class AccountItem extends StatelessWidget {
   @override
   Widget build(BuildContext transactionItemContext) {
     String transactionDescription, transactionAmount;
-    Color colorAmount;
 
     transactionDescription = transaction.description;
     transactionAmount = _numberFormat.format(transaction.amount);
-    colorAmount =
-        transaction.amount < 0 ? Color(debitColor) : Color(creditColor);
 
     return Card(
       elevation: 0,
