@@ -80,8 +80,9 @@ class AccountItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Toto',
+                        Text('* * * TOTA',
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               color: Color(menuTextColor),
                             )),
                         Icon(
@@ -101,6 +102,7 @@ class AccountItem extends StatelessWidget {
                 'CHF  ' + transactionAmount,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  color: colorAmount,
                   fontSize: 24,
                 ),
               ),
