@@ -1,8 +1,9 @@
 /// Package import
 import 'package:flutter/material.dart';
-import 'package:howmuch/constant/const.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:faker/faker.dart';
+
+import '../../constant/const.dart';
 
 Faker faker = Faker();
 
