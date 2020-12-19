@@ -24,7 +24,7 @@ class LeftTopLayout extends StatelessWidget {
     var logger = Logger(printer: PrettyPrinter(methodCount: 0));
 
     var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
-    double containerHeight = 100;
+    double containerHeight = 80;
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,

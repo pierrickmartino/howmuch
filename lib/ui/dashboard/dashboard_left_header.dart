@@ -10,7 +10,7 @@ class LeftHeaderLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerHeight = (MediaQuery.of(context).size.height - 20) -
-        ((MediaQuery.of(context).size.height - 20 - 100) * 3 / 10);
+        ((MediaQuery.of(context).size.height - 20 - 80) * 3 / 10);
 
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,

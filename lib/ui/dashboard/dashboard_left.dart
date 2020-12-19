@@ -35,7 +35,7 @@ class LeftLayoutWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-              height: 100.0, width: containerWidth, child: LeftTopLayout()),
+              height: 80.0, width: containerWidth, child: LeftTopLayout()),
           Expanded(
               flex: 2,
               child:
