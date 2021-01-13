@@ -109,73 +109,72 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Edit category'),
-      actionsPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-      contentPadding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 24.0),
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
-        TextField(
-            controller: textController,
-            decoration: InputDecoration(
-                hintText: 'What needs to be done?',
-                helperText: 'Content of entry')),
-        SizedBox(height: 12),
-        Row(children: [
-          Text('Color'),
-          Spacer(),
-          CircleColor(color: _categoryColor, circleSize: 25),
-          IconButton(
-              icon: const Icon(LineAwesomeIcons.edit),
-              onPressed: _openCategoryColorPicker)
+        title: const Text('Edit category'),
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        contentPadding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 24.0),
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          TextField(
+              controller: textController,
+              decoration: InputDecoration(
+                  hintText: 'What needs to be done?',
+                  helperText: 'Content of entry')),
+          SizedBox(height: 12),
+          Row(children: [
+            Text('Color'),
+            Spacer(),
+            CircleColor(color: _categoryColor, circleSize: 25),
+            IconButton(
+                icon: const Icon(LineAwesomeIcons.edit),
+                onPressed: _openCategoryColorPicker)
+          ]),
+          Row(children: [
+            Text('Icon'),
+            Spacer(),
+            _categoryIcon,
+            IconButton(
+                icon: const Icon(LineAwesomeIcons.edit),
+                onPressed: _openCategoryIcon)
+          ]),
+          SizedBox(height: 12),
+          Row(children: [
+            Text('Perf.'),
+            Spacer(),
+            ToggleSwitch(
+                initialLabelIndex: performance,
+                cornerRadius: 12.0,
+                minWidth: 65,
+                labels: ['incl.', 'or not'],
+                onToggle: (index) {
+                  performance = index;
+                })
+          ])
         ]),
-        Row(children: [
-          Text('Icon'),
-          Spacer(),
-          _categoryIcon,
-          IconButton(
-              icon: const Icon(LineAwesomeIcons.edit),
-              onPressed: _openCategoryIcon)
-        ]),
-        SizedBox(height: 12),
-        Row(children: [
-          Text('Perf.'),
-          Spacer(),
-          ToggleSwitch(
-              initialLabelIndex: performance,
-              cornerRadius: 12.0,
-              minWidth: 65,
-              labels: ['incl.', 'or not'],
-              onToggle: (index) {
-                performance = index;
+        actions: [
+          FlatButton(
+              child: const Text('Cancel'),
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          FlatButton(
+              child: const Text('Save'),
+              onPressed: () {
+                final updatedContent = textController.text;
+
+                final entry = widget.entry.copyWith(
+                    description:
+                        updatedContent.isNotEmpty ? updatedContent : null,
+                    color: _categoryColor.value,
+                    icon: _categoryIcon.icon.codePoint,
+                    iconFamily: _categoryIcon.icon.fontFamily,
+                    iconPackage: _categoryIcon.icon.fontPackage,
+                    performance: performance);
+
+                textController.text = "";
+
+                BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);
+                Navigator.pop(context);
               })
-        ])
-      ]),
-      actions: [
-        FlatButton(
-            child: const Text('Cancel'),
-            textColor: Colors.black,
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-        FlatButton(
-          child: const Text('Save'),
-          onPressed: () {
-            final updatedContent = textController.text;
-
-            final entry = widget.entry.copyWith(
-                description: updatedContent.isNotEmpty ? updatedContent : null,
-                color: _categoryColor.value,
-                icon: _categoryIcon.icon.codePoint,
-                iconFamily: _categoryIcon.icon.fontFamily,
-                iconPackage: _categoryIcon.icon.fontPackage,
-                performance: performance);
-
-            textController.text = "";
-
-            BlocProvider.of<HowMuchAppBloc>(context).updateCategory(entry);
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
+        ]);
   }
 }
