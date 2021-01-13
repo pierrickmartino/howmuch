@@ -170,6 +170,7 @@ class CategoryItem extends StatelessWidget {
       actionPane: SlidableStrechActionPane(),
       actionExtentRatio: 0.25,
       movementDuration: const Duration(milliseconds: 100),
+      enabled: category.editable,
       child: Badge(
           position: BadgePosition.topEnd(top: 10, end: 10),
           child: Card(
