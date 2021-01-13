@@ -296,7 +296,6 @@ class $TransactionsTable extends Transactions
 class Category extends DataClass implements Insertable<Category> {
   final int id;
   final String description;
-  final String code;
   final int icon;
   final String iconFamily;
   final String iconPackage;
@@ -304,11 +303,11 @@ class Category extends DataClass implements Insertable<Category> {
   final int performance;
   final DateTime creationDate;
   final DateTime lastUpdateDate;
+  final bool editable;
   final bool active;
   Category(
       {@required this.id,
       @required this.description,
-      @required this.code,
       this.icon,
       this.iconFamily,
       this.iconPackage,
@@ -316,6 +315,7 @@ class Category extends DataClass implements Insertable<Category> {
       this.performance,
       this.creationDate,
       this.lastUpdateDate,
+      @required this.editable,
       @required this.active});
   factory Category.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -328,7 +328,6 @@ class Category extends DataClass implements Insertable<Category> {
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       description: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}description']),
-      code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
       icon: intType.mapFromDatabaseResponse(data['${effectivePrefix}icon']),
       iconFamily: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}icon_family']),
@@ -341,6 +340,8 @@ class Category extends DataClass implements Insertable<Category> {
           .mapFromDatabaseResponse(data['${effectivePrefix}creation_date']),
       lastUpdateDate: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}last_update_date']),
+      editable:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}editable']),
       active:
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}active']),
     );
@@ -353,9 +354,6 @@ class Category extends DataClass implements Insertable<Category> {
     }
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
-    }
-    if (!nullToAbsent || code != null) {
-      map['code'] = Variable<String>(code);
     }
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<int>(icon);
@@ -378,6 +376,9 @@ class Category extends DataClass implements Insertable<Category> {
     if (!nullToAbsent || lastUpdateDate != null) {
       map['last_update_date'] = Variable<DateTime>(lastUpdateDate);
     }
+    if (!nullToAbsent || editable != null) {
+      map['editable'] = Variable<bool>(editable);
+    }
     if (!nullToAbsent || active != null) {
       map['active'] = Variable<bool>(active);
     }
@@ -390,7 +391,6 @@ class Category extends DataClass implements Insertable<Category> {
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
-      code: code == null && nullToAbsent ? const Value.absent() : Value(code),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
       iconFamily: iconFamily == null && nullToAbsent
           ? const Value.absent()
@@ -409,6 +409,9 @@ class Category extends DataClass implements Insertable<Category> {
       lastUpdateDate: lastUpdateDate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdateDate),
+      editable: editable == null && nullToAbsent
+          ? const Value.absent()
+          : Value(editable),
       active:
           active == null && nullToAbsent ? const Value.absent() : Value(active),
     );
@@ -420,7 +423,6 @@ class Category extends DataClass implements Insertable<Category> {
     return Category(
       id: serializer.fromJson<int>(json['id']),
       description: serializer.fromJson<String>(json['description']),
-      code: serializer.fromJson<String>(json['code']),
       icon: serializer.fromJson<int>(json['icon']),
       iconFamily: serializer.fromJson<String>(json['iconFamily']),
       iconPackage: serializer.fromJson<String>(json['iconPackage']),
@@ -428,6 +430,7 @@ class Category extends DataClass implements Insertable<Category> {
       performance: serializer.fromJson<int>(json['performance']),
       creationDate: serializer.fromJson<DateTime>(json['creationDate']),
       lastUpdateDate: serializer.fromJson<DateTime>(json['lastUpdateDate']),
+      editable: serializer.fromJson<bool>(json['editable']),
       active: serializer.fromJson<bool>(json['active']),
     );
   }
@@ -437,7 +440,6 @@ class Category extends DataClass implements Insertable<Category> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'description': serializer.toJson<String>(description),
-      'code': serializer.toJson<String>(code),
       'icon': serializer.toJson<int>(icon),
       'iconFamily': serializer.toJson<String>(iconFamily),
       'iconPackage': serializer.toJson<String>(iconPackage),
@@ -445,6 +447,7 @@ class Category extends DataClass implements Insertable<Category> {
       'performance': serializer.toJson<int>(performance),
       'creationDate': serializer.toJson<DateTime>(creationDate),
       'lastUpdateDate': serializer.toJson<DateTime>(lastUpdateDate),
+      'editable': serializer.toJson<bool>(editable),
       'active': serializer.toJson<bool>(active),
     };
   }
@@ -452,7 +455,6 @@ class Category extends DataClass implements Insertable<Category> {
   Category copyWith(
           {int id,
           String description,
-          String code,
           int icon,
           String iconFamily,
           String iconPackage,
@@ -460,11 +462,11 @@ class Category extends DataClass implements Insertable<Category> {
           int performance,
           DateTime creationDate,
           DateTime lastUpdateDate,
+          bool editable,
           bool active}) =>
       Category(
         id: id ?? this.id,
         description: description ?? this.description,
-        code: code ?? this.code,
         icon: icon ?? this.icon,
         iconFamily: iconFamily ?? this.iconFamily,
         iconPackage: iconPackage ?? this.iconPackage,
@@ -472,6 +474,7 @@ class Category extends DataClass implements Insertable<Category> {
         performance: performance ?? this.performance,
         creationDate: creationDate ?? this.creationDate,
         lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
+        editable: editable ?? this.editable,
         active: active ?? this.active,
       );
   @override
@@ -479,7 +482,6 @@ class Category extends DataClass implements Insertable<Category> {
     return (StringBuffer('Category(')
           ..write('id: $id, ')
           ..write('description: $description, ')
-          ..write('code: $code, ')
           ..write('icon: $icon, ')
           ..write('iconFamily: $iconFamily, ')
           ..write('iconPackage: $iconPackage, ')
@@ -487,6 +489,7 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('performance: $performance, ')
           ..write('creationDate: $creationDate, ')
           ..write('lastUpdateDate: $lastUpdateDate, ')
+          ..write('editable: $editable, ')
           ..write('active: $active')
           ..write(')'))
         .toString();
@@ -498,20 +501,20 @@ class Category extends DataClass implements Insertable<Category> {
       $mrjc(
           description.hashCode,
           $mrjc(
-              code.hashCode,
+              icon.hashCode,
               $mrjc(
-                  icon.hashCode,
+                  iconFamily.hashCode,
                   $mrjc(
-                      iconFamily.hashCode,
+                      iconPackage.hashCode,
                       $mrjc(
-                          iconPackage.hashCode,
+                          color.hashCode,
                           $mrjc(
-                              color.hashCode,
+                              performance.hashCode,
                               $mrjc(
-                                  performance.hashCode,
+                                  creationDate.hashCode,
                                   $mrjc(
-                                      creationDate.hashCode,
-                                      $mrjc(lastUpdateDate.hashCode,
+                                      lastUpdateDate.hashCode,
+                                      $mrjc(editable.hashCode,
                                           active.hashCode)))))))))));
   @override
   bool operator ==(dynamic other) =>
@@ -519,7 +522,6 @@ class Category extends DataClass implements Insertable<Category> {
       (other is Category &&
           other.id == this.id &&
           other.description == this.description &&
-          other.code == this.code &&
           other.icon == this.icon &&
           other.iconFamily == this.iconFamily &&
           other.iconPackage == this.iconPackage &&
@@ -527,13 +529,13 @@ class Category extends DataClass implements Insertable<Category> {
           other.performance == this.performance &&
           other.creationDate == this.creationDate &&
           other.lastUpdateDate == this.lastUpdateDate &&
+          other.editable == this.editable &&
           other.active == this.active);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<int> id;
   final Value<String> description;
-  final Value<String> code;
   final Value<int> icon;
   final Value<String> iconFamily;
   final Value<String> iconPackage;
@@ -541,11 +543,11 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<int> performance;
   final Value<DateTime> creationDate;
   final Value<DateTime> lastUpdateDate;
+  final Value<bool> editable;
   final Value<bool> active;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.description = const Value.absent(),
-    this.code = const Value.absent(),
     this.icon = const Value.absent(),
     this.iconFamily = const Value.absent(),
     this.iconPackage = const Value.absent(),
@@ -553,12 +555,12 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.performance = const Value.absent(),
     this.creationDate = const Value.absent(),
     this.lastUpdateDate = const Value.absent(),
+    this.editable = const Value.absent(),
     this.active = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
     @required String description,
-    @required String code,
     this.icon = const Value.absent(),
     this.iconFamily = const Value.absent(),
     this.iconPackage = const Value.absent(),
@@ -566,13 +568,12 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.performance = const Value.absent(),
     this.creationDate = const Value.absent(),
     this.lastUpdateDate = const Value.absent(),
+    this.editable = const Value.absent(),
     this.active = const Value.absent(),
-  })  : description = Value(description),
-        code = Value(code);
+  }) : description = Value(description);
   static Insertable<Category> custom({
     Expression<int> id,
     Expression<String> description,
-    Expression<String> code,
     Expression<int> icon,
     Expression<String> iconFamily,
     Expression<String> iconPackage,
@@ -580,12 +581,12 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<int> performance,
     Expression<DateTime> creationDate,
     Expression<DateTime> lastUpdateDate,
+    Expression<bool> editable,
     Expression<bool> active,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (description != null) 'description': description,
-      if (code != null) 'code': code,
       if (icon != null) 'icon': icon,
       if (iconFamily != null) 'icon_family': iconFamily,
       if (iconPackage != null) 'icon_package': iconPackage,
@@ -593,6 +594,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       if (performance != null) 'performance': performance,
       if (creationDate != null) 'creation_date': creationDate,
       if (lastUpdateDate != null) 'last_update_date': lastUpdateDate,
+      if (editable != null) 'editable': editable,
       if (active != null) 'active': active,
     });
   }
@@ -600,7 +602,6 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   CategoriesCompanion copyWith(
       {Value<int> id,
       Value<String> description,
-      Value<String> code,
       Value<int> icon,
       Value<String> iconFamily,
       Value<String> iconPackage,
@@ -608,11 +609,11 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<int> performance,
       Value<DateTime> creationDate,
       Value<DateTime> lastUpdateDate,
+      Value<bool> editable,
       Value<bool> active}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       description: description ?? this.description,
-      code: code ?? this.code,
       icon: icon ?? this.icon,
       iconFamily: iconFamily ?? this.iconFamily,
       iconPackage: iconPackage ?? this.iconPackage,
@@ -620,6 +621,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       performance: performance ?? this.performance,
       creationDate: creationDate ?? this.creationDate,
       lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
+      editable: editable ?? this.editable,
       active: active ?? this.active,
     );
   }
@@ -632,9 +634,6 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
     }
     if (icon.present) {
       map['icon'] = Variable<int>(icon.value);
@@ -657,6 +656,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (lastUpdateDate.present) {
       map['last_update_date'] = Variable<DateTime>(lastUpdateDate.value);
     }
+    if (editable.present) {
+      map['editable'] = Variable<bool>(editable.value);
+    }
     if (active.present) {
       map['active'] = Variable<bool>(active.value);
     }
@@ -668,7 +670,6 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     return (StringBuffer('CategoriesCompanion(')
           ..write('id: $id, ')
           ..write('description: $description, ')
-          ..write('code: $code, ')
           ..write('icon: $icon, ')
           ..write('iconFamily: $iconFamily, ')
           ..write('iconPackage: $iconPackage, ')
@@ -676,6 +677,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('performance: $performance, ')
           ..write('creationDate: $creationDate, ')
           ..write('lastUpdateDate: $lastUpdateDate, ')
+          ..write('editable: $editable, ')
           ..write('active: $active')
           ..write(')'))
         .toString();
@@ -705,18 +707,6 @@ class $CategoriesTable extends Categories
   GeneratedTextColumn _constructDescription() {
     return GeneratedTextColumn(
       'description',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _codeMeta = const VerificationMeta('code');
-  GeneratedTextColumn _code;
-  @override
-  GeneratedTextColumn get code => _code ??= _constructCode();
-  GeneratedTextColumn _constructCode() {
-    return GeneratedTextColumn(
-      'code',
       $tableName,
       false,
     );
@@ -814,6 +804,15 @@ class $CategoriesTable extends Categories
     );
   }
 
+  final VerificationMeta _editableMeta = const VerificationMeta('editable');
+  GeneratedBoolColumn _editable;
+  @override
+  GeneratedBoolColumn get editable => _editable ??= _constructEditable();
+  GeneratedBoolColumn _constructEditable() {
+    return GeneratedBoolColumn('editable', $tableName, false,
+        defaultValue: Constant(true));
+  }
+
   final VerificationMeta _activeMeta = const VerificationMeta('active');
   GeneratedBoolColumn _active;
   @override
@@ -827,7 +826,6 @@ class $CategoriesTable extends Categories
   List<GeneratedColumn> get $columns => [
         id,
         description,
-        code,
         icon,
         iconFamily,
         iconPackage,
@@ -835,6 +833,7 @@ class $CategoriesTable extends Categories
         performance,
         creationDate,
         lastUpdateDate,
+        editable,
         active
       ];
   @override
@@ -858,12 +857,6 @@ class $CategoriesTable extends Categories
               data['description'], _descriptionMeta));
     } else if (isInserting) {
       context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code'], _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
     }
     if (data.containsKey('icon')) {
       context.handle(
@@ -902,6 +895,10 @@ class $CategoriesTable extends Categories
           _lastUpdateDateMeta,
           lastUpdateDate.isAcceptableOrUnknown(
               data['last_update_date'], _lastUpdateDateMeta));
+    }
+    if (data.containsKey('editable')) {
+      context.handle(_editableMeta,
+          editable.isAcceptableOrUnknown(data['editable'], _editableMeta));
     }
     if (data.containsKey('active')) {
       context.handle(_activeMeta,

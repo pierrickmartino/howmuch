@@ -1,3 +1,4 @@
+import 'package:howmuch/constant/const.dart';
 import 'package:moor/moor.dart';
 import 'package:undo/undo.dart';
 
@@ -12,7 +13,6 @@ class Categories extends Table {
   // autoIncrement automatically sets this to be the primary key
   IntColumn get id => integer().autoIncrement()();
   TextColumn get description => text()();
-  TextColumn get code => text()();
   IntColumn get icon => integer().nullable()();
   TextColumn get iconFamily => text().nullable()();
   TextColumn get iconPackage => text().nullable()();
@@ -20,6 +20,7 @@ class Categories extends Table {
   IntColumn get performance => integer().nullable()();
   DateTimeColumn get creationDate => dateTime().nullable()();
   DateTimeColumn get lastUpdateDate => dateTime().nullable()();
+  BoolColumn get editable => boolean().withDefault(Constant(true))();
   BoolColumn get active => boolean().withDefault(Constant(true))();
 }
 
@@ -84,16 +85,18 @@ class Database extends _$Database {
       },
       beforeOpen: (details) async {
         if (details.wasCreated) {
-          await into(categories).insert(CategoriesCompanion(
-            code: const Value('N/A'),
-            description: const Value('N/A'),
-            creationDate: Value(DateTime.now()),
-          ));
+          // init of categories in database based on const.dart
+          for (var initCategory in initCategoryList) {
+            await into(categories).insert(CategoriesCompanion(
+                description: Value(initCategory),
+                editable: const Value(false),
+                creationDate: Value(DateTime.now()),
+                active: const Value(true)));
+          }
 
           await into(transactions).insert(TransactionsCompanion(
-            description: const Value('Transaction'),
-            category: const Value(1),
-          ));
+              description: const Value('Transaction'),
+              category: const Value(1)));
         }
       },
     );

@@ -37,3 +37,31 @@ class Constants {
   static const String filtersRoute = '/filters';
   static const String categoriesRoute = '/categories';
 }
+
+const List<String> initCategoryList = [
+  'N/A',
+  'Allocations familiales',
+  'Assurance',
+  'Autre dépense',
+  'Autre revenu',
+  'Carte',
+  'Enfants',
+  'Frais bancaires',
+  'Impôts & Taxes',
+  'Maison & Maintenance',
+  'Pilier 3a',
+  'Pilier 3b',
+  'Remboursement',
+  'Restaurant & Café',
+  'Retrait',
+  'Salaire',
+  'Santé',
+  'Shopping',
+  'Sport & Loisirs',
+  'Supermarché',
+  'Telephone & Internet',
+  'Transfert interne',
+  'Transports & Taxi',
+  'Vacances',
+  'Voiture & Carburant'
+];
