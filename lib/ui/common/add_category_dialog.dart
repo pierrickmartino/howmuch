@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../src/model/category.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../src/bloc/category.dart';
+//import '../../src/model/category.dart';
 
 // UNUSED IN FAKE DATA MODE
 // import '../../src/utils/category_utils_graphql.dart';
@@ -53,21 +54,10 @@ class AddCategoryDialog extends StatelessWidget {
   }
 
   void addCategory(BuildContext context) {
-    Category category = Category(name: _controller.text);
-    //CategoryUtilsGraphQL utils;
+    if (_controller.text.isNotEmpty) {
+      BlocProvider.of<HowMuchAppBloc>(context).createCategory(_controller.text);
 
-    if (category.name.isNotEmpty) {
-      // utils = CategoryUtilsGraphQL(
-      //   name: category.name,
-      // );
-      // utils.sendData().whenComplete(
-      //     () => ScaffoldMessenger.of(this.contextParent).showSnackBar(
-      //           SnackBar(
-      //             content: const Text('Category added!'),
-      //           ),
-      //         ));
-
-      print('add category: ' + category.name);
+      //print('add category: ' + category.name);
 
       _controller.text = "";
     }

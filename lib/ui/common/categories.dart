@@ -1,20 +1,16 @@
 import 'package:badges/badges.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_layout/fluid_layout.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:howmuch/constant/const.dart';
-import 'package:howmuch/src/model/category.dart';
+import 'package:howmuch/src/bloc/category.dart';
+import 'package:howmuch/src/database/database.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:undo/undo.dart';
 
 import 'add_category_dialog.dart';
 import 'edit_category_dialog.dart';
-import '../chart/example_bar_chart.dart';
-
-// UNUSED IN FAKE DATA MODE
-// import 'package:graphql_flutter/graphql_flutter.dart';
-// import '../../src/api/category_api.dart';
-// import '../../src/utils/category_utils_graphql.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -26,129 +22,91 @@ class _CategoriesState extends State<Categories> {
     setState(() {});
   }
 
-  static Faker faker = Faker();
-  List<Category> fakeCategoryList = List.generate(
-      15,
-      (index) => Category(
-          id: faker.guid.guid(),
-          objectId: faker.guid.guid(),
-          name: faker.company.name(),
-          color: faker.randomGenerator.integer(4300000000, min: 4200000000),
-          icon: faker.randomGenerator.integer(63000, min: 62000),
-          iconfamily: 'LineAwesomeIcons',
-          iconpackage: 'line_awesome_flutter',
-          counter: faker.randomGenerator.integer(99),
-          performance: faker.randomGenerator.integer(2)),
-      growable: false);
+  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-    // Devrait sans doute  être positioné à un autre moment
+    return BlocBuilder<HowMuchAppBloc, ChangeStack>(
+        builder: (context, cs) => Scaffold(
+            key: _scaffoldKey,
+            body: Container(
+                color: Color(backgroundColor),
+                child: FluidLayout(
+                    child: Builder(
+                        builder: (context) => SingleChildScrollView(
+                                child: Column(children: <Widget>[
+                              SizedBox(height: 6),
+                              Fluid(
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Color(menuBackgroundColor),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  5.0) //         <--- border radius here
+                                              ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color:
+                                                    Color(menuBackgroundColor),
+                                                blurRadius: 10,
+                                                spreadRadius: 0.01,
+                                                offset: Offset(3, 3))
+                                          ]),
+                                      height: 50,
+                                      width: double.infinity,
+                                      child: Row(children: [
+                                        Text(
+                                          'Categories',
+                                          style: TextStyle(
+                                              color: Color(menuTextColor)),
+                                        ),
+                                        Spacer(),
+                                        IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) =>
+                                                      AddCategoryDialog(
+                                                          contextParent:
+                                                              context));
+                                            },
+                                            tooltip: 'New category',
+                                            icon: Icon(LineAwesomeIcons.plus,
+                                                size: 16,
+                                                color: Color(menuTextColor)))
+                                      ]))),
+                              SizedBox(height: 24),
+                              Fluid(
+                                  child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              284,
+                                      width: double.infinity,
+                                      child: Center(
+                                          child: StreamBuilder<
+                                                  List<CategoryWithCount>>(
+                                              stream:
+                                                  bloc.getCategoriesWithCount,
+                                              builder: (context, snapshot) {
+                                                if (!snapshot.hasData) {
+                                                  return const Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child:
+                                                          CircularProgressIndicator());
+                                                }
 
-    // return Query(
-    //     options: QueryOptions(documentNode: gql(findCategoriesQuery)),
-    //     builder: (QueryResult result,
-    //         {VoidCallback refetch, FetchMore fetchMore}) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: Container(
-        color: Color(backgroundColor),
-        child: FluidLayout(
-          child: Builder(
-            builder: (context) => SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 6),
-                  Fluid(
-                      child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(menuBackgroundColor),
-                      borderRadius: BorderRadius.all(Radius.circular(
-                              5.0) //         <--- border radius here
-                          ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(menuBackgroundColor),
-                          blurRadius: 10,
-                          spreadRadius: 0.01,
-                          offset: Offset(3, 3),
-                        ),
-                      ],
-                    ),
-                    height: 50,
-                    width: double.infinity,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Categories',
-                          style: TextStyle(color: Color(menuTextColor)),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) => AddCategoryDialog(
-                                      contextParent: context,
-                                    ));
-                          },
-                          tooltip: 'New category',
-                          icon: Icon(
-                            LineAwesomeIcons.plus,
-                            size: 16,
-                            color: Color(menuTextColor),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-                  SizedBox(height: 24),
-                  Container(
-                    height: 180,
-                    child: ListView.separated(
-                      itemCount: 2,
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              FluidLayout.of(context).horizontalPadding +
-                                  FluidLayout.of(context).fluidPadding),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => ExempleBarChart(),
-                      separatorBuilder: (_, __) => SizedBox(
-                          width: FluidLayout.of(context).horizontalPadding),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Fluid(
-                      child: Container(
-                    height: MediaQuery.of(context).size.height - 284,
-                    width: double.infinity,
-                    child: Center(
-                      child:
-                          //result.hasException ?
-                          // Text(result.exception.toString())
-                          //: result.loading
-                          //    ? CircularProgressIndicator()
-                          //:
-                          // CategoryList(
-                          //     list: result.data["categories"]
-                          //         ["edges"]),
+                                                final activeCategoriesWithCount =
+                                                    snapshot.data;
 
-                          CategoryList(list: fakeCategoryList),
-                    ),
-                  )),
-                ],
-              ),
-              //),
-            ),
-          ),
-        ),
-      ),
-    );
-    //});
+                                                return CategoryList(
+                                                    list:
+                                                        activeCategoriesWithCount);
+                                              }))))
+                            ])))))));
   }
 }
 
@@ -162,82 +120,50 @@ class CategoryList extends StatelessWidget {
     return ListView.builder(
       itemCount: this.list.length,
       itemBuilder: (context, index) {
-        final category = this.list[index];
-        return CategoryItem(category: category);
+        final CategoryWithCount categoryWithCount = this.list[index];
+        return CategoryItem(
+            category: categoryWithCount.category,
+            counter: categoryWithCount.count);
       },
     );
   }
 }
 
 class CategoryItem extends StatelessWidget {
-  CategoryItem({@required this.category});
+  CategoryItem({@required this.category, @required this.counter});
 
-  final category;
-  //CategoryUtilsGraphQL utils;
+  final Category category;
+  final int counter;
 
   @override
   Widget build(BuildContext context) {
     Color categoryColor;
     IconData categoryIcon;
-    //Color performanceColor;
     Chip performanceChip;
 
-    String storedCategoryId,
-        storedCategoryName,
-        storedCategoryIconFamily,
-        storedCategoryIconPackage;
-    int storedCategoryColor,
-        storedCategoryPerformance,
-        storedCategoryCounter,
-        storedCategoryIcon;
-
-    if (dataMode == 'fake') {
-      Category fakeCategory = category;
-
-      storedCategoryId = fakeCategory.id;
-      storedCategoryName = fakeCategory.name;
-      storedCategoryColor = fakeCategory.color;
-      storedCategoryPerformance = fakeCategory.performance;
-      storedCategoryCounter = fakeCategory.counter;
-      storedCategoryIcon = fakeCategory.icon;
-      storedCategoryIconFamily = fakeCategory.iconfamily;
-      storedCategoryIconPackage = fakeCategory.iconpackage;
-    } else {
-      storedCategoryId = category["node"]['id'];
-      storedCategoryName = category["node"]['name'];
-      storedCategoryColor = category["node"]['color'];
-      storedCategoryPerformance = category["node"]['performance'];
-      storedCategoryCounter = category["node"]['counter'];
-      storedCategoryIcon = category["node"]['icon'];
-      storedCategoryIconFamily = category["node"]['iconfamily'];
-      storedCategoryIconPackage = category["node"]['iconpackage'];
-    }
-
-    if (storedCategoryColor == null) {
+    if (category.color == null) {
       categoryColor = Colors.grey;
     } else {
-      categoryColor = Color(storedCategoryColor).withOpacity(1);
+      categoryColor = Color(category.color).withOpacity(1);
     }
 
-    if (storedCategoryIcon == null) {
+    if (category.icon == null) {
       categoryIcon = LineAwesomeIcons.info_circle;
     } else {
-      categoryIcon = IconData(storedCategoryIcon,
-          fontFamily: storedCategoryIconFamily,
-          fontPackage: storedCategoryIconPackage);
+      categoryIcon = IconData(category.icon,
+          fontFamily: category.iconFamily, fontPackage: category.iconPackage);
     }
 
-    if (storedCategoryPerformance == 0) {
+    if (category.performance == 0) {
       performanceChip = Chip(
           backgroundColor: Color(chipBackgroundColor),
           label: Text('perf. incl.'));
     } else {
       performanceChip = Chip(
-        backgroundColor: Color(chipBackgroundColor),
-        label: Text(
-          'perf. excl.',
-        ),
-      );
+          backgroundColor: Color(chipBackgroundColor),
+          label: Text(
+            'perf. excl.',
+          ));
     }
 
     return Slidable(
@@ -270,7 +196,7 @@ class CategoryItem extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.0),
                                 child: Text(
-                                  storedCategoryName,
+                                  category.description,
                                   style: TextStyle(color: Color(cardTextColor)),
                                 ),
                               ),
@@ -287,11 +213,10 @@ class CategoryItem extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.0),
                                 child: Text(
-                                  storedCategoryName,
+                                  category.description,
                                   style: TextStyle(color: Color(cardTextColor)),
                                 ),
                               ),
-                              /*, creationDate, lastUpdateDate*/
                             ],
                           ),
                   ),
@@ -303,7 +228,7 @@ class CategoryItem extends StatelessWidget {
           animationType: BadgeAnimationType.scale,
           animationDuration: Duration(milliseconds: 500),
           shape: BadgeShape.circle,
-          badgeContent: Text(storedCategoryCounter.toString(),
+          badgeContent: Text(counter.toString(),
               style: TextStyle(color: Color(badgeTextColor)))),
       actions: <Widget>[
         IconSlideAction(
@@ -328,21 +253,7 @@ class CategoryItem extends StatelessWidget {
           color: Colors.red,
           icon: LineAwesomeIcons.trash,
           onTap: () {
-            print('delete category: ' + storedCategoryId);
-
-            // if (category["node"]['id'].isNotEmpty) {
-            //   utils = CategoryUtilsGraphQL(
-            //     id: category["node"]['id'],
-            //   );
-
-            // utils
-            //     .deleteData()
-            //     .whenComplete(() => ScaffoldMessenger.of(context).showSnackBar(
-            //           SnackBar(
-            //             content: const Text('Category deleted'),
-            //           ),
-            //         ));
-            //}
+            BlocProvider.of<HowMuchAppBloc>(context).deleteCategory(category);
           },
         ),
       ],

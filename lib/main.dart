@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 import 'config/route/router.dart';
 import 'constant/const.dart';
+import 'plugin/desktop/desktop.dart';
+import 'src/bloc/category.dart';
+import 'src/database/database.dart';
 import 'src/model/dashboard_filter.dart';
 
-// UNUSED IN FAKE DATA MODE
-// import 'package:graphql_flutter/graphql_flutter.dart';
-// import 'src/graphql/graphql_conf.dart';
-
-//GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 void main() {
   var logger = Logger(
     printer: PrettyPrinter(methodCount: 0),
@@ -19,6 +18,7 @@ void main() {
     logger.w(' Fake Mode ACTIVATED');
   }
 
+  setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
@@ -35,12 +35,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //return GraphQLProvider(
-    //child:
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: DashboardFilter(),
+        ChangeNotifierProvider.value(value: DashboardFilter()),
+        RepositoryProvider<Database>(
+            create: (context) => constructDb(logStatements: false)),
+        BlocProvider<HowMuchAppBloc>(
+          create: (context) {
+            final db = RepositoryProvider.of<Database>(context);
+            return HowMuchAppBloc(db);
+          },
         ),
       ],
       child: MaterialApp(
@@ -52,10 +56,8 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
 
-        initialRoute: loginRoute, //homeRoute,
+        initialRoute: homeRoute, // loginRoute | homeRoute,
         onGenerateRoute: CustomRouter.generateRoute,
-        //),
-        //client: graphQLConfiguration.client,
       ),
     );
   }
