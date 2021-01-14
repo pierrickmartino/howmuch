@@ -9,14 +9,15 @@ Faker faker = Faker();
 List<ChartSampleData> _fakeDataSources = List.generate(
     5,
     (index) => ChartSampleData(
-        x: faker.food.cuisine(),
-        y: faker.randomGenerator.integer(100, min: 0),
-        text: faker.randomGenerator.integer(100, min: 0).toString() + '%',
-        pointColor: Color.fromRGBO(
-            faker.randomGenerator.integer(200, min: 50),
-            faker.randomGenerator.integer(200, min: 50),
-            faker.randomGenerator.integer(200, min: 50),
-            1.0)),
+          x: faker.food.cuisine(),
+          y: faker.randomGenerator.integer(100, min: 0),
+          text: faker.randomGenerator.integer(100, min: 0).toString() + '%',
+          pointColor: Color.fromRGBO(
+              faker.randomGenerator.integer(200, min: 50),
+              faker.randomGenerator.integer(200, min: 50),
+              faker.randomGenerator.integer(200, min: 50),
+              1.0),
+        ),
     growable: false);
 
 List<CircularChartAnnotation> _fakeAnnotationSources = List.generate(
@@ -47,43 +48,49 @@ class CustomizedRadialBarChart extends StatelessWidget {
         legendItemBuilder:
             (String name, dynamic series, dynamic point, int index) {
           return Container(
-              height: 60,
-              width: 150,
-              child: Row(children: <Widget>[
+            height: 60,
+            width: 150,
+            child: Row(
+              children: <Widget>[
                 Container(
-                    height: 75,
-                    width: 65,
-                    child: SfCircularChart(
-                      annotations: <CircularChartAnnotation>[
-                        _fakeAnnotationSources[index],
-                      ],
-                      series: <RadialBarSeries<ChartSampleData, String>>[
-                        RadialBarSeries<ChartSampleData, String>(
-                            animationDuration: 0,
-                            dataSource: <ChartSampleData>[
-                              _fakeDataSources[index]
-                            ],
-                            maximumValue: 100,
-                            radius: '100%',
-                            cornerStyle: CornerStyle.bothCurve,
-                            xValueMapper: (ChartSampleData data, _) => point.x,
-                            yValueMapper: (ChartSampleData data, _) => data.y,
-                            pointColorMapper: (ChartSampleData data, _) =>
-                                data.pointColor,
-                            innerRadius: '70%',
-                            pointRadiusMapper: (ChartSampleData data, _) =>
-                                data.text),
-                      ],
-                    )),
+                  height: 75,
+                  width: 65,
+                  child: SfCircularChart(
+                    annotations: <CircularChartAnnotation>[
+                      _fakeAnnotationSources[index],
+                    ],
+                    series: <RadialBarSeries<ChartSampleData, String>>[
+                      RadialBarSeries<ChartSampleData, String>(
+                          animationDuration: 0,
+                          dataSource: <ChartSampleData>[
+                            _fakeDataSources[index]
+                          ],
+                          maximumValue: 100,
+                          radius: '100%',
+                          cornerStyle: CornerStyle.bothCurve,
+                          xValueMapper: (ChartSampleData data, _) => point.x,
+                          yValueMapper: (ChartSampleData data, _) => data.y,
+                          pointColorMapper: (ChartSampleData data, _) =>
+                              data.pointColor,
+                          innerRadius: '70%',
+                          pointRadiusMapper: (ChartSampleData data, _) =>
+                              data.text),
+                    ],
+                  ),
+                ),
                 Container(
-                    width: 72,
-                    child: Text(
-                      point.x,
-                      style: TextStyle(
-                          color: _fakeDataSources[index].pointColor,
-                          fontWeight: FontWeight.bold),
-                    )),
-              ]));
+                  width: 72,
+                  child: Text(
+                    point.x,
+                    style: TextStyle(
+                      color: _fakeDataSources[index].pointColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
       ),
       series: _getRadialBarCustomizedSeries(),

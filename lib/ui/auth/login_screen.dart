@@ -163,9 +163,11 @@ class LoginScreen extends StatelessWidget {
         return _loginUser(loginData);
       },
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(FadePageRoute(
-          builder: (context) => Home(),
-        ));
+        Navigator.of(context).pushReplacement(
+          FadePageRoute(
+            builder: (context) => Home(),
+          ),
+        );
       },
       onRecoverPassword: (name) {
         logger.d('Recover password info');

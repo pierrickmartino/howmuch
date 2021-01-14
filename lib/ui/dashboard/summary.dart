@@ -26,7 +26,9 @@ class Summary extends StatelessWidget {
     Color colorVariation;
 
     // period selected in the top widget of the dashboard
-    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    //var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    var _periodValue = 2;
+
     switch (_periodValue) {
       case 1:
         periodLabel = 'Week';
@@ -100,7 +102,7 @@ class Summary extends StatelessWidget {
                           color: Color(buttonColor),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -110,11 +112,13 @@ class Summary extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(variationTitle,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(buttonColor),
-                  )),
+              Text(
+                variationTitle,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(buttonColor),
+                ),
+              ),
               Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 6.0),
@@ -130,9 +134,9 @@ class Summary extends StatelessWidget {
                   color: colorVariation,
                   fontWeight: FontWeight.bold,
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

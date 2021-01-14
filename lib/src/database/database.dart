@@ -126,10 +126,12 @@ class Database extends _$Database {
   /// entries will be shown instead.
   Stream<List<TransactionWithCategory>> watchTransactionsInCategory(
       Category category) {
-    final query = select(transactions).join([
-      leftOuterJoin(
-          transactions, transactions.id.equalsExp(transactions.category))
-    ]);
+    final query = select(transactions).join(
+      [
+        leftOuterJoin(
+            transactions, transactions.id.equalsExp(transactions.category))
+      ],
+    );
 
     if (category != null) {
       query.where(transactions.id.equals(category.id));
@@ -153,9 +155,11 @@ class Database extends _$Database {
 
   Future createCategory(CategoriesCompanion entry) async {
     final _categories = await (select(categories)
-          ..orderBy([
-            (u) => OrderingTerm(expression: u.id, mode: OrderingMode.desc),
-          ]))
+          ..orderBy(
+            [
+              (u) => OrderingTerm(expression: u.id, mode: OrderingMode.desc),
+            ],
+          ))
         .get();
     entry = entry.copyWith(id: Value(_categories.first.id + 1));
     return insertRow(cs, categories, entry);

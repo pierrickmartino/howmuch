@@ -29,84 +29,96 @@ class _CategoriesState extends State<Categories> {
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
     return BlocBuilder<HowMuchAppBloc, ChangeStack>(
-        builder: (context, cs) => Scaffold(
-            key: _scaffoldKey,
-            body: Container(
-                color: Color(backgroundColor),
-                child: FluidLayout(
-                    child: Builder(
-                        builder: (context) => SingleChildScrollView(
-                                child: Column(children: <Widget>[
-                              SizedBox(height: 6),
-                              Fluid(
-                                  child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Color(menuBackgroundColor),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  5.0) //         <--- border radius here
-                                              ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color:
-                                                    Color(menuBackgroundColor),
-                                                blurRadius: 10,
-                                                spreadRadius: 0.01,
-                                                offset: Offset(3, 3))
-                                          ]),
-                                      height: 50,
-                                      width: double.infinity,
-                                      child: Row(children: [
-                                        Text(
-                                          'Categories',
-                                          style: TextStyle(
-                                              color: Color(menuTextColor)),
-                                        ),
-                                        Spacer(),
-                                        IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (_) =>
-                                                      AddCategoryDialog(
-                                                          contextParent:
-                                                              context));
-                                            },
-                                            tooltip: 'New category',
-                                            icon: Icon(LineAwesomeIcons.plus,
-                                                size: 16,
-                                                color: Color(menuTextColor)))
-                                      ]))),
-                              SizedBox(height: 24),
-                              Fluid(
-                                  child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height -
-                                              284,
-                                      width: double.infinity,
-                                      child: Center(
-                                          child: StreamBuilder<
-                                                  List<CategoryWithCount>>(
-                                              stream:
-                                                  bloc.getCategoriesWithCount,
-                                              builder: (context, snapshot) {
-                                                if (!snapshot.hasData) {
-                                                  return const Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child:
-                                                          CircularProgressIndicator());
-                                                }
+      builder: (context, cs) => Scaffold(
+        key: _scaffoldKey,
+        body: Container(
+          color: Color(backgroundColor),
+          child: FluidLayout(
+            child: Builder(
+              builder: (context) => SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 6),
+                    Fluid(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Color(menuBackgroundColor),
+                          borderRadius: BorderRadius.all(Radius.circular(
+                                  5.0) //         <--- border radius here
+                              ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(menuBackgroundColor),
+                              blurRadius: 10,
+                              spreadRadius: 0.01,
+                              offset: Offset(3, 3),
+                            ),
+                          ],
+                        ),
+                        height: 50,
+                        width: double.infinity,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Categories',
+                              style: TextStyle(
+                                color: Color(menuTextColor),
+                              ),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) =>
+                                      AddCategoryDialog(contextParent: context),
+                                );
+                              },
+                              tooltip: 'New category',
+                              icon: Icon(
+                                LineAwesomeIcons.plus,
+                                size: 16,
+                                color: Color(menuTextColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    Fluid(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height - 284,
+                        width: double.infinity,
+                        child: Center(
+                          child: StreamBuilder<List<CategoryWithCount>>(
+                            stream: bloc.getCategoriesWithCount,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Align(
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
 
-                                                final activeCategoriesWithCount =
-                                                    snapshot.data;
+                              final activeCategoriesWithCount = snapshot.data;
 
-                                                return CategoryList(
-                                                    list:
-                                                        activeCategoriesWithCount);
-                                              }))))
-                            ])))))));
+                              return CategoryList(
+                                  list: activeCategoriesWithCount);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -156,14 +168,16 @@ class CategoryItem extends StatelessWidget {
 
     if (category.performance == 0) {
       performanceChip = Chip(
-          backgroundColor: Color(chipBackgroundColor),
-          label: Text('perf. incl.'));
+        backgroundColor: Color(chipBackgroundColor),
+        label: Text('perf. incl.'),
+      );
     } else {
       performanceChip = Chip(
-          backgroundColor: Color(chipBackgroundColor),
-          label: Text(
-            'perf. excl.',
-          ));
+        backgroundColor: Color(chipBackgroundColor),
+        label: Text(
+          'perf. excl.',
+        ),
+      );
     }
 
     return Slidable(
@@ -172,65 +186,74 @@ class CategoryItem extends StatelessWidget {
       movementDuration: const Duration(milliseconds: 100),
       enabled: category.editable,
       child: Badge(
-          position: BadgePosition.topEnd(top: 10, end: 10),
-          child: Card(
-            color: Color(cardBackgroundColor),
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Icon(
-                    categoryIcon,
-                    size: 26.0,
-                    color: categoryColor,
-                  ),
-                  const SizedBox(width: 8.0),
-                  Expanded(
-                    child: context.breakpoint.isLargerThanM
+        position: BadgePosition.topEnd(top: 10, end: 10),
+        child: Card(
+          color: Color(cardBackgroundColor),
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Icon(
+                  categoryIcon,
+                  size: 26.0,
+                  color: categoryColor,
+                ),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: context.breakpoint.isLargerThanM
 // in case of a big size screen
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 3.0),
-                                child: Text(
-                                  category.description,
-                                  style: TextStyle(color: Color(cardTextColor)),
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Text(
+                                category.description,
+                                style: TextStyle(
+                                  color: Color(cardTextColor),
                                 ),
                               ),
-                              const SizedBox(height: 12.0),
-                              performanceChip,
-                              /*, creationDate, lastUpdateDate*/
-                            ],
-                          )
+                            ),
+                            const SizedBox(height: 12.0),
+                            performanceChip,
+                            /*, creationDate, lastUpdateDate*/
+                          ],
+                        )
 // otherwise
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 3.0),
-                                child: Text(
-                                  category.description,
-                                  style: TextStyle(color: Color(cardTextColor)),
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Text(
+                                category.description,
+                                style: TextStyle(
+                                  color: Color(cardTextColor),
                                 ),
                               ),
-                            ],
-                          ),
-                  ),
-                ],
-              ),
+                            ),
+                          ],
+                        ),
+                ),
+              ],
             ),
           ),
-          badgeColor: const Color(badgeBackgroundColor),
-          animationType: BadgeAnimationType.scale,
-          animationDuration: Duration(milliseconds: 500),
-          shape: BadgeShape.circle,
-          badgeContent: Text(counter.toString(),
-              style: TextStyle(color: Color(badgeTextColor)))),
+        ),
+        badgeColor: const Color(badgeBackgroundColor),
+        animationType: BadgeAnimationType.scale,
+        animationDuration: Duration(milliseconds: 500),
+        shape: BadgeShape.circle,
+        badgeContent: Text(
+          counter.toString(),
+          style: TextStyle(
+            color: Color(badgeTextColor),
+          ),
+        ),
+      ),
       actions: <Widget>[
         IconSlideAction(
           caption: 'Edit',

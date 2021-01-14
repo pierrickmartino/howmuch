@@ -29,12 +29,13 @@ class Transaction {
       this.date});
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
-      id: json["id"],
-      objectId: json["objectId"],
-      description: json["description"],
-      color: json["color"],
-      amount: json["amount"],
-      date: json["date"]);
+        id: json["id"],
+        objectId: json["objectId"],
+        description: json["description"],
+        color: json["color"],
+        amount: json["amount"],
+        date: json["date"],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,

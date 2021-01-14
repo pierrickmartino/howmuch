@@ -18,13 +18,15 @@ class BalanceAnalysisPerYear extends StatelessWidget {
           overflowMode: LegendItemOverflowMode.wrap,
           position: LegendPosition.top),
       primaryXAxis: CategoryAxis(
-          edgeLabelPlacement: EdgeLabelPlacement.shift,
-          interval: 1,
-          majorGridLines: MajorGridLines(width: 0)),
+        edgeLabelPlacement: EdgeLabelPlacement.shift,
+        interval: 1,
+        majorGridLines: MajorGridLines(width: 0),
+      ),
       primaryYAxis: NumericAxis(
-          labelFormat: '{value}k',
-          axisLine: AxisLine(width: 0),
-          majorTickLines: MajorTickLines(color: Colors.transparent)),
+        labelFormat: '{value}k',
+        axisLine: AxisLine(width: 0),
+        majorTickLines: MajorTickLines(color: Colors.transparent),
+      ),
       series: _getDefaultLineSeries(),
       tooltipBehavior: TooltipBehavior(enable: true),
     );
@@ -55,16 +57,17 @@ class BalanceAnalysisPerYear extends StatelessWidget {
     ];
     return <ChartSeries<_ChartData, String>>[
       ColumnSeries<_ChartData, String>(
-          animationDuration: 2500,
-          borderRadius: BorderRadius.circular(15),
-          color: Color(menuTextColor),
-          dataSource: chartData,
-          xValueMapper: (_ChartData sales, _) => sales.x,
-          yValueMapper: (_ChartData sales, _) => sales.y,
-          width: 0.6,
-          //spacing: 0.2,
-          name: 'Balance',
-          markerSettings: MarkerSettings(isVisible: false)),
+        animationDuration: 2500,
+        borderRadius: BorderRadius.circular(15),
+        color: Color(menuTextColor),
+        dataSource: chartData,
+        xValueMapper: (_ChartData sales, _) => sales.x,
+        yValueMapper: (_ChartData sales, _) => sales.y,
+        width: 0.6,
+        //spacing: 0.2,
+        name: 'Balance',
+        markerSettings: MarkerSettings(isVisible: false),
+      ),
     ];
   }
 }

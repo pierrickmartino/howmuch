@@ -12,11 +12,20 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [FractionallySizedWidthWidget(widthFactor: 0.9)])
-    ]));
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FractionallySizedWidthWidget(
+                widthFactor: 0.9,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -28,9 +37,10 @@ class FractionallySizedWidthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: FractionallySizedBox(
-          alignment: Alignment.center,
-          widthFactor: widthFactor,
-          child: MainLayoutWidget()),
+        alignment: Alignment.center,
+        widthFactor: widthFactor,
+        child: MainLayoutWidget(),
+      ),
     );
   }
 }
@@ -44,19 +54,20 @@ class MainLayoutWidget extends StatelessWidget {
     double containerWidth = MediaQuery.of(context).size.width;
 
     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-              flex: 5,
-              child: DashboardLeft(
-                  containerHeight: containerHeight,
-                  containerWidth: containerWidth)),
-          Expanded(
-              flex: 2,
-              child: DashboardRight(
-                  containerHeight: containerHeight,
-                  containerWidth: containerWidth))
-        ]);
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: DashboardLeft(
+              containerHeight: containerHeight, containerWidth: containerWidth),
+        ),
+        Expanded(
+          flex: 2,
+          child: DashboardRight(
+              containerHeight: containerHeight, containerWidth: containerWidth),
+        ),
+      ],
+    );
   }
 }

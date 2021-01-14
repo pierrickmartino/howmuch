@@ -12,13 +12,19 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: color ?? Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: InkWell(
-          child: Padding(child: child, padding: EdgeInsets.all(10)),
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12)),
-      shadowColor: Colors.grey,
-      elevation: 2,
+        child: Padding(
+          child: child,
+          padding: EdgeInsets.all(10),
+        ),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      shadowColor: Colors.black,
+      elevation: 4,
     );
   }
 }

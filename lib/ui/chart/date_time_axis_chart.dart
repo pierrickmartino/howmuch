@@ -33,18 +33,54 @@ class DateTimeAxisChart extends StatelessWidget {
   List<ColumnSeries<ChartSampleData, String>> _getRoundedColumnSeries(
       BuildContext context) {
     final List<ChartSampleData> chartData = <ChartSampleData>[
-      ChartSampleData(x: 'Jan', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Feb', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Mar', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Apr', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'May', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Jun', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Jul', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Aug', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Sep', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Oct', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Nov', y: faker.randomGenerator.integer(10000)),
-      ChartSampleData(x: 'Dec', y: faker.randomGenerator.integer(10000)),
+      ChartSampleData(
+        x: 'Jan',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Feb',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Mar',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Apr',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'May',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Jun',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Jul',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Aug',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Sep',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Oct',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Nov',
+        y: faker.randomGenerator.integer(10000),
+      ),
+      ChartSampleData(
+        x: 'Dec',
+        y: faker.randomGenerator.integer(10000),
+      ),
     ];
     return <ColumnSeries<ChartSampleData, String>>[
       ColumnSeries<ChartSampleData, String>(
