@@ -62,63 +62,72 @@ class AccountItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(0.0),
       ),
       color: Colors.white,
-      child:
-          Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Container(
-            width: 160.0,
-            height: 80.0,
-            child: CustomCard(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+              width: 160.0,
+              height: 80.0,
+              child: CustomCard(
                 color: Color(menuBackgroundColor),
                 child: Padding(
-                    padding: EdgeInsets.all(2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('* * * TOTA',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(menuTextColor),
-                            )),
-                        Icon(
-                          LineAwesomeIcons.google_wallet,
+                  padding: EdgeInsets.all(2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '* * * TOTA',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: Color(menuTextColor),
-                        )
-                      ],
-                    ))),
-          ),
-        ),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Container(
-            width: ((containerWidth - 70) * 0.4 * 0.9) - 450,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-              child: Text(
-                'CHF  ' + transactionAmount,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
+                        ),
+                      ),
+                      Icon(
+                        LineAwesomeIcons.google_wallet,
+                        color: Color(menuTextColor),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-          Container(
-            width: ((containerWidth - 70) * 0.4 * 0.9) - 450,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-              child: Text(
-                transactionDescription,
-                style: TextStyle(
-                  color: Color(buttonColor),
-                  fontSize: 14,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: ((containerWidth - 70) * 0.4 * 0.9) - 450,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Text(
+                    'CHF  ' + transactionAmount,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(
+                width: ((containerWidth - 70) * 0.4 * 0.9) - 450,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Text(
+                    transactionDescription,
+                    style: TextStyle(
+                      color: Color(buttonColor),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ])
-      ]),
+        ],
+      ),
     );
   }
 }

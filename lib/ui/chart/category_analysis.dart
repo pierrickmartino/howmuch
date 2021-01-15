@@ -18,8 +18,9 @@ class CategoryAnalysis extends StatelessWidget {
         majorGridLines: MajorGridLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
-          majorGridLines: MajorGridLines(width: 0),
-          numberFormat: NumberFormat.compact()),
+        majorGridLines: MajorGridLines(width: 0),
+        numberFormat: NumberFormat.compact(),
+      ),
       series: _getDefaultBarSeries(),
       tooltipBehavior: TooltipBehavior(enable: true),
     );

@@ -70,15 +70,15 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
     _activeCategory.add(category);
   }
 
-  // void addTag(String description) async {
-  //   final id = await db.createTag(description);
-  //   emit(db.cs);
-  //   showTag(Tag(id: id, name: description));
-  // }
-
   void createCategory(String content) async {
-    await db.createCategory(CategoriesCompanion(
-        description: Value(content), creationDate: Value(DateTime.now())));
+    await db.createCategory(
+      CategoriesCompanion(
+        description: Value(content),
+        creationDate: Value(
+          DateTime.now(),
+        ),
+      ),
+    );
     emit(db.cs);
   }
 
@@ -91,17 +91,6 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
     db.deleteCategory(entry);
     emit(db.cs);
   }
-
-  // void deleteTag(Tag tag) async {
-  //   // if the tag being deleted is the one selected, reset that db by
-  //   // showing the entries who aren't in any tag
-  //   if (_activeTag.value?.name == tag.name) {
-  //     showTag(null);
-  //   }
-
-  //   await db.deleteTag(tag);
-  //   emit(db.cs);
-  // }
 
   bool get canUndo => db.cs.canUndo;
   void undo() async {

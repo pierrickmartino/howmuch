@@ -69,10 +69,17 @@ class TransactionItem extends StatelessWidget {
       minVerticalPadding: 0,
       //contentPadding: EdgeInsets.all(0),
       dense: true,
-      title: Text(transactionDescription,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-      subtitle: Text(transactionDate,
-          style: TextStyle(fontSize: 12, color: Color(buttonColor))),
+      title: Text(
+        transactionDescription,
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(
+        transactionDate,
+        style: TextStyle(
+          fontSize: 12,
+          color: Color(buttonColor),
+        ),
+      ),
       trailing: Text(
         'CHF  ' + transactionAmount,
         style: TextStyle(fontWeight: FontWeight.bold, color: colorAmount),

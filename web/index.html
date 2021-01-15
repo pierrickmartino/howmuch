@@ -16,6 +16,12 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+  
+  <!-- Add this meta tag for using Google Sign In -->
+  <meta
+      name="google-signin-client_id"
+      content="986432319996-h6g3qcacc8f44au1kjcieg5d7kbi506f.apps.googleusercontent.com"
+  />
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,6 +46,28 @@
       });
     }
   </script>
+  <body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCgG2raKNAVDDib3rGNh33KgGchy57I40w",
+        authDomain: "howmuch-84ea1.firebaseapp.com",
+        projectId: "howmuch-84ea1",
+        storageBucket: "howmuch-84ea1.appspot.com",
+        messagingSenderId: "986432319996",
+        appId: "1:986432319996:web:0c23ced0ac16d754678279",
+        measurementId: "G-G9TT6CKN5V"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics(); 
+    </script>
+  </body>
   <script defer src="sql-wasm.js"></script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>

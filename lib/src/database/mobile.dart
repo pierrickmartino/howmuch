@@ -12,18 +12,20 @@ Database constructDb({bool logStatements = false}) {
   if (Platform.isIOS || Platform.isAndroid) {
     final executor = LazyDatabase(() async {
       final dataDir = await paths.getApplicationDocumentsDirectory();
-      final dbFile = File(p.join(dataDir.path, 'db.sqlite'));
+      final dbFile = File(
+        p.join(dataDir.path, 'db.sqlite'),
+      );
       return VmDatabase(dbFile, logStatements: logStatements);
     });
     return Database(executor);
   }
   if (Platform.isMacOS || Platform.isLinux) {
     final file = File('db.sqlite');
-    return Database(VmDatabase(file, logStatements: logStatements));
+    return Database(
+      VmDatabase(file, logStatements: logStatements),
+    );
   }
-  // if (Platform.isWindows) {
-  //   final file = File('db.sqlite');
-  //   return Database(VMDatabase(file, logStatements: logStatements));
-  // }
-  return Database(VmDatabase.memory(logStatements: logStatements));
+  return Database(
+    VmDatabase.memory(logStatements: logStatements),
+  );
 }
