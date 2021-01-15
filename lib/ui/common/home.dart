@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
           title: 'John Smith',
           body: _body(size, context),
           iconSize: 30.0,
-          textSize: 16.0,
+          //textSize: 16.0,
           minWidth: 70,
           maxWidth: 200,
           screenPadding: 6,

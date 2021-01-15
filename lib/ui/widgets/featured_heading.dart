@@ -33,7 +33,7 @@ class FeaturedHeading extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'Indicator in relation to last year',
+                  'YTD indicators in relation to last year',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
                 ),
@@ -54,7 +54,7 @@ class FeaturedHeading extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    'Indicator in relation to last year',
+                    'YTD indicators in relation to last year',
                     textAlign: TextAlign.end,
                     style: Theme.of(context).primaryTextTheme.subtitle1,
                   ),

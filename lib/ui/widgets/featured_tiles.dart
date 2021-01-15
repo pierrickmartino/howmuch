@@ -51,15 +51,18 @@ class FeaturedTiles extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5.0),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      0.0, 0.0, 6.0, 6.0),
                                   child: CustomCard(
                                     color: Theme.of(context).cardColor,
                                     child: Summary(
-                                        widgetType: trends[pageIndex],
-                                        amount: FakeData.fakeIncome,
-                                        variation:
-                                            FakeData.fakeIncomeVariation /
-                                                100.0),
+                                      widgetType: trends[pageIndex],
+                                      amount: FakeData.fakeIncome,
+                                      variation:
+                                          FakeData.fakeIncomeVariation / 100.0,
+                                      variationAmount:
+                                          FakeData.fakeIncomeVariationAmount,
+                                    ),
                                   ),
                                 ),
                                 // Image.asset(
@@ -119,14 +122,17 @@ class FeaturedTiles extends StatelessWidget {
                               //   fit: BoxFit.cover,
                               // ),
                               Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(0.0, 0.0, 6.0, 6.0),
                             child: CustomCard(
                               color: Theme.of(context).cardColor,
                               child: Summary(
-                                  widgetType: trends[pageIndex],
-                                  amount: FakeData.fakeIncome,
-                                  variation:
-                                      FakeData.fakeIncomeVariation / 100.0),
+                                widgetType: trends[pageIndex],
+                                amount: FakeData.fakeIncome,
+                                variation: FakeData.fakeIncomeVariation / 100.0,
+                                variationAmount:
+                                    FakeData.fakeIncomeVariationAmount,
+                              ),
                             ),
                           ),
                         ),
