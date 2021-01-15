@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:howmuch/ui/widgets/responsive.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:provider/provider.dart';
@@ -7,23 +8,24 @@ import '../../constant/const.dart';
 import '../../src/model/dashboard_filter.dart';
 
 final _numberFormat =
-    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
 final _percentFormat =
-    NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 2);
+    NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
 class Summary extends StatelessWidget {
   final String widgetType;
-  final double amount, variation;
+  final double amount, variation, variationAmount;
   Summary(
       {@required this.widgetType,
       @required this.amount,
-      @required this.variation});
+      @required this.variation,
+      @required this.variationAmount});
 
   @override
   Widget build(BuildContext context) {
-    String subtitle, variationTitle, periodLabel;
-    IconData icon, iconVariation;
-    Color colorVariation;
+    String subtitle, variationTitle, variationAmountTitle, periodLabel;
+    IconData icon, iconVariation, iconVariationAmount;
+    Color colorVariation, colorVariationAmount;
 
     // period selected in the top widget of the dashboard
     //var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
@@ -46,99 +48,219 @@ class Summary extends StatelessWidget {
     colorVariation =
         this.variation < 0 ? Color(debitColor) : Color(creditColor);
     iconVariation = this.variation < 0
-        ? LineAwesomeIcons.chevron_circle_down
-        : LineAwesomeIcons.chevron_circle_up;
+        ? LineAwesomeIcons.caret_down
+        : LineAwesomeIcons.caret_up;
+
+    colorVariationAmount =
+        this.variationAmount < 0 ? Color(debitColor) : Color(creditColor);
+    iconVariationAmount = this.variationAmount < 0
+        ? LineAwesomeIcons.caret_down
+        : LineAwesomeIcons.caret_up;
 
     if (this.widgetType == 'INCOME') {
       subtitle = 'Income In this ' + periodLabel;
       variationTitle = 'Balance Up by';
+      variationAmountTitle = '';
       icon = LineAwesomeIcons.battery_full;
     }
     if (this.widgetType == 'OUTCOME') {
       subtitle = 'Outcome In this ' + periodLabel;
       variationTitle = 'Balance Down by';
+      variationAmountTitle = '';
       icon = LineAwesomeIcons.battery_quarter;
     }
     if (this.widgetType == 'SAVINGS') {
       subtitle = 'Saved In this ' + periodLabel;
       variationTitle = 'Saved Up by';
+      variationAmountTitle = '';
       icon = LineAwesomeIcons.leaf;
     }
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 6.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Icon(icon, size: 36),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Column(
+    return ResponsiveWidget.isSmallScreen(context)
+        ? Padding(
+            padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 10.0),
+                    //   child: Icon(icon, size: 36),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 20.0),
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     mainAxisSize: MainAxisSize.min,
+                    //     children: [
                     Text(
                       'CHF  ' + _numberFormat.format(this.amount),
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryTextTheme.button.color,
+                      ),
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 6.0),
+                    //   child: Text(
+                    //     subtitle,
+                    //     style: TextStyle(
+                    //       fontSize: 14,
+                    //       color: Color(buttonColor),
+                    //     ),
+                    //   ),
+                    // ),
+                    //],
+                    //),
+                    //),
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      variationTitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).primaryTextTheme.button.color,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      _percentFormat.format(this.variation),
+                      style: TextStyle(
+                        color: colorVariation,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 6.0),
-                      child: Text(
-                        subtitle,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(buttonColor),
-                        ),
+                      padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 4.0),
+                      child: Icon(
+                        iconVariation,
+                        size: 22,
+                        color: colorVariation,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                variationTitle,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(buttonColor),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      variationAmountTitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).primaryTextTheme.button.color,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      _numberFormat.format(this.variationAmount),
+                      style: TextStyle(
+                        color: colorVariationAmount,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 4.0),
+                      child: Icon(
+                        iconVariationAmount,
+                        size: 22,
+                        color: colorVariationAmount,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 6.0),
-                child: Icon(
-                  iconVariation,
-                  size: 22,
-                  color: colorVariation,
+              ],
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 6.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Icon(icon, size: 36),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'CHF  ' + _numberFormat.format(this.amount),
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .button
+                                  .color,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 6.0),
+                            child: Text(
+                              subtitle,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(buttonColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                _percentFormat.format(this.variation),
-                style: TextStyle(
-                  color: colorVariation,
-                  fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      variationTitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(buttonColor),
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 6.0),
+                      child: Icon(
+                        iconVariation,
+                        size: 22,
+                        color: colorVariation,
+                      ),
+                    ),
+                    Text(
+                      _percentFormat.format(this.variation),
+                      style: TextStyle(
+                        color: colorVariation,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+              ],
+            ),
+          );
   }
 }

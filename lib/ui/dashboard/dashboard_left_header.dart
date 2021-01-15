@@ -24,9 +24,11 @@ class LeftHeaderLayout extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: CustomCard(
                 child: Summary(
-                    widgetType: 'INCOME',
-                    amount: FakeData.fakeIncome,
-                    variation: FakeData.fakeIncomeVariation / 100.0),
+                  widgetType: 'INCOME',
+                  amount: FakeData.fakeIncome,
+                  variation: FakeData.fakeIncomeVariation / 100.0,
+                  variationAmount: FakeData.fakeIncomeVariationAmount,
+                ),
               ),
             ),
           ),
@@ -39,9 +41,11 @@ class LeftHeaderLayout extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: CustomCard(
                 child: Summary(
-                    widgetType: 'OUTCOME',
-                    amount: FakeData.fakeOutcome,
-                    variation: FakeData.fakeOutcomeVariation / 100.0),
+                  widgetType: 'OUTCOME',
+                  amount: FakeData.fakeOutcome,
+                  variation: FakeData.fakeOutcomeVariation / 100.0,
+                  variationAmount: FakeData.fakeOutcomeVariationAmount,
+                ),
               ),
             ),
           ),
@@ -54,9 +58,11 @@ class LeftHeaderLayout extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: CustomCard(
                 child: Summary(
-                    widgetType: 'SAVINGS',
-                    amount: FakeData.fakeSavings,
-                    variation: FakeData.fakeSavingsVariation / 100.0),
+                  widgetType: 'SAVINGS',
+                  amount: FakeData.fakeSavings,
+                  variation: FakeData.fakeSavingsVariation / 100.0,
+                  variationAmount: FakeData.fakeSavingsVariationAmount,
+                ),
               ),
             ),
           ),
