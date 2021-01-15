@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:howmuch/ui/widgets/responsive.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
-import '../../src/model/dashboard_filter.dart';
+// import '../../src/model/dashboard_filter.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);

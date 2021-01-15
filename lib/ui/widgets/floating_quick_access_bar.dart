@@ -1,3 +1,5 @@
+import 'package:flutter_sparkline/flutter_sparkline.dart';
+
 import 'responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
     Icons.people,
     Icons.wb_sunny
   ];
+  var data = [0.0, 1.0, 1.5, 2.0, 0.0, 0.0, -0.5, -1.0, -0.5, 0.0, 0.0];
 
   List<Widget> generateRowElements() {
     rowElements.clear();
@@ -113,6 +116,31 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
                                       fontSize: 16),
                                 ),
                               ),
+                              Spacer(),
+                              Container(
+                                width: 100.0,
+                                height: 30.0,
+                                child: new Sparkline(
+                                  data: data,
+                                  lineColor: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline1
+                                      .color,
+                                  fillMode: FillMode.below,
+                                  fillGradient: new LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Theme.of(context)
+                                          .primaryTextTheme
+                                          .button
+                                          .color,
+                                      Theme.of(context).cardColor
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 12.0),
                             ],
                           ),
                         ),
