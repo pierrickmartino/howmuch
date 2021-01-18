@@ -68,7 +68,7 @@ dependencies:
   flutter_bloc: ^6.0.5
   
   # to Test
-  # file_picker: ^2.1.0
+  file_picker: ^2.1.5+1
   giffy_dialog: ^1.8.0
   dots_indicator: ^1.2.0
 

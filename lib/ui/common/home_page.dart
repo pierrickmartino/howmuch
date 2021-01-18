@@ -13,6 +13,7 @@ import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
+import '../widgets/importation.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
@@ -130,6 +131,7 @@ class _HomePageState extends State<HomePage> {
               NumberTiles(screenSize: screenSize),
               DestinationHeading(screenSize: screenSize),
               DestinationCarousel(),
+              Importation(screenSize: screenSize),
               SizedBox(height: screenSize.height / 10),
               BottomBar(),
             ],
