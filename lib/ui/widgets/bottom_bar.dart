@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'bottom_bar_column.dart';
 import 'info_text.dart';
 import 'responsive.dart';
-import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({

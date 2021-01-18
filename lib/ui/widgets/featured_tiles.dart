@@ -1,9 +1,9 @@
-import 'package:howmuch/constant/fake_data.dart';
-import 'package:howmuch/ui/common/custom_card.dart';
-import 'package:howmuch/ui/dashboard/summary.dart';
-
-import 'responsive.dart';
 import 'package:flutter/material.dart';
+
+import '../../constant/fake_data.dart';
+import '../common/custom_card.dart';
+import '../dashboard/summary.dart';
+import 'responsive.dart';
 
 class FeaturedTiles extends StatelessWidget {
   FeaturedTiles({

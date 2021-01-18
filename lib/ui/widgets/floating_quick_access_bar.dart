@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 
 import 'responsive.dart';
-import 'package:flutter/material.dart';
 
 class FloatingQuickAccessBar extends StatefulWidget {
   const FloatingQuickAccessBar({

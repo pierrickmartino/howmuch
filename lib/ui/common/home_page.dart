@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+
+import '../widgets/number_heading.dart';
+import '../widgets/number_tiles.dart';
 import '../widgets/web_scrollbar.dart';
 import '../widgets/bottom_bar.dart';
 import '../widgets/carousel.dart';
@@ -9,7 +13,6 @@ import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
@@ -123,6 +126,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               // SizedBox(height: screenSize.height / 8),
+              NumberHeading(screenSize: screenSize),
+              NumberTiles(screenSize: screenSize),
               DestinationHeading(screenSize: screenSize),
               DestinationCarousel(),
               SizedBox(height: screenSize.height / 10),

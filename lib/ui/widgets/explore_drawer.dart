@@ -1,7 +1,7 @@
-import '../common/home_page.dart';
-import '../auth/authentication.dart';
 import 'package:flutter/material.dart';
 
+import '../common/home_page.dart';
+import '../auth/authentication.dart';
 import 'auth_dialog.dart';
 
 class ExploreDrawer extends StatefulWidget {

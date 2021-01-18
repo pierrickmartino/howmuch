@@ -1,7 +1,7 @@
-import '../common/home_page.dart';
-import '../auth/authentication.dart';
 import 'package:flutter/material.dart';
 
+import '../common/home_page.dart';
+import '../auth/authentication.dart';
 import 'google_sign_in_button.dart';
 
 class AuthDialog extends StatefulWidget {

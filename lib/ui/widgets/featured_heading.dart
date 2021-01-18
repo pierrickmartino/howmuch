@@ -1,5 +1,6 @@
-import 'responsive.dart';
 import 'package:flutter/material.dart';
+
+import 'responsive.dart';
 
 class FeaturedHeading extends StatelessWidget {
   const FeaturedHeading({
