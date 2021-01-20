@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../src/bloc/category.dart';
+import '../../src/bloc/bloc.dart';
 //import '../../src/model/category.dart';
 
 // UNUSED IN FAKE DATA MODE

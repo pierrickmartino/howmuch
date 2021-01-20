@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+// import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
@@ -153,14 +153,14 @@ class LeftCenterLayout extends StatelessWidget {
                               width: double.infinity,
                               height: 30,
                               padding: EdgeInsets.symmetric(vertical: 10.0),
-                              child: LiquidLinearProgressIndicator(
-                                  value: 0.75,
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Color(menuSelectedIconColor),
-                                  ),
-                                  backgroundColor: Color(menuTextColor),
-                                  borderRadius: 12.0,
-                                  direction: Axis.horizontal),
+                              // child: LiquidLinearProgressIndicator(
+                              //     value: 0.75,
+                              //     valueColor: AlwaysStoppedAnimation(
+                              //       Color(menuSelectedIconColor),
+                              //     ),
+                              //     backgroundColor: Color(menuTextColor),
+                              //     borderRadius: 12.0,
+                              //     direction: Axis.horizontal),
                             ),
                           ],
                         ),

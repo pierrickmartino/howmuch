@@ -4,7 +4,7 @@ import 'package:fluid_layout/fluid_layout.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:howmuch/constant/const.dart';
-import 'package:howmuch/src/bloc/category.dart';
+import 'package:howmuch/src/bloc/bloc.dart';
 import 'package:howmuch/src/database/database.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:undo/undo.dart';

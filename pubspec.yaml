@@ -34,7 +34,6 @@ dependencies:
   line_awesome_icons: ^1.0.4+2
   toggle_switch: ^0.1.8
   badges: ^1.1.4
-  liquid_progress_indicator: ^0.3.2
   carousel_slider: ^2.2.1
   dynamic_theme: ^1.0.1
 
@@ -54,6 +53,7 @@ dependencies:
   flutter_sparkline: ^0.1.0
   
   # Other
+  file_picker: ^2.1.5+1
   rxdart: ^0.24.1
   intl: ^0.16.0
   path_provider: ^1.6.24
@@ -68,9 +68,8 @@ dependencies:
   flutter_bloc: ^6.0.5
   
   # to Test
-  file_picker: ^2.1.5+1
-  giffy_dialog: ^1.8.0
-  dots_indicator: ^1.2.0
+  #giffy_dialog: ^1.8.0
+  #dots_indicator: ^1.2.0
 
 dev_dependencies:
   moor_generator: ^3.4.0

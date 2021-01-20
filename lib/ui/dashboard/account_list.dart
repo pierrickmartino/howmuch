@@ -3,9 +3,9 @@ import 'package:howmuch/ui/common/custom_card.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-import '../../constant/fake_data.dart';
+// import '../../constant/fake_data.dart';
 import '../../constant/const.dart';
-import '../../src/model/transaction.dart';
+// import '../../src/model/transaction.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
@@ -17,8 +17,9 @@ class AccountList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AccountListView(
-        list: FakeData.fakeAccountList, containerWidth: containerWidth);
+    return null;
+    // AccountListView(
+    //     list: FakeData.fakeAccountList, containerWidth: containerWidth);
   }
 }
 
@@ -34,10 +35,10 @@ class AccountListView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: this.list.length,
       itemBuilder: (transactionListContext, index) {
-        Transaction transaction = this.list[index];
+        //Transaction transaction = this.list[index];
 
-        return AccountItem(
-            transaction: transaction, containerWidth: containerWidth);
+        return;
+        //AccountItem(transaction: transaction, containerWidth: containerWidth);
       },
     );
   }

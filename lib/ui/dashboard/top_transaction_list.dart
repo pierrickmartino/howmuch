@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:intl/intl.dart';
 
-import '../../constant/fake_data.dart';
+// import '../../constant/fake_data.dart';
 import '../../constant/const.dart';
-import '../../src/model/transaction.dart';
+// import '../../src/model/transaction.dart';
 
 final _dateFormat = DateFormat.yMMMd();
 final _numberFormat =
@@ -17,9 +17,9 @@ class TopTransactionList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
-      children: [
-        TransactionList(list: FakeData.fakeTransactionList),
-      ],
+      // children: [
+      //   TransactionList(list: FakeData.fakeTransactionList),
+      // ],
     );
   }
 }
@@ -35,9 +35,10 @@ class TransactionList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: this.list.length,
       itemBuilder: (transactionListContext, index) {
-        Transaction transaction = this.list[index];
+        //Transaction transaction = this.list[index];
 
-        return TransactionItem(transaction: transaction);
+        return;
+        // TransactionItem(transaction: transaction);
       },
     );
   }

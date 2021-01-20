@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:howmuch/src/bloc/category.dart';
+import 'package:howmuch/src/bloc/bloc.dart';
 import 'package:howmuch/src/database/database.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:toggle_switch/toggle_switch.dart';

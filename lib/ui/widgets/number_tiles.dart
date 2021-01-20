@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howmuch/src/bloc/bloc.dart';
 
 import 'responsive.dart';
 import '../common/custom_card.dart';
 
-class NumberTiles extends StatelessWidget {
-  NumberTiles({
-    Key key,
-    @required this.screenSize,
-  }) : super(key: key);
-
+class NumberTiles extends StatefulWidget {
   final Size screenSize;
+  const NumberTiles({Key key, @required this.screenSize}) : super(key: key);
+
+  @override
+  _NumberTilesState createState() => _NumberTilesState();
+}
+
+class _NumberTilesState extends State<NumberTiles> {
+  refresh() {
+    setState(() {});
+  }
 
   final List<String> numbers = [
     'TRANSACTION_AMOUNT',
@@ -27,6 +34,8 @@ class NumberTiles extends StatelessWidget {
     'Frequency of Transactions per month'
   ];
 
+  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,18 +44,19 @@ class NumberTiles extends StatelessWidget {
         padding: EdgeInsets.only(
           top: 0, //screenSize.height / 20,
           left: ResponsiveWidget.isSmallScreen(context)
-              ? screenSize.width / 15
-              : screenSize.width / 5,
+              ? widget.screenSize.width / 15
+              : widget.screenSize.width / 5,
           right: ResponsiveWidget.isSmallScreen(context)
-              ? screenSize.width / 15
-              : screenSize.width / 5,
+              ? widget.screenSize.width / 15
+              : widget.screenSize.width / 5,
         ),
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(
                 children: [
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
-                      padding: EdgeInsets.only(top: screenSize.height / 80),
+                      padding:
+                          EdgeInsets.only(top: widget.screenSize.height / 80),
                       child: CustomCard(
                         color: Theme.of(context).cardColor,
                         child: Row(
@@ -61,16 +71,28 @@ class NumberTiles extends StatelessWidget {
                                   fontSize: 16),
                             ),
                             Spacer(),
-                            Text(
-                              '0',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .primaryTextTheme
-                                      .button
-                                      .color,
-                                  fontSize: 16),
+                            FutureBuilder<int>(
+                              future: bloc.countTransactions,
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Align(
+                                    alignment: Alignment.center,
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+
+                                return Text(
+                                  snapshot.data.toString(),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .button
+                                          .color,
+                                      fontSize: 16),
+                                );
+                              },
                             ),
-                            SizedBox(height: screenSize.height / 70),
+                            SizedBox(height: widget.screenSize.height / 70),
                           ],
                         ),
                       ),
@@ -83,7 +105,8 @@ class NumberTiles extends StatelessWidget {
                 children: [
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
-                      padding: EdgeInsets.only(top: screenSize.height / 80),
+                      padding:
+                          EdgeInsets.only(top: widget.screenSize.height / 80),
                       child: CustomCard(
                         color: Theme.of(context).cardColor,
                         child: Row(
@@ -113,7 +136,7 @@ class NumberTiles extends StatelessWidget {
                                     .color,
                               ),
                             ),
-                            SizedBox(height: screenSize.height / 70),
+                            SizedBox(height: widget.screenSize.height / 70),
                           ],
                         ),
                       ),
