@@ -221,10 +221,9 @@ class Database extends _$Database {
     await deleteRow(cs, transactions, _transaction);
   }
 
-  Future deleteAllTransactions() {
+  Future deleteAllTransactions() async {
     return transaction(() async {
-      //await _resetCategory(_transaction.id);
-      await delete(transactions);
+      await (delete(transactions)).go();
     });
   }
 }

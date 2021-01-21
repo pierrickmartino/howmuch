@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../src/bloc/bloc.dart';
 import 'responsive.dart';
@@ -135,6 +136,10 @@ class _ImportationState extends State<Importation> {
     }
   }
 
+  void _deleteAllTransactions() async {
+    BlocProvider.of<HowMuchAppBloc>(context).deleteAllTransactions();
+  }
+
   // void _clearCachedFiles() {
   //   FilePicker.platform.clearTemporaryFiles().then((result) {
   //     ScaffoldMessenger.of(context).showSnackBar(
@@ -199,6 +204,16 @@ class _ImportationState extends State<Importation> {
                                     //     child: const Text("Clear"),
 //                           ),
                                     : const SizedBox(),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: IconButton(
+                            onPressed: () => _deleteAllTransactions(),
+                            icon: Icon(
+                              LineAwesomeIcons.trash,
+                              size: 16,
+                            ),
                           ),
                         ),
                       ],
