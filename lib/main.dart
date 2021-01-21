@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         //ChangeNotifierProvider.value(value: DashboardFilter()),
         RepositoryProvider<Database>(
-            create: (context) => constructDb(logStatements: true)),
+            create: (context) => constructDb(logStatements: false)),
         BlocProvider<HowMuchAppBloc>(
           create: (context) {
             final db = RepositoryProvider.of<Database>(context);
