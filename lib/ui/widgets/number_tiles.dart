@@ -71,27 +71,9 @@ class _NumberTilesState extends State<NumberTiles> {
                                   fontSize: 16),
                             ),
                             Spacer(),
-                            FutureBuilder<int>(
-                              future: bloc.countTransactions,
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const Align(
-                                    alignment: Alignment.center,
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-
-                                return Text(
-                                  snapshot.data.toString(),
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryTextTheme
-                                          .button
-                                          .color,
-                                      fontSize: 16),
-                                );
-                              },
-                            ),
+                            NumberTilesCounter(
+                                section: numbers[pageIndex],
+                                contextParent: context),
                             SizedBox(height: widget.screenSize.height / 70),
                           ],
                         ),
@@ -124,18 +106,9 @@ class _NumberTilesState extends State<NumberTiles> {
                               ),
                             ),
                             Spacer(),
-                            Text(
-                              '0',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context)
-                                    .primaryTextTheme
-                                    .subtitle1
-                                    .color,
-                              ),
-                            ),
+                            NumberTilesCounter(
+                                section: numbers[pageIndex],
+                                contextParent: context),
                             SizedBox(height: widget.screenSize.height / 70),
                           ],
                         ),
@@ -146,5 +119,47 @@ class _NumberTilesState extends State<NumberTiles> {
               ),
       ),
     );
+  }
+}
+
+class NumberTilesCounter extends StatelessWidget {
+  NumberTilesCounter({@required this.section, @required this.contextParent});
+
+  final String section;
+  final BuildContext contextParent;
+
+  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(contextParent);
+
+  @override
+  Widget build(BuildContext context) {
+    switch (section) {
+      case 'TRANSACTION_COUNT':
+        return FutureBuilder<int>(
+          future: bloc.countTransactions,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return Text(
+              snapshot.data.toString(),
+              style: TextStyle(
+                  color: Theme.of(context).primaryTextTheme.button.color,
+                  fontSize: 16),
+            );
+          },
+        );
+        break;
+      default:
+        return Text(
+          '0',
+          style: TextStyle(
+              color: Theme.of(context).primaryTextTheme.button.color,
+              fontSize: 16),
+        );
+    }
   }
 }
