@@ -43,6 +43,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
       db.watchCategoriesWithCount();
 
   Future<int> get countTransactions => db.countTransactions;
+  Future<double> get totalAmountTransactions => db.totalAmountTransactions();
 
   void init() {
     //_allCategories = db.watchAllCategories;

@@ -173,6 +173,14 @@ class Database extends _$Database {
   Future<int> get countTransactions =>
       select(transactions).get().then((value) => value.length);
 
+  Future<double> totalAmountTransactions() {
+    final transactionTotalAmount = transactions.transactionAmount.sum();
+    final query = selectOnly(transactions)
+      ..addColumns([transactionTotalAmount]);
+
+    return query.map((row) => row.read(transactionTotalAmount)).getSingle();
+  }
+
   /* TODO : Really necessary ??? double-check if auto-increment is not enough */
   Future createCategory(CategoriesCompanion _category) async {
     final _categories = await (select(categories)

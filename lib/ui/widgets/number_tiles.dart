@@ -152,6 +152,25 @@ class NumberTilesCounter extends StatelessWidget {
             );
           },
         );
+      case 'TRANSACTION_AMOUNT':
+        return FutureBuilder<double>(
+          future: bloc.totalAmountTransactions,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return Text(
+              snapshot.data.round().toString(),
+              style: TextStyle(
+                  color: Theme.of(context).primaryTextTheme.button.color,
+                  fontSize: 16),
+            );
+          },
+        );
         break;
       default:
         return Text(
