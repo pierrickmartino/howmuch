@@ -8,9 +8,9 @@ import '../database/database.dart';
 /// Class that keeps information about a category and whether it's selected at
 /// the moment.
 class CategoryWithActiveInfo {
-  CategoryWithActiveInfo(this.categoryWithCount, this.isActive);
+  CategoryWithActiveInfo(this.categoryWithInfo, this.isActive);
 
-  CategoryWithCount categoryWithCount;
+  CategoryWithInfo categoryWithInfo;
   bool isActive;
 }
 
@@ -39,7 +39,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   //Stream<List<Category>> _allCategories;
   Stream<List<Category>> get getCategories => db.watchAllCategories;
 
-  Stream<List<CategoryWithCount>> get getCategoriesWithCount =>
+  Stream<List<CategoryWithInfo>> get getCategoriesWithCount =>
       db.watchCategoriesWithCount();
 
   void init() {

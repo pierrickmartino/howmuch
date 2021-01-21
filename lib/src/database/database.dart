@@ -56,12 +56,13 @@ class Transactions extends Table {
       real().nullable().withDefault(const Constant(0))();
 }
 
-class CategoryWithCount {
-  CategoryWithCount(this.category, this.count);
+class CategoryWithInfo {
+  CategoryWithInfo(this.category, this.count, this.amount);
 
   // can be null, in which case we count how many entries don't have a category
   final Category category;
-  final int count; // amount of transactions in this category
+  final int count; // number of transactions in this category
+  final double amount;
 }
 
 class TransactionWithCategory {
@@ -120,22 +121,26 @@ class Database extends _$Database {
   }
 
   /// is a duplicate of the column names counter
-  Stream<List<CategoryWithCount>> watchCategoriesWithCount() {
+  Stream<List<CategoryWithInfo>> watchCategoriesWithCount() {
     // select all categories and load how many associated transactions there are for
     // each category
     return customSelect(
       'SELECT c.*, '
-      '(SELECT COUNT(*) FROM transactions WHERE category = c.id) AS amount '
-      'FROM categories c ',
+      '(SELECT COUNT(*) FROM transactions WHERE category = c.id) AS counter '
+      '(SELECT SUM(transactionAmount) FROM transactions WHERE category = c.id) AS amount '
+      'FROM categories c'
+      'ORDER BY counter DESC',
       readsFrom: {categories, transactions},
     ).map((row) {
       // when we have the result set, map each row to the data class
       final hasId = row.data['id'] != null;
 
-      return CategoryWithCount(
-        hasId ? Category.fromData(row.data, this) : null,
-        row.readInt('amount'),
-      );
+      return CategoryWithInfo(
+          hasId ? Category.fromData(row.data, this) : null,
+          row.readInt('counter'),
+          row.readDouble(
+            'amount',
+          ));
     }).watch();
   }
 
@@ -170,17 +175,6 @@ class Database extends _$Database {
   Future<List<Category>> get allWatchingCategories => select(categories).get();
   Stream<List<Category>> get watchAllCategories => select(categories).watch();
 
-  Future<int> get countTransactions =>
-      select(transactions).get().then((value) => value.length);
-
-  Future<double> totalAmountTransactions() {
-    final transactionTotalAmount = transactions.transactionAmount.sum();
-    final query = selectOnly(transactions)
-      ..addColumns([transactionTotalAmount]);
-
-    return query.map((row) => row.read(transactionTotalAmount)).getSingle();
-  }
-
   /* TODO : Really necessary ??? double-check if auto-increment is not enough */
   Future createCategory(CategoriesCompanion _category) async {
     final _categories = await (select(categories)
@@ -192,6 +186,28 @@ class Database extends _$Database {
         .get();
     _category = _category.copyWith(id: Value(_categories.first.id + 1));
     return insertRow(cs, categories, _category);
+  }
+
+  Future updateCategory(Category _category) async {
+    return updateRow(cs, categories, _category);
+  }
+
+  Future deleteCategory(Category _category) {
+    return transaction(() async {
+      await _resetCategory(_category.id);
+      await deleteRow(cs, categories, _category);
+    });
+  }
+
+  Future<int> get countTransactions =>
+      select(transactions).get().then((value) => value.length);
+
+  Future<double> totalAmountTransactions() {
+    final transactionTotalAmount = transactions.transactionAmount.sum();
+    final query = selectOnly(transactions)
+      ..addColumns([transactionTotalAmount]);
+
+    return query.map((row) => row.read(transactionTotalAmount)).getSingle();
   }
 
   Future insertTransaction(TransactionsCompanion _transaction) async {
@@ -210,19 +226,8 @@ class Database extends _$Database {
     return insertRow(cs, transactions, _transaction);
   }
 
-  Future updateCategory(Category _category) async {
-    return updateRow(cs, categories, _category);
-  }
-
   Future updateTransaction(Transaction _transaction) async {
     return updateRow(cs, transactions, _transaction);
-  }
-
-  Future deleteCategory(Category _category) {
-    return transaction(() async {
-      await _resetCategory(_category.id);
-      await deleteRow(cs, categories, _category);
-    });
   }
 
   Future deleteTransaction(Transaction _transaction) async {

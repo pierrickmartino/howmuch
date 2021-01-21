@@ -92,7 +92,7 @@ class _CategoriesState extends State<Categories> {
                         height: MediaQuery.of(context).size.height - 284,
                         width: double.infinity,
                         child: Center(
-                          child: StreamBuilder<List<CategoryWithCount>>(
+                          child: StreamBuilder<List<CategoryWithInfo>>(
                             stream: bloc.getCategoriesWithCount,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
@@ -132,10 +132,10 @@ class CategoryList extends StatelessWidget {
     return ListView.builder(
       itemCount: this.list.length,
       itemBuilder: (context, index) {
-        final CategoryWithCount categoryWithCount = this.list[index];
+        final CategoryWithInfo categoryWithInfo = this.list[index];
         return CategoryItem(
-            category: categoryWithCount.category,
-            counter: categoryWithCount.count);
+            category: categoryWithInfo.category,
+            counter: categoryWithInfo.count);
       },
     );
   }
