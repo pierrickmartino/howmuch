@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 // import 'config/route/router.dart';
 // import 'constant/const.dart';
-import 'plugin/desktop/desktop.dart';
+//import 'plugin/desktop/desktop.dart';
 import 'src/bloc/bloc.dart';
 import 'src/database/database.dart';
 // import 'src/model/dashboard_filter.dart';
@@ -13,7 +13,7 @@ import 'ui/auth/authentication.dart';
 import 'ui/common/home_page.dart';
 
 void main() {
-  setTargetPlatformForDesktop();
+  //setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
