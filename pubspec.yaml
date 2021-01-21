@@ -49,7 +49,6 @@ dependencies:
 
   # Charts
   syncfusion_flutter_charts: ^18.3.50
-  fl_chart: ^0.12.0
   flutter_sparkline: ^0.1.0
   
   # Other
