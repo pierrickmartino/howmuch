@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:howmuch/src/bloc/bloc.dart';
+import 'package:howmuch/src/model/period_filter.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'responsive.dart';
 import '../common/custom_card.dart';
+import '../../src/bloc/bloc.dart';
+
+final _numberFormat =
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
+final _percentFormat =
+    NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
 class NumberTiles extends StatefulWidget {
   final Size screenSize;
@@ -38,6 +46,9 @@ class _NumberTilesState extends State<NumberTiles> {
 
   @override
   Widget build(BuildContext context) {
+    var _periodValue =
+        Provider.of<PeriodFilter>(context).getPeriodFilterForNumbers;
+
     return Center(
       heightFactor: 1,
       child: Padding(
@@ -53,6 +64,37 @@ class _NumberTilesState extends State<NumberTiles> {
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(
                 children: [
+                  Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    spacing: 10.0,
+                    children: [
+                      ChoiceChip(
+                          label: Text("This month"),
+                          selected: _periodValue == 1,
+                          onSelected: (bool value) {
+                            _periodValue = value ? 1 : null;
+                            Provider.of<PeriodFilter>(context, listen: false)
+                                .setPeriodFilterForNumbers(_periodValue);
+                          }),
+                      ChoiceChip(
+                          label: Text("This year"),
+                          selected: _periodValue == 2,
+                          onSelected: (bool value) {
+                            _periodValue = value ? 2 : null;
+                            Provider.of<PeriodFilter>(context, listen: false)
+                                .setPeriodFilterForNumbers(_periodValue);
+                          }),
+                      ChoiceChip(
+                          label: Text("All"),
+                          selected: _periodValue == 3,
+                          onSelected: (bool value) {
+                            _periodValue = value ? 3 : null;
+                            Provider.of<PeriodFilter>(context, listen: false)
+                                .setPeriodFilterForNumbers(_periodValue);
+                          }),
+                    ],
+                  ),
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
                       padding:
@@ -68,7 +110,7 @@ class _NumberTilesState extends State<NumberTiles> {
                                       .primaryTextTheme
                                       .button
                                       .color,
-                                  fontSize: 16),
+                                  fontSize: 14),
                             ),
                             Spacer(),
                             NumberTilesCounter(
@@ -148,7 +190,7 @@ class NumberTilesCounter extends StatelessWidget {
               snapshot.data.toString(),
               style: TextStyle(
                   color: Theme.of(context).primaryTextTheme.button.color,
-                  fontSize: 16),
+                  fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
             );
           },
         );
@@ -164,10 +206,10 @@ class NumberTilesCounter extends StatelessWidget {
             }
 
             return Text(
-              snapshot.data.round().toString(),
+              'CHF ' + _numberFormat.format(snapshot.data),
               style: TextStyle(
                   color: Theme.of(context).primaryTextTheme.button.color,
-                  fontSize: 16),
+                  fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
             );
           },
         );
@@ -177,7 +219,7 @@ class NumberTilesCounter extends StatelessWidget {
           '0',
           style: TextStyle(
               color: Theme.of(context).primaryTextTheme.button.color,
-              fontSize: 16),
+              fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
         );
     }
   }

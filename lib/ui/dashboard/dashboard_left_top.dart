@@ -4,12 +4,11 @@ import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
-import '../../src/model/dashboard_filter.dart';
+import '../../src/model/period_filter.dart';
 
 class LeftTopLayout extends StatelessWidget {
   void setPeriodFilter(BuildContext context, int _period) {
-    Provider.of<DashboardFilter>(context, listen: false)
-        .setPeriodFilter(_period);
+    Provider.of<PeriodFilter>(context, listen: false).setPeriodFilter(_period);
   }
 
   Future<bool> _goToLogin(BuildContext context) {
@@ -25,7 +24,7 @@ class LeftTopLayout extends StatelessWidget {
       printer: PrettyPrinter(methodCount: 0),
     );
 
-    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    var _periodValue = Provider.of<PeriodFilter>(context).getPeriodFilter;
     double containerHeight = 80;
 
     return Row(
@@ -48,7 +47,7 @@ class LeftTopLayout extends StatelessWidget {
                       selected: _periodValue == 1,
                       onSelected: (bool value) {
                         _periodValue = value ? 1 : null;
-                        Provider.of<DashboardFilter>(context, listen: false)
+                        Provider.of<PeriodFilter>(context, listen: false)
                             .setPeriodFilter(_periodValue);
                         logger.d('Period filter update');
                         print(
@@ -60,7 +59,7 @@ class LeftTopLayout extends StatelessWidget {
                       selected: _periodValue == 2,
                       onSelected: (bool value) {
                         _periodValue = value ? 2 : null;
-                        Provider.of<DashboardFilter>(context, listen: false)
+                        Provider.of<PeriodFilter>(context, listen: false)
                             .setPeriodFilter(_periodValue);
                         logger.d('Period filter update');
                         print(
@@ -72,7 +71,7 @@ class LeftTopLayout extends StatelessWidget {
                       selected: _periodValue == 3,
                       onSelected: (bool value) {
                         _periodValue = value ? 3 : null;
-                        Provider.of<DashboardFilter>(context, listen: false)
+                        Provider.of<PeriodFilter>(context, listen: false)
                             .setPeriodFilter(_periodValue);
                         logger.d('Period filter update');
                         print(

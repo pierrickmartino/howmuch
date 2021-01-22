@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'src/bloc/bloc.dart';
 import 'src/database/database.dart';
 // import 'src/model/dashboard_filter.dart';
+import 'src/model/period_filter.dart';
 import 'ui/auth/authentication.dart';
 import 'ui/common/home_page.dart';
 
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //ChangeNotifierProvider.value(value: DashboardFilter()),
+        ChangeNotifierProvider.value(value: PeriodFilter()),
         RepositoryProvider<Database>(
             create: (context) => constructDb(logStatements: false)),
         BlocProvider<HowMuchAppBloc>(

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';
 import '../../constant/fake_data.dart';
-import '../../src/model/dashboard_filter.dart';
+import '../../src/model/period_filter.dart';
 import '../chart/category_analysis.dart';
 import '../common/custom_card.dart';
 
@@ -24,7 +24,7 @@ class LeftCenterLayout extends StatelessWidget {
     String periodLabel;
 
     // period selected in the top widget of the dashboard
-    var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
+    var _periodValue = Provider.of<PeriodFilter>(context).getPeriodFilter;
     switch (_periodValue) {
       case 1:
         periodLabel = 'Weekly';
