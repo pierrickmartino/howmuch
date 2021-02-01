@@ -64,61 +64,27 @@ class _NumberTilesState extends State<NumberTiles> {
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(
                 children: [
-                  Wrap(
-                    alignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    spacing: 10.0,
-                    children: [
-                      ChoiceChip(
-                          label: Text("This month"),
-                          selected: _periodValue == 1,
-                          onSelected: (bool value) {
-                            _periodValue = value ? 1 : null;
-                            Provider.of<PeriodFilter>(context, listen: false)
-                                .setPeriodFilterForNumbers(_periodValue);
-                          }),
-                      ChoiceChip(
-                          label: Text("This year"),
-                          selected: _periodValue == 2,
-                          onSelected: (bool value) {
-                            _periodValue = value ? 2 : null;
-                            Provider.of<PeriodFilter>(context, listen: false)
-                                .setPeriodFilterForNumbers(_periodValue);
-                          }),
-                      ChoiceChip(
-                          label: Text("All"),
-                          selected: _periodValue == 3,
-                          onSelected: (bool value) {
-                            _periodValue = value ? 3 : null;
-                            Provider.of<PeriodFilter>(context, listen: false)
-                                .setPeriodFilterForNumbers(_periodValue);
-                          }),
-                    ],
-                  ),
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
                       padding:
                           EdgeInsets.only(top: widget.screenSize.height / 80),
-                      child: CustomCard(
-                        color: Theme.of(context).cardColor,
-                        child: Row(
-                          children: [
-                            Text(
-                              title[pageIndex],
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .primaryTextTheme
-                                      .button
-                                      .color,
-                                  fontSize: 14),
-                            ),
-                            Spacer(),
-                            NumberTilesCounter(
-                                section: numbers[pageIndex],
-                                contextParent: context),
-                            SizedBox(height: widget.screenSize.height / 70),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          Text(
+                            title[pageIndex],
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .button
+                                    .color,
+                                fontSize: 14),
+                          ),
+                          Spacer(),
+                          NumberTilesCounter(
+                              section: numbers[pageIndex],
+                              contextParent: context),
+                          SizedBox(height: widget.screenSize.height / 70),
+                        ],
                       ),
                     ),
                   ),
