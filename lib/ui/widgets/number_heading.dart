@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:howmuch/src/model/period_filter.dart';
+import 'package:provider/provider.dart';
 
 import 'responsive.dart';
 import '../../src/model/list_period.dart';
@@ -29,7 +30,7 @@ class _NumberHeadingState extends State<NumberHeading> {
   }
 
   List<DropdownMenuItem<ListPeriod>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListPeriod>> items = List();
+    List<DropdownMenuItem<ListPeriod>> items = [];
     for (ListPeriod listItem in listItems) {
       items.add(
         DropdownMenuItem(
@@ -43,16 +44,20 @@ class _NumberHeadingState extends State<NumberHeading> {
 
   @override
   Widget build(BuildContext context) {
+    // si nous voulons passer par des Stateless alors nous devons utiliser le provider
+    // pour le moment les periodes ne sont pas transmises à la database
+    var _periodValue =
+        Provider.of<PeriodFilter>(context).getPeriodFilterForNumbers;
+
     return ResponsiveWidget.isSmallScreen(context)
         ? Container(
             padding: EdgeInsets.only(
               top: widget.screenSize.height / 20,
-              bottom: 0, //screenSize.height / 20,
+              bottom: 0,
               left: widget.screenSize.width / 15,
               right: widget.screenSize.width / 15,
             ),
             width: widget.screenSize.width,
-            // color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -77,6 +82,8 @@ class _NumberHeadingState extends State<NumberHeading> {
                           onChanged: (value) {
                             setState(() {
                               _selectedItem = value;
+                              Provider.of<PeriodFilter>(context, listen: false)
+                                  .setPeriodFilterForNumbers(_periodValue);
                             });
                           }),
                     ),

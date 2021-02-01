@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:howmuch/src/model/period_filter.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import 'responsive.dart';
 import '../common/custom_card.dart';
@@ -10,6 +8,7 @@ import '../../src/bloc/bloc.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
+// ignore: unused_element
 final _percentFormat =
     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
@@ -42,13 +41,8 @@ class _NumberTilesState extends State<NumberTiles> {
     'Frequency of Transactions per month'
   ];
 
-  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
-
   @override
   Widget build(BuildContext context) {
-    var _periodValue =
-        Provider.of<PeriodFilter>(context).getPeriodFilterForNumbers;
-
     return Center(
       heightFactor: 1,
       child: Padding(
@@ -91,7 +85,6 @@ class _NumberTilesState extends State<NumberTiles> {
                 ],
               )
             : Column(
-                // TODO
                 children: [
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
