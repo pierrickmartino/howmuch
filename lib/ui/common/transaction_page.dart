@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
-import '../widgets/number_heading.dart';
-import '../widgets/number_tiles.dart';
+//import '../widgets/number_heading.dart';
+//import '../widgets/number_tiles.dart';
 import '../widgets/web_scrollbar.dart';
 import '../widgets/bottom_bar.dart';
-import '../widgets/carousel.dart';
-import '../widgets/destination_heading.dart';
+//import '../widgets/carousel.dart';
+//import '../widgets/destination_heading.dart';
 import '../widgets/howmuch_drawer.dart';
 import '../widgets/featured_heading.dart';
 import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
-import '../widgets/importation.dart';
+//import '../widgets/importation.dart';
 
-class HomePage extends StatefulWidget {
+class TransactionPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _TransactionPageState createState() => _TransactionPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TransactionPageState extends State<TransactionPage> {
   ScrollController _scrollController;
   double _scrollPosition = 0;
   double _opacity = 0;
@@ -125,11 +125,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               // SizedBox(height: screenSize.height / 8),
-              NumberHeading(screenSize: screenSize),
-              NumberTiles(screenSize: screenSize),
-              DestinationHeading(screenSize: screenSize),
-              DestinationCarousel(),
-              Importation(screenSize: screenSize),
+              // NumberHeading(screenSize: screenSize),
+              // NumberTiles(screenSize: screenSize),
+              // DestinationHeading(screenSize: screenSize),
+              // DestinationCarousel(),
+              // Importation(screenSize: screenSize),
               SizedBox(height: screenSize.height / 10),
               BottomBar(),
             ],

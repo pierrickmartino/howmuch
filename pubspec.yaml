@@ -26,14 +26,14 @@ dependencies:
 
   # Layout / UI
   cupertino_icons: ^1.0.0
-  collapsible_sidebar: ^1.0.5
-  flutter_slidable: ^0.5.7
-  flutter_material_color_picker: ^1.0.5
-  fluid_layout: ^0.1.0
-  flutter_iconpicker: ^2.2.2
+  #collapsible_sidebar: ^1.0.5
+  #flutter_slidable: ^0.5.7
+  #flutter_material_color_picker: ^1.0.5
+  #fluid_layout: ^0.1.0
+  #flutter_iconpicker: ^2.2.2
   line_awesome_icons: ^1.0.4+2
-  toggle_switch: ^0.1.8
-  badges: ^1.1.4
+  #toggle_switch: ^0.1.8
+  #badges: ^1.1.4
   carousel_slider: ^2.2.1
   dynamic_theme: ^1.0.1
 
@@ -48,7 +48,7 @@ dependencies:
   google_sign_in: ^4.5.3
 
   # Charts
-  syncfusion_flutter_charts: ^18.3.50
+  #syncfusion_flutter_charts: ^18.3.50
   flutter_sparkline: ^0.1.0
   
   # Other

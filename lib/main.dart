@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-// import 'config/route/router.dart';
-// import 'constant/const.dart';
+import 'config/route/router.dart';
+import 'constant/const.dart';
 //import 'plugin/desktop/desktop.dart';
 import 'src/bloc/bloc.dart';
 import 'src/database/database.dart';
 // import 'src/model/dashboard_filter.dart';
 import 'src/model/period_filter.dart';
 import 'ui/auth/authentication.dart';
-import 'ui/common/home_page.dart';
+//import 'ui/common/home_page.dart';
 
 void main() {
   //setTargetPlatformForDesktop();
@@ -107,7 +107,9 @@ class _MyAppState extends State<MyApp> {
           title: 'Howmuch',
           theme: data,
           debugShowCheckedModeBanner: false,
-          home: HomePage(),
+          initialRoute: homeRoute,
+          onGenerateRoute: CustomRouter.generateRoute,
+          //home: HomePage(),
         ),
       ),
     );

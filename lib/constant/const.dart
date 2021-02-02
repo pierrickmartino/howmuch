@@ -1,11 +1,11 @@
-const String dataMode = 'notfake';
+//const String dataMode = 'notfake';
 
 const String homeRoute = '/';
 const String loginRoute = '/auth';
-const String accountsRoute = '/accounts';
+// const String accountsRoute = '/accounts';
 const String transactionsRoute = '/transactions';
-const String filtersRoute = '/filters';
-const String categoriesRoute = '/categories';
+// const String filtersRoute = '/filters';
+// const String categoriesRoute = '/categories';
 
 // Theme Data
 const int backgroundColor = 0xfff9f9f9;
@@ -27,16 +27,19 @@ const int debitColor = 0xffe86669;
 
 class Constants {
   static String appName = 'howMuch';
-  static String logoTag = 'near.huscarl.loginsample.logo';
-  static String titleTag = 'near.huscarl.loginsample.title';
-
-  // This file contains all the routing constants used within the app
-  static const String homeRoute = '/';
-  static const String accountsRoute = '/accounts';
-  static const String transactionsRoute = '/transactions';
-  static const String filtersRoute = '/filters';
-  static const String categoriesRoute = '/categories';
+  // static String logoTag = 'near.huscarl.loginsample.logo';
+  // static String titleTag = 'near.huscarl.loginsample.title';
 }
+
+// class PageRoutes {
+//   // This file contains all the routing constants used within the app
+//   static const String home = HomePage.routeName;
+//   static const String accounts = '/accounts';
+//   static const String transactions = TransactionPage.routeName;
+//   static const String filters = '/filters';
+//   static const String categories = '/categories';
+//   static const String login = '/auth';
+// }
 
 const List<String> initCategoryList = [
   'N/A',

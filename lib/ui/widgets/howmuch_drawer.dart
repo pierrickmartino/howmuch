@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:howmuch/ui/common/transaction_page.dart';
 
 import '../common/home_page.dart';
+import '../../constant/const.dart';
+//import '../common/transaction_page.dart';
 import '../auth/authentication.dart';
 import 'auth_dialog.dart';
 
-class ExploreDrawer extends StatefulWidget {
-  const ExploreDrawer({
+class HowMuchDrawer extends StatefulWidget {
+  const HowMuchDrawer({
     Key key,
   }) : super(key: key);
 
   @override
-  _ExploreDrawerState createState() => _ExploreDrawerState();
+  _HowMuchDrawerState createState() => _HowMuchDrawerState();
 }
 
-class _ExploreDrawerState extends State<ExploreDrawer> {
+class _HowMuchDrawerState extends State<HowMuchDrawer> {
   bool _isProcessing = false;
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,12 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                   : Container(),
               userEmail != null ? SizedBox(height: 20) : Container(),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
                 child: Text(
                   'Overview',
                   style: TextStyle(color: Colors.white, fontSize: 22),
@@ -148,9 +156,14 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransactionPage()),
+                  );
+                },
                 child: Text(
-                  'Accounts',
+                  'Transactions',
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ),
