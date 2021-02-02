@@ -113,9 +113,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         child: Column(
                           children: [
-                            FeaturedHeading(
-                              screenSize: screenSize,
-                            ),
+                            FeaturedHeading(screenSize: screenSize),
                             FeaturedTiles(screenSize: screenSize)
                           ],
                         ),

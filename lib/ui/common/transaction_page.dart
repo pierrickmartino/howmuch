@@ -102,20 +102,32 @@ class _TransactionPageState extends State<TransactionPage> {
                       height: screenSize.height * 0.45,
                       width: screenSize.width,
                       child: Image.asset(
-                        'asset/images/cover.jpg',
+                        'asset/images/cover_transactions.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Column(
                     children: [
-                      FloatingQuickAccessBar(screenSize: screenSize),
+                      //FloatingQuickAccessBar(screenSize: screenSize),
+                      Center(
+                        heightFactor: 1,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: screenSize.height * 0.45,
+                            left: ResponsiveWidget.isSmallScreen(context)
+                                ? screenSize.width / 12
+                                : screenSize.width / 5,
+                            right: ResponsiveWidget.isSmallScreen(context)
+                                ? screenSize.width / 12
+                                : screenSize.width / 5,
+                          ),
+                        ),
+                      ),
                       Container(
                         child: Column(
                           children: [
-                            FeaturedHeading(
-                              screenSize: screenSize,
-                            ),
+                            FeaturedHeading(screenSize: screenSize),
                             FeaturedTiles(screenSize: screenSize)
                           ],
                         ),
