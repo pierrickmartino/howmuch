@@ -97,14 +97,14 @@ class _HowMuchDrawerState extends State<HowMuchDrawer> {
                               _isProcessing = true;
                             });
                             await signOut().then((result) {
-                              print(result);
+                              //print(result);
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute<dynamic>(
                                   fullscreenDialog: true,
                                   builder: (context) => const HomePage(),
                                 ),
                               );
-                            }).catchError((error) {
+                            }).catchError((dynamic error) {
                               print('Sign Out Error: $error');
                             });
                             setState(() {

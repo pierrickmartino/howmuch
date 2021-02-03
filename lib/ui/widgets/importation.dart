@@ -107,7 +107,7 @@ class _ImportationState extends State<Importation> {
       final extraInfo = values[14];
 
       // insert into the moor database
-      BlocProvider.of<HowMuchAppBloc>(context).insertTransaction(
+      await BlocProvider.of<HowMuchAppBloc>(context).insertTransaction(
         product,
         iban,
         transactionId,
@@ -128,7 +128,7 @@ class _ImportationState extends State<Importation> {
   }
 
   Future<void> _deleteAllTransactions() async {
-    BlocProvider.of<HowMuchAppBloc>(context).deleteAllTransactions();
+    await BlocProvider.of<HowMuchAppBloc>(context).deleteAllTransactions();
   }
 
   // void _clearCachedFiles() {

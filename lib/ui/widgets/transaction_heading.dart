@@ -33,7 +33,7 @@ class TransactionHeading extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '-',
+                  'Transactions are currently limited to 50 results',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
                 ),

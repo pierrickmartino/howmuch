@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/model/period_filter.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../src/bloc/bloc.dart';
@@ -63,6 +64,13 @@ class _NumberTilesState extends State<NumberTiles> {
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(
                 children: [
+                  IconButton(
+                    icon: const Icon(
+                      LineAwesomeIcons.refresh,
+                      size: 20,
+                    ),
+                    onPressed: refresh,
+                  ),
                   ...Iterable<int>.generate(numbers.length).map(
                     (int pageIndex) => Padding(
                       padding:
@@ -153,36 +161,38 @@ class NumberTilesCounter extends StatelessWidget {
         return FutureBuilder<int>(
           future: bloc.countTransactions(selectedPeriod),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Text(
+                snapshot.data.toString(),
+                style: TextStyle(
+                    color: Theme.of(context).primaryTextTheme.button.color,
+                    fontSize:
+                        ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
+              );
+            } else {
               return const Align(
                 child: CircularProgressIndicator(),
               );
             }
-
-            return Text(
-              snapshot.data.toString(),
-              style: TextStyle(
-                  color: Theme.of(context).primaryTextTheme.button.color,
-                  fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
-            );
           },
         );
       case 'TRANSACTION_AMOUNT':
         return FutureBuilder<double>(
           future: bloc.totalAmountTransactions,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Text(
+                'CHF ${_numberFormat.format(snapshot.data)}',
+                style: TextStyle(
+                    color: Theme.of(context).primaryTextTheme.button.color,
+                    fontSize:
+                        ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
+              );
+            } else {
               return const Align(
                 child: CircularProgressIndicator(),
               );
             }
-
-            return Text(
-              'CHF ${_numberFormat.format(snapshot.data)}',
-              style: TextStyle(
-                  color: Theme.of(context).primaryTextTheme.button.color,
-                  fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),
-            );
           },
         );
         break;

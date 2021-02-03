@@ -23,28 +23,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-  double _scrollPosition = 0;
+  //double _scrollPosition = 0;
   double _opacity = 0;
 
-  void _scrollListener() {
-    setState(() {
-      _scrollPosition = _scrollController.position.pixels;
-    });
-  }
+  // void _scrollListener() {
+  //   setState(() {
+  //     _scrollPosition = _scrollController.position.pixels;
+  //   });
+  // }
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
+    // the listener is causing some multiple request on database so I prefer avoid it
+    //_scrollController.addListener(_scrollListener);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    _opacity = _scrollPosition < screenSize.height * 0.40
-        ? _scrollPosition / (screenSize.height * 0.40)
-        : 1;
+
+    // _opacity = _scrollPosition < screenSize.height * 0.40
+    //     ? _scrollPosition / (screenSize.height * 0.40)
+    //     : 1;
+
+    _opacity = 0.85;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

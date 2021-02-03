@@ -10,7 +10,7 @@ import 'src/bloc/bloc.dart';
 import 'src/database/database.dart';
 // import 'src/model/dashboard_filter.dart';
 import 'src/model/period_filter.dart';
-import 'ui/auth/authentication.dart';
+//import 'ui/auth/authentication.dart';
 //import 'ui/common/home_page.dart';
 
 void main() {
@@ -25,15 +25,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<dynamic> getUserInfo() async {
-    await getUser();
-    setState(() {});
-    //print(uid);
-  }
+  // Future<dynamic> getUserInfo() async {
+  //   await getUser();
+  //   setState(() {});
+  //   //print(uid);
+  // }
 
   @override
   void initState() {
-    getUserInfo();
+    //getUserInfo();
     super.initState();
   }
 
@@ -42,7 +42,8 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: PeriodFilter()),
-        RepositoryProvider<Database>(create: (context) => constructDb()),
+        RepositoryProvider<Database>(
+            create: (context) => constructDb(logStatements: true)),
         BlocProvider<HowMuchAppBloc>(
           create: (context) {
             final db = RepositoryProvider.of<Database>(context);

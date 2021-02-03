@@ -30,7 +30,7 @@ class _AuthDialogState extends State<AuthDialog> {
 
     if (textControllerEmail.text != null) {
       if (value.isEmpty) {
-        return 'Email can\'t be empty';
+        return "Email can't be empty";
       } else if (!value.contains(
         RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"),
@@ -47,7 +47,7 @@ class _AuthDialogState extends State<AuthDialog> {
 
     if (textControllerEmail.text != null) {
       if (value.isEmpty) {
-        return 'Password can\'t be empty';
+        return "Password can't be empty";
       } else if (value.length < 6) {
         return 'Length of password should be greater than 6';
       }
@@ -266,7 +266,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                       );
                                     });
                                   }
-                                }).catchError((error) {
+                                }).catchError((dynamic error) {
                                   print('Login Error: $error');
                                   setState(() {
                                     loginStatus =
@@ -352,7 +352,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                     });
                                     print(result);
                                   }
-                                }).catchError((error) {
+                                }).catchError((dynamic error) {
                                   print('Registration Error: $error');
                                   setState(() {
                                     loginStatus =
