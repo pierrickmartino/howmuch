@@ -245,6 +245,13 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /* Transaction SUM without any filter */
   Future<double> get totalAmountTransactions => db.totalAmountTransactions();
 
+  /* Transaction list */
+  Stream<List<Transaction>> get getTransactionsByStream =>
+      db.watchAllTransactions();
+  Future<List<Transaction>> get getTransactionsByFuture =>
+      db.allWatchingTransactions();
+
+  /* Undo process */
   bool get canUndo => db.cs.canUndo;
   Future<void> undo() async {
     db.cs.undo();

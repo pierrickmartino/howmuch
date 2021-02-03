@@ -2,13 +2,13 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_bar.dart';
-import '../widgets/featured_tiles.dart';
 //import '../widgets/carousel.dart';
 //import '../widgets/destination_heading.dart';
 import '../widgets/howmuch_drawer.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
 import '../widgets/transaction_heading.dart';
+import '../widgets/transaction_list.dart';
 //import '../widgets/number_heading.dart';
 //import '../widgets/number_tiles.dart';
 import '../widgets/web_scrollbar.dart';
@@ -126,7 +126,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       Column(
                         children: [
                           TransactionHeading(screenSize: screenSize),
-                          FeaturedTiles(screenSize: screenSize)
+                          TransactionList(screenSize: screenSize)
                         ],
                       ),
                     ],

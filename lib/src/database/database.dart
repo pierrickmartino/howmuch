@@ -199,10 +199,19 @@ class Database extends _$Database {
     });
   }
 
+  Future<List<Transaction>> allWatchingTransactions() {
+    return (select(transactions)..limit(10)).get();
+  }
+
+  Stream<List<Transaction>> watchAllTransactions() {
+    return (select(transactions)..limit(10)).watch();
+  }
+
   Future<int> get countTransactions =>
       select(transactions).get().then((value) => value.length);
 
   Future<int> get countTransactionsThisMonth => (select(transactions)
+        ..where((tbl) => tbl._valueDate.year.equals(DateTime.now().year))
         ..where((tbl) => tbl._valueDate.month.equals(DateTime.now().month)))
       .get()
       .then((value) => value.length);

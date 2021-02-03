@@ -21,10 +21,9 @@ class TransactionHeading extends StatelessWidget {
       child: ResponsiveWidget.isSmallScreen(context)
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(),
-                Text(
+                const Text(
                   'Transactions',
                   style: TextStyle(
                     fontSize: 24,
@@ -32,20 +31,17 @@ class TransactionHeading extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   '-',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
                 ),
-                SizedBox(height: 10),
               ],
             )
           : Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Transactions',
                   style: TextStyle(
                     fontSize: 40,
