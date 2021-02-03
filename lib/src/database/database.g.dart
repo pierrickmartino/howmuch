@@ -1396,7 +1396,7 @@ class $CategoriesTable extends Categories
   GeneratedBoolColumn get editable => _editable ??= _constructEditable();
   GeneratedBoolColumn _constructEditable() {
     return GeneratedBoolColumn('editable', $tableName, false,
-        defaultValue: Constant(true));
+        defaultValue: const Constant(true));
   }
 
   final VerificationMeta _activeMeta = const VerificationMeta('active');
@@ -1405,7 +1405,7 @@ class $CategoriesTable extends Categories
   GeneratedBoolColumn get active => _active ??= _constructActive();
   GeneratedBoolColumn _constructActive() {
     return GeneratedBoolColumn('active', $tableName, false,
-        defaultValue: Constant(true));
+        defaultValue: const Constant(true));
   }
 
   @override

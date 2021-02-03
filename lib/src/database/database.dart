@@ -20,8 +20,8 @@ class Categories extends Table {
   IntColumn get performance => integer().nullable()();
   DateTimeColumn get creationDate => dateTime().nullable()();
   DateTimeColumn get lastUpdateDate => dateTime().nullable()();
-  BoolColumn get editable => boolean().withDefault(Constant(true))();
-  BoolColumn get active => boolean().withDefault(Constant(true))();
+  BoolColumn get editable => boolean().withDefault(const Constant(true))();
+  BoolColumn get active => boolean().withDefault(const Constant(true))();
 }
 
 @DataClassName('Account')
@@ -128,7 +128,7 @@ class Database extends _$Database {
       'SELECT c.*, '
       '(SELECT COUNT(*) FROM transactions WHERE category = c.id) AS counter '
       '(SELECT SUM(transactionAmount) FROM transactions WHERE category = c.id) AS amount '
-      'FROM categories c'
+      'FROM categories c '
       'ORDER BY counter DESC',
       readsFrom: {categories, transactions},
     ).map((row) {
@@ -144,7 +144,7 @@ class Database extends _$Database {
     }).watch();
   }
 
-  /// Watches all transactions in the given [category]. If the category is null, all
+  /// Watches all transactions in the given category. If the category is null, all
   /// entries will be shown instead.
   Stream<List<TransactionWithCategory>> watchTransactionsInCategory(
       Category _category) {
@@ -176,7 +176,7 @@ class Database extends _$Database {
   Stream<List<Category>> get watchAllCategories => select(categories).watch();
 
   /* TODO : Really necessary ??? double-check if auto-increment is not enough */
-  Future createCategory(CategoriesCompanion _category) async {
+  Future<dynamic> createCategory(CategoriesCompanion _category) async {
     final _categories = await (select(categories)
           ..orderBy(
             [
@@ -188,11 +188,11 @@ class Database extends _$Database {
     return insertRow(cs, categories, _category);
   }
 
-  Future updateCategory(Category _category) async {
+  Future<dynamic> updateCategory(Category _category) async {
     return updateRow(cs, categories, _category);
   }
 
-  Future deleteCategory(Category _category) {
+  Future<dynamic> deleteCategory(Category _category) {
     return transaction(() async {
       await _resetCategory(_category.id);
       await deleteRow(cs, categories, _category);
@@ -202,6 +202,16 @@ class Database extends _$Database {
   Future<int> get countTransactions =>
       select(transactions).get().then((value) => value.length);
 
+  Future<int> get countTransactionsThisMonth => (select(transactions)
+        ..where((tbl) => tbl._valueDate.month.equals(DateTime.now().month)))
+      .get()
+      .then((value) => value.length);
+
+  Future<int> get countTransactionsThisYear => (select(transactions)
+        ..where((tbl) => tbl._valueDate.year.equals(DateTime.now().year)))
+      .get()
+      .then((value) => value.length);
+
   Future<double> totalAmountTransactions() {
     final transactionTotalAmount = transactions.transactionAmount.sum();
     final query = selectOnly(transactions)
@@ -210,11 +220,11 @@ class Database extends _$Database {
     return query.map((row) => row.read(transactionTotalAmount)).getSingle();
   }
 
-  Future insertTransaction(TransactionsCompanion _transaction) async {
+  Future<dynamic> insertTransaction(TransactionsCompanion _transaction) async {
     await into(transactions).insert(_transaction);
   }
 
-  Future createTransaction(TransactionsCompanion _transaction) async {
+  Future<dynamic> createTransaction(TransactionsCompanion _transaction) async {
     final _transactions = await (select(transactions)
           ..orderBy(
             [
@@ -226,15 +236,15 @@ class Database extends _$Database {
     return insertRow(cs, transactions, _transaction);
   }
 
-  Future updateTransaction(Transaction _transaction) async {
+  Future<dynamic> updateTransaction(Transaction _transaction) async {
     return updateRow(cs, transactions, _transaction);
   }
 
-  Future deleteTransaction(Transaction _transaction) async {
+  Future<dynamic> deleteTransaction(Transaction _transaction) async {
     await deleteRow(cs, transactions, _transaction);
   }
 
-  Future deleteAllTransactions() async {
+  Future<dynamic> deleteAllTransactions() async {
     return transaction(() async {
       await (delete(transactions)).go();
     });

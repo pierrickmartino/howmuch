@@ -82,7 +82,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /*
    * Category Creation
    */
-  void createCategory(String content) async {
+  Future<void> createCategory(String content) async {
     await db.createCategory(
       CategoriesCompanion(
         description: moor.Value(content),
@@ -97,7 +97,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /*
    * Category Update unitary
    */
-  void updateCategory(Category _category) async {
+  Future<void> updateCategory(Category _category) async {
     await db.updateCategory(_category);
     emit(db.cs);
   }
@@ -105,7 +105,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /*
    * Category Delete unitary
    */
-  void deleteCategory(Category _category) async {
+  Future<void> deleteCategory(Category _category) async {
     await db.deleteCategory(_category);
     emit(db.cs);
   }
@@ -121,7 +121,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * insert a new transaction with a research of the last id in database 
    * use of db_utils
    */
-  void createTransaction(
+  Future<void> createTransaction(
       String product,
       String iban,
       String transactionId,
@@ -163,7 +163,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Transaction Creation
    * insert a new transaction with auto-incremental id
    */
-  void insertTransaction(
+  Future<void> insertTransaction(
       String product,
       String iban,
       String transactionId,
@@ -204,7 +204,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /* 
    * Transaction Update unitary
    */
-  void updateTransaction(Transaction _transaction) async {
+  Future<void> updateTransaction(Transaction _transaction) async {
     await db.updateTransaction(_transaction);
     emit(db.cs);
   }
@@ -212,7 +212,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /* 
    * Transaction Delete unitary
    */
-  void deleteTransaction(Transaction _transaction) async {
+  Future<void> deleteTransaction(Transaction _transaction) async {
     await db.deleteTransaction(_transaction);
     emit(db.cs);
   }
@@ -220,24 +220,39 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   /*
    * Transaction Delete all
    */
-  void deleteAllTransactions() async {
+  Future<void> deleteAllTransactions() async {
     await db.deleteAllTransactions();
     emit(db.cs);
   }
 
-  /* Transaction COUNT without any filter */
-  Future<int> get countTransactions => db.countTransactions;
+  /* Transaction COUNT without or with filter */
+  Future<int> countTransactions(int _period) async {
+    switch (_period) {
+      case 1:
+        return db.countTransactionsThisMonth;
+        break;
+      case 2:
+        return db.countTransactionsThisYear;
+        break;
+      case 3:
+        return db.countTransactions;
+        break;
+      default:
+        return db.countTransactions;
+    }
+  }
+
   /* Transaction SUM without any filter */
   Future<double> get totalAmountTransactions => db.totalAmountTransactions();
 
   bool get canUndo => db.cs.canUndo;
-  void undo() async {
+  Future<void> undo() async {
     db.cs.undo();
     emit(db.cs);
   }
 
   bool get canRedo => db.cs.canRedo;
-  void redo() async {
+  Future<void> redo() async {
     db.cs.redo();
     emit(db.cs);
   }

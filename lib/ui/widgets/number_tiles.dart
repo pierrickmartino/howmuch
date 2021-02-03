@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:howmuch/src/model/period_filter.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../src/bloc/bloc.dart';
 import '../common/custom_card.dart';
@@ -44,6 +46,9 @@ class _NumberTilesState extends State<NumberTiles> {
 
   @override
   Widget build(BuildContext context) {
+    final int _periodValue =
+        Provider.of<PeriodFilter>(context).getPeriodFilterForNumbers;
+
     return Center(
       heightFactor: 1,
       child: Padding(
@@ -75,8 +80,10 @@ class _NumberTilesState extends State<NumberTiles> {
                           ),
                           const Spacer(),
                           NumberTilesCounter(
-                              section: numbers[pageIndex],
-                              contextParent: context),
+                            section: numbers[pageIndex],
+                            contextParent: context,
+                            selectedPeriod: _periodValue,
+                          ),
                           SizedBox(height: widget.screenSize.height / 70),
                         ],
                       ),
@@ -108,8 +115,10 @@ class _NumberTilesState extends State<NumberTiles> {
                             ),
                             const Spacer(),
                             NumberTilesCounter(
-                                section: numbers[pageIndex],
-                                contextParent: context),
+                              section: numbers[pageIndex],
+                              contextParent: context,
+                              selectedPeriod: _periodValue,
+                            ),
                             SizedBox(height: widget.screenSize.height / 70),
                           ],
                         ),
@@ -124,12 +133,16 @@ class _NumberTilesState extends State<NumberTiles> {
 }
 
 class NumberTilesCounter extends StatelessWidget {
-  const NumberTilesCounter(
-      {Key key, @required this.section, @required this.contextParent})
-      : super(key: key);
+  const NumberTilesCounter({
+    Key key,
+    @required this.section,
+    @required this.contextParent,
+    this.selectedPeriod,
+  }) : super(key: key);
 
   final String section;
   final BuildContext contextParent;
+  final int selectedPeriod;
 
   HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(contextParent);
 
@@ -138,7 +151,7 @@ class NumberTilesCounter extends StatelessWidget {
     switch (section) {
       case 'TRANSACTION_COUNT':
         return FutureBuilder<int>(
-          future: bloc.countTransactions,
+          future: bloc.countTransactions(selectedPeriod),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Align(

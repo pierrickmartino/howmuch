@@ -154,7 +154,7 @@ Future<String> signOut() async {
 }
 
 /// For signing out of their Google account
-void signOutGoogle() async {
+Future<void> signOutGoogle() async {
   await googleSignIn.signOut();
   await _auth.signOut();
 

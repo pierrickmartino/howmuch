@@ -83,7 +83,8 @@ class _NumberHeadingState extends State<NumberHeading> {
                             setState(() {
                               _selectedItem = value;
                               Provider.of<PeriodFilter>(context, listen: false)
-                                  .setPeriodFilterForNumbers(_periodValue);
+                                  .setPeriodFilterForNumbers(
+                                      _selectedItem.value);
                             });
                           }),
                     ),

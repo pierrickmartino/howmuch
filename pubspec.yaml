@@ -25,18 +25,18 @@ dependencies:
     sdk: flutter
 
   # Layout / UI
+  carousel_slider: ^2.2.1
   cupertino_icons: ^1.0.0
+  dynamic_theme: ^1.0.1
+  line_awesome_icons: ^1.0.4+2
+  timelines: ^0.0.2+1
   #collapsible_sidebar: ^1.0.5
   #flutter_slidable: ^0.5.7
   #flutter_material_color_picker: ^1.0.5
   #fluid_layout: ^0.1.0
   #flutter_iconpicker: ^2.2.2
-  line_awesome_icons: ^1.0.4+2
   #toggle_switch: ^0.1.8
   #badges: ^1.1.4
-  carousel_slider: ^2.2.1
-  dynamic_theme: ^1.0.1
-  timelines: ^0.0.2+1
 
   # DB
   faker: ^1.3.0
@@ -72,9 +72,9 @@ dependencies:
   #dots_indicator: ^1.2.0
 
 dev_dependencies:
-  moor_generator: ^3.4.0
   build_runner: ^1.10.4
   build_web_compilers: ^2.13.0
+  moor_generator: ^3.4.0
   flutter_test:
     sdk: flutter
 

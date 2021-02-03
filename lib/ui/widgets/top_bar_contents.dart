@@ -186,7 +186,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                     ? () {
                         showDialog(
                           context: context,
-                          builder: (context) => AuthDialog(),
+                          builder: (context) => const AuthDialog(),
                         );
                       }
                     : null,
