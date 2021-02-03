@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../common/home_page.dart';
 import '../auth/authentication.dart';
+import '../common/home_page.dart';
 import 'google_sign_in_button.dart';
 
 class AuthDialog extends StatefulWidget {
+  const AuthDialog({Key key}) : super(key: key);
   @override
   _AuthDialogState createState() => _AuthDialogState();
 }
@@ -71,11 +72,11 @@ class _AuthDialogState extends State<AuthDialog> {
     return Dialog(
       backgroundColor: Theme.of(context).backgroundColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Container(
             width: 400,
             color: Theme.of(context).backgroundColor,
@@ -95,9 +96,9 @@ class _AuthDialogState extends State<AuthDialog> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, bottom: 8),
+                  padding: const EdgeInsets.only(left: 20, bottom: 8),
                   child: Text(
                     'Email address',
                     textAlign: TextAlign.left,
@@ -111,13 +112,12 @@ class _AuthDialogState extends State<AuthDialog> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
                     focusNode: textFocusNodeEmail,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     controller: textControllerEmail,
-                    autofocus: false,
                     onChanged: (value) {
                       setState(() {
                         _isEditingEmail = true;
@@ -128,11 +128,11 @@ class _AuthDialogState extends State<AuthDialog> {
                       FocusScope.of(context)
                           .requestFocus(textFocusNodePassword);
                     },
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      border: new OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
                           color: Colors.blueGrey[800],
@@ -140,25 +140,25 @@ class _AuthDialogState extends State<AuthDialog> {
                         ),
                       ),
                       filled: true,
-                      hintStyle: new TextStyle(
+                      hintStyle: TextStyle(
                         color: Colors.blueGrey[300],
                       ),
-                      hintText: "Email",
+                      hintText: 'Email',
                       fillColor: Colors.white,
                       errorText: _isEditingEmail
                           ? _validateEmail(textControllerEmail.text)
                           : null,
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                         fontSize: 12,
                         color: Colors.redAccent,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 20.0,
+                    left: 20,
                     bottom: 8,
                   ),
                   child: Text(
@@ -174,7 +174,7 @@ class _AuthDialogState extends State<AuthDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 20.0,
+                    left: 20,
                     right: 20,
                   ),
                   child: TextField(
@@ -183,7 +183,6 @@ class _AuthDialogState extends State<AuthDialog> {
                     textInputAction: TextInputAction.done,
                     controller: textControllerPassword,
                     obscureText: true,
-                    autofocus: false,
                     onChanged: (value) {
                       setState(() {
                         _isEditingPassword = true;
@@ -194,11 +193,11 @@ class _AuthDialogState extends State<AuthDialog> {
                       FocusScope.of(context)
                           .requestFocus(textFocusNodePassword);
                     },
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      border: new OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
                           color: Colors.blueGrey[800],
@@ -206,15 +205,15 @@ class _AuthDialogState extends State<AuthDialog> {
                         ),
                       ),
                       filled: true,
-                      hintStyle: new TextStyle(
+                      hintStyle: TextStyle(
                         color: Colors.blueGrey[300],
                       ),
-                      hintText: "Password",
+                      hintText: 'Password',
                       fillColor: Colors.white,
                       errorText: _isEditingPassword
                           ? _validatePassword(textControllerPassword.text)
                           : null,
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                         fontSize: 12,
                         color: Colors.redAccent,
                       ),
@@ -222,13 +221,11 @@ class _AuthDialogState extends State<AuthDialog> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Flexible(
-                        flex: 1,
                         child: Container(
                           width: double.maxFinite,
                           child: FlatButton(
@@ -251,19 +248,20 @@ class _AuthDialogState extends State<AuthDialog> {
                                         textControllerPassword.text)
                                     .then((result) {
                                   if (result != null) {
-                                    print(result);
+                                    //print(result);
                                     setState(() {
                                       loginStatus =
                                           'You have successfully logged in';
                                       loginStringColor = Colors.green;
                                     });
-                                    Future.delayed(Duration(milliseconds: 500),
-                                        () {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 500), () {
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
+                                        MaterialPageRoute<dynamic>(
                                           fullscreenDialog: true,
-                                          builder: (context) => HomePage(),
+                                          builder: (context) =>
+                                              const HomePage(),
                                         ),
                                       );
                                     });
@@ -294,23 +292,23 @@ class _AuthDialogState extends State<AuthDialog> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 15.0,
-                                bottom: 15.0,
+                              padding: const EdgeInsets.only(
+                                top: 15,
+                                bottom: 15,
                               ),
                               child: _isLoggingIn
-                                  ? SizedBox(
+                                  ? const SizedBox(
                                       height: 16,
                                       width: 16,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
                                         valueColor:
-                                            new AlwaysStoppedAnimation<Color>(
+                                            AlwaysStoppedAnimation<Color>(
                                           Colors.white,
                                         ),
                                       ),
                                     )
-                                  : Text(
+                                  : const Text(
                                       'Log in',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -321,9 +319,8 @@ class _AuthDialogState extends State<AuthDialog> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Flexible(
-                        flex: 1,
                         child: Container(
                           width: double.maxFinite,
                           child: FlatButton(
@@ -382,23 +379,23 @@ class _AuthDialogState extends State<AuthDialog> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 15.0,
-                                bottom: 15.0,
+                              padding: const EdgeInsets.only(
+                                top: 15,
+                                bottom: 15,
                               ),
                               child: _isRegistering
-                                  ? SizedBox(
+                                  ? const SizedBox(
                                       height: 16,
                                       width: 16,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
                                         valueColor:
-                                            new AlwaysStoppedAnimation<Color>(
+                                            AlwaysStoppedAnimation<Color>(
                                           Colors.white,
                                         ),
                                       ),
                                     )
-                                  : Text(
+                                  : const Text(
                                       'Sign up',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -412,25 +409,26 @@ class _AuthDialogState extends State<AuthDialog> {
                     ],
                   ),
                 ),
-                loginStatus != null
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Text(
-                            loginStatus,
-                            style: TextStyle(
-                              color: loginStringColor,
-                              fontSize: 14,
-                              // letterSpacing: 3,
-                            ),
-                          ),
+                if (loginStatus != null)
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        loginStatus,
+                        style: TextStyle(
+                          color: loginStringColor,
+                          fontSize: 14,
+                          // letterSpacing: 3,
                         ),
-                      )
-                    : Container(),
+                      ),
+                    ),
+                  )
+                else
+                  Container(),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 40.0,
-                    right: 40.0,
+                    left: 40,
+                    right: 40,
                   ),
                   child: Container(
                     height: 1,
@@ -438,13 +436,13 @@ class _AuthDialogState extends State<AuthDialog> {
                     color: Colors.blueGrey[200],
                   ),
                 ),
-                SizedBox(height: 30),
-                Center(
+                const SizedBox(height: 30),
+                const Center(
                   child: GoogleButton(),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Text(
                     'By proceeding, you agree to our Terms of Use and confirm you have read our Privacy Policy.',
                     maxLines: 2,

@@ -10,11 +10,11 @@ class CustomRouter {
     switch (settings.name) {
       case homeRoute:
         return MaterialPageRoute(
-          builder: (_) => HomePage(),
+          builder: (_) => const HomePage(),
         );
       case transactionsRoute:
         return MaterialPageRoute(
-          builder: (_) => TransactionPage(),
+          builder: (_) => const TransactionPage(),
         );
       // case loginRoute:
       //   return MaterialPageRoute(

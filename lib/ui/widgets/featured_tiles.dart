@@ -35,7 +35,6 @@ class FeaturedTiles extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: screenSize.width / 15),
                   //...Iterable<int>.generate(asset.length).map(
@@ -49,10 +48,10 @@ class FeaturedTiles extends StatelessWidget {
                               height: screenSize.width / 2.5,
                               width: screenSize.width / 1.5,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(5),
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 0.0, 6.0, 6.0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 6, 6),
                                   child: CustomCard(
                                     color: Theme.of(context).cardColor,
                                     child: Summary(
@@ -115,15 +114,14 @@ class FeaturedTiles extends StatelessWidget {
                         height: screenSize.width / 6,
                         width: screenSize.width / 3.8,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(5),
                           child:
                               // Image.asset(
                               //   asset[pageIndex],
                               //   fit: BoxFit.cover,
                               // ),
                               Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(0.0, 0.0, 6.0, 6.0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 6, 6),
                             child: CustomCard(
                               color: Theme.of(context).cardColor,
                               child: Summary(

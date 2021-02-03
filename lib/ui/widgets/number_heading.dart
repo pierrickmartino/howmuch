@@ -2,40 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:howmuch/src/model/period_filter.dart';
 import 'package:provider/provider.dart';
 
-import 'responsive.dart';
 import '../../src/model/list_period.dart';
+import 'responsive.dart';
 
 class NumberHeading extends StatefulWidget {
-  final Size screenSize;
   const NumberHeading({Key key, @required this.screenSize}) : super(key: key);
+
+  final Size screenSize;
 
   @override
   _NumberHeadingState createState() => _NumberHeadingState();
 }
 
 class _NumberHeadingState extends State<NumberHeading> {
-  List<ListPeriod> _dropdownItems = [
-    ListPeriod(1, "This month"),
-    ListPeriod(2, "This year"),
-    ListPeriod(3, "All"),
+  final List<ListPeriod> _dropdownItems = [
+    ListPeriod(1, 'This month'),
+    ListPeriod(2, 'This year'),
+    ListPeriod(3, 'All'),
   ];
 
   List<DropdownMenuItem<ListPeriod>> _dropdownMenuItems;
   ListPeriod _selectedItem;
 
+  @override
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
     _selectedItem = _dropdownMenuItems[2].value;
   }
 
-  List<DropdownMenuItem<ListPeriod>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListPeriod>> items = [];
-    for (ListPeriod listItem in listItems) {
+  List<DropdownMenuItem<ListPeriod>> buildDropDownMenuItems(
+      List<dynamic> listItems) {
+    final List<DropdownMenuItem<ListPeriod>> items = [];
+    for (final ListPeriod listItem in listItems) {
       items.add(
         DropdownMenuItem(
-          child: Text(listItem.name),
           value: listItem,
+          child: Text(listItem.name),
         ),
       );
     }
@@ -46,26 +49,23 @@ class _NumberHeadingState extends State<NumberHeading> {
   Widget build(BuildContext context) {
     // si nous voulons passer par des Stateless alors nous devons utiliser le provider
     // pour le moment les periodes ne sont pas transmises à la database
-    var _periodValue =
+    final _periodValue =
         Provider.of<PeriodFilter>(context).getPeriodFilterForNumbers;
 
     return ResponsiveWidget.isSmallScreen(context)
         ? Container(
             padding: EdgeInsets.only(
               top: widget.screenSize.height / 20,
-              bottom: 0,
               left: widget.screenSize.width / 15,
               right: widget.screenSize.width / 15,
             ),
             width: widget.screenSize.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
+                    const Text(
                       'Numbers',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -74,7 +74,7 @@ class _NumberHeadingState extends State<NumberHeading> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     DropdownButtonHideUnderline(
                       child: DropdownButton<ListPeriod>(
                           value: _selectedItem,
@@ -89,13 +89,13 @@ class _NumberHeadingState extends State<NumberHeading> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   'Data statistics that you could be interested in',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           )
@@ -106,7 +106,7 @@ class _NumberHeadingState extends State<NumberHeading> {
             ),
             width: widget.screenSize.width,
             // color: Colors.black,
-            child: Text(
+            child: const Text(
               'Numbers',
               textAlign: TextAlign.left,
               style: TextStyle(

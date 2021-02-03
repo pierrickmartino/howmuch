@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'responsive.dart';
-import '../common/custom_card.dart';
 import '../../src/bloc/bloc.dart';
+import '../common/custom_card.dart';
+import 'responsive.dart';
 
 final _numberFormat =
     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
@@ -13,15 +13,16 @@ final _percentFormat =
     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
 class NumberTiles extends StatefulWidget {
-  final Size screenSize;
   const NumberTiles({Key key, @required this.screenSize}) : super(key: key);
+
+  final Size screenSize;
 
   @override
   _NumberTilesState createState() => _NumberTilesState();
 }
 
 class _NumberTilesState extends State<NumberTiles> {
-  refresh() {
+  void refresh() {
     setState(() {});
   }
 
@@ -47,7 +48,6 @@ class _NumberTilesState extends State<NumberTiles> {
       heightFactor: 1,
       child: Padding(
         padding: EdgeInsets.only(
-          top: 0, //screenSize.height / 20,
           left: ResponsiveWidget.isSmallScreen(context)
               ? widget.screenSize.width / 15
               : widget.screenSize.width / 5,
@@ -73,7 +73,7 @@ class _NumberTilesState extends State<NumberTiles> {
                                     .color,
                                 fontSize: 14),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           NumberTilesCounter(
                               section: numbers[pageIndex],
                               contextParent: context),
@@ -106,7 +106,7 @@ class _NumberTilesState extends State<NumberTiles> {
                                     .color,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             NumberTilesCounter(
                                 section: numbers[pageIndex],
                                 contextParent: context),
@@ -124,7 +124,9 @@ class _NumberTilesState extends State<NumberTiles> {
 }
 
 class NumberTilesCounter extends StatelessWidget {
-  NumberTilesCounter({@required this.section, @required this.contextParent});
+  const NumberTilesCounter(
+      {Key key, @required this.section, @required this.contextParent})
+      : super(key: key);
 
   final String section;
   final BuildContext contextParent;
@@ -140,7 +142,6 @@ class NumberTilesCounter extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Align(
-                alignment: Alignment.center,
                 child: CircularProgressIndicator(),
               );
             }
@@ -159,13 +160,12 @@ class NumberTilesCounter extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Align(
-                alignment: Alignment.center,
                 child: CircularProgressIndicator(),
               );
             }
 
             return Text(
-              'CHF ' + _numberFormat.format(snapshot.data),
+              'CHF ${_numberFormat.format(snapshot.data)}',
               style: TextStyle(
                   color: Theme.of(context).primaryTextTheme.button.color,
                   fontSize: ResponsiveWidget.isSmallScreen(context) ? 14 : 16),

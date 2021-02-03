@@ -3,15 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class WebScrollbar extends StatefulWidget {
-  final Widget child;
-  final ScrollController controller;
-  final double heightFraction;
-  final double width;
-  final Color color;
-  final Color backgroundColor;
-  final bool isAlwaysShown;
-
-  WebScrollbar({
+  const WebScrollbar({
+    Key key,
     @required this.child,
     @required this.controller,
     this.heightFraction = 0.20,
@@ -27,7 +20,16 @@ class WebScrollbar extends StatefulWidget {
         assert(width != null),
         assert(color != null),
         assert(backgroundColor != null),
-        assert(isAlwaysShown != null);
+        assert(isAlwaysShown != null),
+        super(key: key);
+
+  final Widget child;
+  final ScrollController controller;
+  final double heightFraction;
+  final double width;
+  final Color color;
+  final Color backgroundColor;
+  final bool isAlwaysShown;
 
   @override
   _WebScrollbarState createState() => _WebScrollbarState();
@@ -38,7 +40,7 @@ class _WebScrollbarState extends State<WebScrollbar> {
   bool _isUpdating;
   Timer timer;
 
-  _scrollListener() {
+  void _scrollListener() {
     setState(() {
       _scrollPosition = widget.controller.position.pixels;
     });
@@ -53,10 +55,10 @@ class _WebScrollbarState extends State<WebScrollbar> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    double _scrollerHeight = screenSize.height * widget.heightFraction;
+    final screenSize = MediaQuery.of(context).size;
+    final double _scrollerHeight = screenSize.height * widget.heightFraction;
 
-    double _topMargin = widget.controller.hasClients
+    final double _topMargin = widget.controller.hasClients
         ? ((screenSize.height *
                 _scrollPosition /
                 widget.controller.position.maxScrollExtent) -
@@ -74,7 +76,7 @@ class _WebScrollbarState extends State<WebScrollbar> {
               _isUpdating = true;
             });
           } else {
-            timer = Timer(Duration(seconds: 5), () {
+            timer = Timer(const Duration(seconds: 5), () {
               setState(() {
                 _isUpdating = false;
               });
@@ -95,7 +97,7 @@ class _WebScrollbarState extends State<WebScrollbar> {
                         ? 1
                         : 0
                     : 0,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: Container(
               alignment: Alignment.centerRight,
               height: MediaQuery.of(context).size.height,
@@ -107,23 +109,8 @@ class _WebScrollbarState extends State<WebScrollbar> {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: GestureDetector(
-                  child: Container(
-                    height: _scrollerHeight,
-                    width: widget.width,
-                    margin: EdgeInsets.only(
-                      left: 1.0,
-                      right: 1.0,
-                      top: _topMargin,
-                    ),
-                    decoration: BoxDecoration(
-                      color: widget.color,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3.0),
-                      ),
-                    ),
-                  ),
                   onTapCancel: () {
-                    timer = Timer(Duration(seconds: 5), () {
+                    timer = Timer(const Duration(seconds: 5), () {
                       setState(() {
                         _isUpdating = false;
                       });
@@ -160,6 +147,21 @@ class _WebScrollbarState extends State<WebScrollbar> {
                       }
                     });
                   },
+                  child: Container(
+                    height: _scrollerHeight,
+                    width: widget.width,
+                    margin: EdgeInsets.only(
+                      left: 1,
+                      right: 1,
+                      top: _topMargin,
+                    ),
+                    decoration: BoxDecoration(
+                      color: widget.color,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(3),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

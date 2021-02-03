@@ -16,7 +16,7 @@ class FloatingQuickAccessBar extends StatefulWidget {
 }
 
 class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
-  List _isHovering = [false, false, false];
+  final List<dynamic> _isHovering = [false, false, false];
   List<Widget> rowElements = [];
 
   List<String> items = ['Destination', 'Dates', 'People'];
@@ -31,7 +31,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
   List<Widget> generateRowElements() {
     rowElements.clear();
     for (int i = 0; i < items.length; i++) {
-      Widget elementTile = InkWell(
+      final Widget elementTile = InkWell(
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onHover: (value) {
@@ -49,7 +49,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
           ),
         ),
       );
-      Widget spacer = SizedBox(
+      final Widget spacer = SizedBox(
         height: widget.screenSize.height / 20,
         child: VerticalDivider(
           width: 1,
@@ -116,18 +116,18 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
                                       fontSize: 16),
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Container(
-                                width: 100.0,
-                                height: 30.0,
-                                child: new Sparkline(
+                                width: 100,
+                                height: 30,
+                                child: Sparkline(
                                   data: data,
                                   lineColor: Theme.of(context)
                                       .primaryTextTheme
                                       .headline1
                                       .color,
                                   fillMode: FillMode.below,
-                                  fillGradient: new LinearGradient(
+                                  fillGradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [
@@ -140,7 +140,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 12.0),
+                              const SizedBox(width: 12),
                             ],
                           ),
                         ),

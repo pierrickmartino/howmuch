@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../common/home_page.dart';
 import '../auth/authentication.dart';
+import '../common/home_page.dart';
 
 class GoogleButton extends StatefulWidget {
+  const GoogleButton({Key key}) : super(key: key);
+
   @override
   _GoogleButtonState createState() => _GoogleButtonState();
 }
@@ -17,7 +19,7 @@ class _GoogleButtonState extends State<GoogleButton> {
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: Colors.blueGrey, width: 3),
+          side: const BorderSide(color: Colors.blueGrey, width: 3),
         ),
         color: Colors.white,
       ),
@@ -29,17 +31,17 @@ class _GoogleButtonState extends State<GoogleButton> {
             _isProcessing = true;
           });
           await signInWithGoogle().then((result) {
-            print(result);
+            //print(result);
             if (result != null) {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
+                MaterialPageRoute<dynamic>(
                   fullscreenDialog: true,
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ),
               );
             }
-          }).catchError((error) {
+          }).catchError((dynamic error) {
             print('Registration Error: $error');
           });
           setState(() {
@@ -48,28 +50,28 @@ class _GoogleButtonState extends State<GoogleButton> {
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: Colors.blueGrey, width: 3),
+          side: const BorderSide(color: Colors.blueGrey, width: 3),
         ),
         highlightElevation: 0,
         // borderSide: BorderSide(color: Colors.blueGrey, width: 3),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: _isProcessing
-              ? CircularProgressIndicator(
-                  valueColor: new AlwaysStoppedAnimation<Color>(
+              ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
                     Colors.blueGrey,
                   ),
                 )
               : Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: const <Widget>[
                     Image(
-                      image: AssetImage("asset/images/google_logo.png"),
-                      height: 30.0,
+                      image: AssetImage('asset/images/google_logo.png'),
+                      height: 30,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: EdgeInsets.only(left: 20),
                       child: Text(
                         'Continue with Google',
                         style: TextStyle(

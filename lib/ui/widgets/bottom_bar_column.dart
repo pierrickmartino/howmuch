@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
 class BottomBarColumn extends StatelessWidget {
+  const BottomBarColumn({
+    Key key,
+    this.heading,
+    this.s1,
+    this.s2,
+    this.s3,
+  }) : super(key: key);
+
   final String heading;
   final String s1;
   final String s2;
   final String s3;
 
-  BottomBarColumn({
-    this.heading,
-    this.s1,
-    this.s2,
-    this.s3,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +29,7 @@ class BottomBarColumn extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
@@ -38,7 +39,7 @@ class BottomBarColumn extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             s2,
             style: TextStyle(
@@ -46,7 +47,7 @@ class BottomBarColumn extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             s3,
             style: TextStyle(

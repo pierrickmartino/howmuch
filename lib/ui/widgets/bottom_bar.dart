@@ -12,15 +12,14 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(30),
+      padding: const EdgeInsets.all(30),
       color: Theme.of(context).bottomAppBarColor,
       child: ResponsiveWidget.isSmallScreen(context)
           ? Column(
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: const [
                     BottomBarColumn(
                       heading: 'ABOUT',
                       s1: 'Contact Us',
@@ -46,23 +45,23 @@ class BottomBar extends StatelessWidget {
                   width: double.maxFinite,
                   height: 1,
                 ),
-                SizedBox(height: 20),
-                InfoText(
+                const SizedBox(height: 20),
+                const InfoText(
                   type: 'Email',
                   text: 'explore@gmail.com',
                 ),
-                SizedBox(height: 5),
-                InfoText(
+                const SizedBox(height: 5),
+                const InfoText(
                   type: 'Address',
                   text: '128, Trymore Road, Delft, MN - 56124',
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   color: Colors.blueGrey,
                   width: double.maxFinite,
                   height: 1,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Copyright © 2020 | HOWMUCH',
                   style: TextStyle(
@@ -75,22 +74,21 @@ class BottomBar extends StatelessWidget {
           : Column(
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    BottomBarColumn(
+                    const BottomBarColumn(
                       heading: 'ABOUT',
                       s1: 'Contact Us',
                       s2: 'About Us',
                       s3: 'Careers',
                     ),
-                    BottomBarColumn(
+                    const BottomBarColumn(
                       heading: 'HELP',
                       s1: 'Payment',
                       s2: 'Cancellation',
                       s3: 'FAQ',
                     ),
-                    BottomBarColumn(
+                    const BottomBarColumn(
                       heading: 'SOCIAL',
                       s1: 'Twitter',
                       s2: 'Facebook',
@@ -103,7 +101,7 @@ class BottomBar extends StatelessWidget {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         InfoText(
                           type: 'Email',
                           text: 'explore@gmail.com',
@@ -118,14 +116,14 @@ class BottomBar extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Container(
                     color: Colors.blueGrey,
                     width: double.maxFinite,
                     height: 1,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Copyright © 2020 | EXPLORE',
                   style: TextStyle(

@@ -1,21 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:flutter/material.dart';
 
-import '../common/home_page.dart';
 import '../auth/authentication.dart';
+import '../common/home_page.dart';
 import 'auth_dialog.dart';
 
 class TopBarContents extends StatefulWidget {
-  final double opacity;
+  const TopBarContents({Key key, this.opacity}) : super(key: key);
 
-  TopBarContents(this.opacity);
+  final double opacity;
 
   @override
   _TopBarContentsState createState() => _TopBarContentsState();
 }
 
 class _TopBarContentsState extends State<TopBarContents> {
-  final List _isHovering = [
+  final List<dynamic> _isHovering = [
     false,
     false,
     false,
@@ -30,16 +30,15 @@ class _TopBarContentsState extends State<TopBarContents> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
 
     return PreferredSize(
       preferredSize: Size(screenSize.width, 1000),
       child: Container(
         color: Theme.of(context).bottomAppBarColor.withOpacity(widget.opacity),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'HOWMUCH',
@@ -53,7 +52,6 @@ class _TopBarContentsState extends State<TopBarContents> {
               ),
               Expanded(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(width: screenSize.width / 8),
                     InkWell(
@@ -76,7 +74,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
                             maintainState: true,
@@ -112,7 +110,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
                             maintainState: true,
@@ -148,7 +146,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
                             maintainState: true,
@@ -167,7 +165,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 ),
               ),
               IconButton(
-                  icon: Icon(Icons.brightness_6),
+                  icon: const Icon(Icons.brightness_6),
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   color: Colors.white,
@@ -207,13 +205,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                                 ? NetworkImage(imageUrl)
                                 : null,
                             child: imageUrl == null
-                                ? Icon(
+                                ? const Icon(
                                     Icons.account_circle,
                                     size: 30,
                                   )
                                 : Container(),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
                             name ?? userEmail,
                             style: TextStyle(
@@ -222,7 +220,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white70,
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           FlatButton(
                             color: Colors.blueGrey,
                             hoverColor: Colors.blueGrey[700],
@@ -234,15 +232,16 @@ class _TopBarContentsState extends State<TopBarContents> {
                                       _isProcessing = true;
                                     });
                                     await signOut().then((result) {
-                                      print(result);
+                                      //print(result);
                                       Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
+                                        MaterialPageRoute<dynamic>(
                                           fullscreenDialog: true,
-                                          builder: (context) => HomePage(),
+                                          builder: (context) =>
+                                              const HomePage(),
                                         ),
                                       );
                                     }).catchError((error) {
-                                      print('Sign Out Error: $error');
+                                      //print('Sign Out Error: $error');
                                     });
                                     setState(() {
                                       _isProcessing = false;
@@ -252,13 +251,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 8.0,
-                                bottom: 8.0,
+                              padding: const EdgeInsets.only(
+                                top: 8,
+                                bottom: 8,
                               ),
                               child: _isProcessing
-                                  ? CircularProgressIndicator()
-                                  : Text(
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
                                       'Sign out',
                                       style: TextStyle(
                                         fontSize: 14,

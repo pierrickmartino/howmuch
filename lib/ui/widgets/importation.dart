@@ -25,10 +25,10 @@ class _ImportationState extends State<Importation> {
   String _fileName;
   List<PlatformFile> _paths;
   //String _directoryPath;
-  String _extension = 'csv';
+  final String _extension = 'csv';
   bool _loadingPath = false;
-  bool _multiPick = false;
-  FileType _pickingType = FileType.custom;
+  final bool _multiPick = false;
+  final FileType _pickingType = FileType.custom;
   //TextEditingController _controller = TextEditingController();
 
 //class Importation extends StatefulWidget {
@@ -39,7 +39,7 @@ class _ImportationState extends State<Importation> {
 
   //final Size screenSize;
 
-  void _openFileExplorer() async {
+  Future<void> _openFileExplorer() async {
     setState(() => _loadingPath = true);
     try {
       //_directoryPath = null;
@@ -53,12 +53,12 @@ class _ImportationState extends State<Importation> {
       ))
           ?.files;
     } on PlatformException catch (e) {
-      print("Unsupported operation" + e.toString());
+      print('Unsupported operation$e');
     } catch (ex) {
       print(ex);
     }
 
-    _uploadFile(_paths.first.readStream);
+    await _uploadFile(_paths.first.readStream);
 
     if (!mounted) return;
     setState(() {
@@ -68,10 +68,10 @@ class _ImportationState extends State<Importation> {
     });
   }
 
-  void _uploadFile(Stream<List<int>> content) async {
-    List<String> lines = await content
+  Future<void> _uploadFile(Stream<List<int>> content) async {
+    final List<String> lines = await content
         .transform(utf8.decoder)
-        .transform(LineSplitter())
+        .transform(const LineSplitter())
         .toList();
 
     for (var i = 1; i < lines.length; i++) {
@@ -89,21 +89,12 @@ class _ImportationState extends State<Importation> {
       final product = values[0];
       final iban = values[1];
       final currency = values[2];
-      final transactionDate = values[3].substring(6, 10) +
-          '' +
-          values[3].substring(3, 5) +
-          '' +
-          values[3].substring(0, 2);
-      final accountingDate = values[4].substring(6, 10) +
-          '' +
-          values[4].substring(3, 5) +
-          '' +
-          values[4].substring(0, 2);
-      final valueDate = values[5].substring(6, 10) +
-          '' +
-          values[5].substring(3, 5) +
-          '' +
-          values[5].substring(0, 2);
+      final transactionDate =
+          '${values[3].substring(6, 10)}${values[3].substring(3, 5)}${values[3].substring(0, 2)}';
+      final accountingDate =
+          '${values[4].substring(6, 10)}${values[4].substring(3, 5)}${values[4].substring(0, 2)}';
+      final valueDate =
+          '${values[5].substring(6, 10)}${values[5].substring(3, 5)}${values[5].substring(0, 2)}';
       final description1 = values[6];
       final description2 = values[7];
       final description3 = values[8];
@@ -136,7 +127,7 @@ class _ImportationState extends State<Importation> {
     }
   }
 
-  void _deleteAllTransactions() async {
+  Future<void> _deleteAllTransactions() async {
     BlocProvider.of<HowMuchAppBloc>(context).deleteAllTransactions();
   }
 
@@ -185,16 +176,16 @@ class _ImportationState extends State<Importation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () => _openFileExplorer(),
-                          child: const Text("Download a file"),
+                          onPressed: _openFileExplorer,
+                          child: const Text('Download a file'),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 10),
                           child: Builder(
                             builder: (BuildContext context) => _loadingPath
-                                ? Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: const CircularProgressIndicator(),
+                                ? const Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: CircularProgressIndicator(),
                                   )
                                 : _paths != null
                                     ? Text(_fileName)
@@ -207,10 +198,10 @@ class _ImportationState extends State<Importation> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 10),
                           child: IconButton(
-                            onPressed: () => _deleteAllTransactions(),
-                            icon: Icon(
+                            onPressed: _deleteAllTransactions,
+                            icon: const Icon(
                               LineAwesomeIcons.trash,
                               size: 16,
                             ),
@@ -298,8 +289,8 @@ class _ImportationState extends State<Importation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () => _openFileExplorer(),
-                          child: const Text("Download a file"),
+                          onPressed: _openFileExplorer,
+                          child: const Text('Download a file'),
                         ),
                         // Padding(
                         //   padding: EdgeInsets.only(left: 10),

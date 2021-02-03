@@ -15,10 +15,11 @@ import 'ui/auth/authentication.dart';
 
 void main() {
   //setTargetPlatformForDesktop();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   _MyAppState createState() => _MyAppState();
 }

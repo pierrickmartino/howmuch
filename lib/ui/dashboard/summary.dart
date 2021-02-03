@@ -13,13 +13,16 @@ final _percentFormat =
     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
 class Summary extends StatelessWidget {
-  final String widgetType;
-  final double amount, variation, variationAmount;
-  Summary(
-      {@required this.widgetType,
+  const Summary(
+      {Key key,
+      @required this.widgetType,
       @required this.amount,
       @required this.variation,
-      @required this.variationAmount});
+      @required this.variationAmount})
+      : super(key: key);
+
+  final String widgetType;
+  final double amount, variation, variationAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class Summary extends StatelessWidget {
 
     // period selected in the top widget of the dashboard
     //var _periodValue = Provider.of<DashboardFilter>(context).getPeriodFilter;
-    var _periodValue = 2;
+    const _periodValue = 2;
 
     switch (_periodValue) {
       case 1:
@@ -46,31 +49,31 @@ class Summary extends StatelessWidget {
     }
 
     colorVariation =
-        this.variation < 0 ? Color(debitColor) : Color(creditColor);
-    iconVariation = this.variation < 0
+        variation < 0 ? const Color(debitColor) : const Color(creditColor);
+    iconVariation =
+        variation < 0 ? LineAwesomeIcons.caret_down : LineAwesomeIcons.caret_up;
+
+    colorVariationAmount = variationAmount < 0
+        ? const Color(debitColor)
+        : const Color(creditColor);
+    iconVariationAmount = variationAmount < 0
         ? LineAwesomeIcons.caret_down
         : LineAwesomeIcons.caret_up;
 
-    colorVariationAmount =
-        this.variationAmount < 0 ? Color(debitColor) : Color(creditColor);
-    iconVariationAmount = this.variationAmount < 0
-        ? LineAwesomeIcons.caret_down
-        : LineAwesomeIcons.caret_up;
-
-    if (this.widgetType == 'INCOME') {
-      subtitle = 'Income In this ' + periodLabel;
+    if (widgetType == 'INCOME') {
+      subtitle = 'Income In this $periodLabel';
       variationTitle = 'Balance Up by';
       variationAmountTitle = '';
       icon = LineAwesomeIcons.battery_full;
     }
-    if (this.widgetType == 'OUTCOME') {
-      subtitle = 'Outcome In this ' + periodLabel;
+    if (widgetType == 'OUTCOME') {
+      subtitle = 'Outcome In this $periodLabel';
       variationTitle = 'Balance Down by';
       variationAmountTitle = '';
       icon = LineAwesomeIcons.battery_quarter;
     }
-    if (this.widgetType == 'SAVINGS') {
-      subtitle = 'Saved In this ' + periodLabel;
+    if (widgetType == 'SAVINGS') {
+      subtitle = 'Saved In this $periodLabel';
       variationTitle = 'Saved Up by';
       variationAmountTitle = '';
       icon = LineAwesomeIcons.leaf;
@@ -78,13 +81,11 @@ class Summary extends StatelessWidget {
 
     return ResponsiveWidget.isSmallScreen(context)
         ? Padding(
-            padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Padding(
@@ -99,7 +100,7 @@ class Summary extends StatelessWidget {
                     //     mainAxisSize: MainAxisSize.min,
                     //     children: [
                     Text(
-                      'CHF  ' + _numberFormat.format(this.amount),
+                      'CHF  ${_numberFormat.format(amount)}',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -121,10 +122,8 @@ class Summary extends StatelessWidget {
                     //),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       variationTitle,
@@ -133,16 +132,16 @@ class Summary extends StatelessWidget {
                         color: Theme.of(context).primaryTextTheme.button.color,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
-                      _percentFormat.format(this.variation),
+                      _percentFormat.format(variation),
                       style: TextStyle(
                         color: colorVariation,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 4.0),
+                      padding: const EdgeInsets.fromLTRB(6, 0, 0, 4),
                       child: Icon(
                         iconVariation,
                         size: 22,
@@ -152,8 +151,6 @@ class Summary extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       variationAmountTitle,
@@ -162,16 +159,16 @@ class Summary extends StatelessWidget {
                         color: Theme.of(context).primaryTextTheme.button.color,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
-                      _numberFormat.format(this.variationAmount),
+                      _numberFormat.format(variationAmount),
                       style: TextStyle(
                         color: colorVariationAmount,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 4.0),
+                      padding: const EdgeInsets.fromLTRB(6, 0, 0, 4),
                       child: Icon(
                         iconVariationAmount,
                         size: 22,
@@ -184,28 +181,26 @@ class Summary extends StatelessWidget {
             ),
           )
         : Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 6.0),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Icon(icon, size: 36),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'CHF  ' + _numberFormat.format(this.amount),
+                            'CHF  ${_numberFormat.format(amount)}',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -216,10 +211,10 @@ class Summary extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 6.0),
+                            padding: const EdgeInsets.only(top: 6),
                             child: Text(
                               subtitle,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14,
                                 color: Color(buttonColor),
                               ),
@@ -231,19 +226,17 @@ class Summary extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       variationTitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Color(buttonColor),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 6.0),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         iconVariation,
                         size: 22,
@@ -251,7 +244,7 @@ class Summary extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      _percentFormat.format(this.variation),
+                      _percentFormat.format(variation),
                       style: TextStyle(
                         color: colorVariation,
                         fontWeight: FontWeight.bold,
