@@ -102,7 +102,7 @@ class Database extends _$Database {
       beforeOpen: (details) async {
         if (details.wasCreated) {
           // init of categories in database based on const.dart
-          for (var initCategory in initCategoryList) {
+          for (final initCategory in initCategoryList) {
             await into(categories).insert(CategoriesCompanion(
                 description: Value(initCategory),
                 editable: const Value(false),
@@ -110,11 +110,11 @@ class Database extends _$Database {
                 active: const Value(true)));
           }
 
-          await into(transactions).insert(TransactionsCompanion(
-              product: const Value('INIT'),
-              description: const Value('Transaction initiale'),
-              currency: const Value('CHF'),
-              category: const Value(1)));
+          await into(transactions).insert(const TransactionsCompanion(
+              product: Value('INIT'),
+              description: Value('Transaction initiale'),
+              currency: Value('CHF'),
+              category: Value(1)));
         }
       },
     );

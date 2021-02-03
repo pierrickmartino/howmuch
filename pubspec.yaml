@@ -36,6 +36,7 @@ dependencies:
   #badges: ^1.1.4
   carousel_slider: ^2.2.1
   dynamic_theme: ^1.0.1
+  timelines: ^0.0.2+1
 
   # DB
   faker: ^1.3.0

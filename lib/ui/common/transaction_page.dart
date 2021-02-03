@@ -8,7 +8,7 @@ import '../widgets/bottom_bar.dart';
 //import '../widgets/carousel.dart';
 //import '../widgets/destination_heading.dart';
 import '../widgets/howmuch_drawer.dart';
-import '../widgets/featured_heading.dart';
+import '../widgets/transaction_heading.dart';
 import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
@@ -127,7 +127,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       Container(
                         child: Column(
                           children: [
-                            FeaturedHeading(screenSize: screenSize),
+                            TransactionHeading(screenSize: screenSize),
                             FeaturedTiles(screenSize: screenSize)
                           ],
                         ),

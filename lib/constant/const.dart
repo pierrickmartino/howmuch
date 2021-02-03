@@ -1,9 +1,11 @@
+const String appName = 'howMuch';
+
 //const String dataMode = 'notfake';
 
 const String homeRoute = '/';
 const String loginRoute = '/auth';
-// const String accountsRoute = '/accounts';
 const String transactionsRoute = '/transactions';
+// const String accountsRoute = '/accounts';
 // const String filtersRoute = '/filters';
 // const String categoriesRoute = '/categories';
 
@@ -25,11 +27,11 @@ const int buttonColor = 0xffaeb7c0; // exemple Logout
 const int creditColor = 0xff5ccca6;
 const int debitColor = 0xffe86669;
 
-class Constants {
-  static String appName = 'howMuch';
-  // static String logoTag = 'near.huscarl.loginsample.logo';
-  // static String titleTag = 'near.huscarl.loginsample.title';
-}
+// class Constants {
+//   static String appName = 'howMuch';
+// static String logoTag = 'near.huscarl.loginsample.logo';
+// static String titleTag = 'near.huscarl.loginsample.title';
+//}
 
 // class PageRoutes {
 //   // This file contains all the routing constants used within the app

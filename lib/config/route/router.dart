@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-// import '../../ui/auth/login_screen.dart';
-// import '../../ui/common/accounts.dart';
-// import '../../ui/common/home.dart';
-// import '../../ui/common/transactions.dart';
-// import '../../ui/common/categories.dart';
-// import '../../ui/common/filters.dart';
+import '../../constant/const.dart';
 import '../../ui/common/home_page.dart';
 import '../../ui/common/transaction_page.dart';
-import '../../constant/const.dart';
 
 class CustomRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {

@@ -98,7 +98,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Category Update unitary
    */
   void updateCategory(Category _category) async {
-    db.updateCategory(_category);
+    await db.updateCategory(_category);
     emit(db.cs);
   }
 
@@ -106,7 +106,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Category Delete unitary
    */
   void deleteCategory(Category _category) async {
-    db.deleteCategory(_category);
+    await db.deleteCategory(_category);
     emit(db.cs);
   }
 
@@ -205,7 +205,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Transaction Update unitary
    */
   void updateTransaction(Transaction _transaction) async {
-    db.updateTransaction(_transaction);
+    await db.updateTransaction(_transaction);
     emit(db.cs);
   }
 
@@ -213,7 +213,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Transaction Delete unitary
    */
   void deleteTransaction(Transaction _transaction) async {
-    db.deleteTransaction(_transaction);
+    await db.deleteTransaction(_transaction);
     emit(db.cs);
   }
 
@@ -221,7 +221,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
    * Transaction Delete all
    */
   void deleteAllTransactions() async {
-    db.deleteAllTransactions();
+    await db.deleteAllTransactions();
     emit(db.cs);
   }
 
@@ -232,13 +232,13 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
 
   bool get canUndo => db.cs.canUndo;
   void undo() async {
-    await db.cs.undo();
+    db.cs.undo();
     emit(db.cs);
   }
 
   bool get canRedo => db.cs.canRedo;
   void redo() async {
-    await db.cs.redo();
+    db.cs.redo();
     emit(db.cs);
   }
 

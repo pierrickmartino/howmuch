@@ -24,10 +24,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future getUserInfo() async {
+  Future<dynamic> getUserInfo() async {
     await getUser();
     setState(() {});
-    print(uid);
+    //print(uid);
   }
 
   @override
@@ -41,8 +41,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: PeriodFilter()),
-        RepositoryProvider<Database>(
-            create: (context) => constructDb(logStatements: false)),
+        RepositoryProvider<Database>(create: (context) => constructDb()),
         BlocProvider<HowMuchAppBloc>(
           create: (context) {
             final db = RepositoryProvider.of<Database>(context);
@@ -66,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                     subtitle2: TextStyle(
                       color: Colors.blueGrey[900],
                     ),
-                    subtitle1: TextStyle(
+                    subtitle1: const TextStyle(
                       color: Colors.black,
                     ),
                     headline1: TextStyle(
@@ -74,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   bottomAppBarColor: Colors.blueGrey[900],
-                  iconTheme: IconThemeData(color: Colors.blueGrey),
+                  iconTheme: const IconThemeData(color: Colors.blueGrey),
                   brightness: brightness,
                 )
               : ThemeData(
@@ -86,13 +85,13 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.blueGrey[200],
                       decorationColor: Colors.blueGrey[50],
                     ),
-                    subtitle2: TextStyle(
+                    subtitle2: const TextStyle(
                       color: Colors.white,
                     ),
                     subtitle1: TextStyle(
                       color: Colors.blueGrey[300],
                     ),
-                    headline1: TextStyle(
+                    headline1: const TextStyle(
                       color: Colors.white70,
                     ),
                   ),

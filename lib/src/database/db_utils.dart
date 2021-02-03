@@ -9,10 +9,10 @@ extension TableUtils on GeneratedDatabase {
   ) async {
     final _change = Change(
       val,
-      () async => await this.delete(table).delete(val),
-      (old) async => await this.into(table).insert(old),
+      () async => delete(table).delete(val),
+      (old) async => into(table).insert(old),
     );
-    await cs.add(_change);
+    cs.add(_change);
   }
 
   Future<void> insertRow(
@@ -22,10 +22,10 @@ extension TableUtils on GeneratedDatabase {
   ) async {
     final _change = Change(
       val,
-      () async => await this.into(table).insert(val),
-      (val) async => await this.delete(table).delete(val),
+      () async => into(table).insert(val),
+      (val) async => delete(table).delete(val),
     );
-    await cs.add(_change);
+    cs.add(_change);
   }
 
   Future<void> updateRow(
@@ -36,10 +36,10 @@ extension TableUtils on GeneratedDatabase {
     final oldVal = await (select(table)..whereSamePrimaryKey(val)).getSingle();
     final _change = Change(
       oldVal,
-      () async => await this.update(table).replace(val),
-      (old) async => await this.update(table).replace(old),
+      () async => update(table).replace(val),
+      (old) async => update(table).replace(old),
     );
-    await cs.add(_change);
+    cs.add(_change);
   }
 }
 
@@ -49,10 +49,10 @@ Value<T> addField<T>(T val, {T fallback}) {
     _fallback = Value<T>(fallback);
   }
   if (val == null) {
-    return _fallback ?? Value.absent();
+    return _fallback ?? const Value.absent();
   }
   if (val is String && (val == 'null' || val == 'Null')) {
-    return _fallback ?? Value.absent();
+    return _fallback ?? const Value.absent();
   }
   return Value(val);
 }
