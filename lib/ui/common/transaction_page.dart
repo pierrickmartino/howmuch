@@ -101,7 +101,9 @@ class _TransactionPageState extends State<TransactionPage> {
               Stack(
                 children: [
                   SizedBox(
-                    height: screenSize.height * 0.45,
+                    height: ResponsiveWidget.isSmallScreen(context)
+                        ? screenSize.height * 0.2
+                        : screenSize.height * 0.45,
                     width: screenSize.width,
                     child: Image.asset(
                       'asset/images/cover_transactions.jpg',
@@ -109,13 +111,16 @@ class _TransactionPageState extends State<TransactionPage> {
                     ),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //FloatingQuickAccessBar(screenSize: screenSize),
                       Center(
                         heightFactor: 1,
                         child: Padding(
                           padding: EdgeInsets.only(
-                            top: screenSize.height * 0.45,
+                            top: ResponsiveWidget.isSmallScreen(context)
+                                ? screenSize.height * 0.2
+                                : screenSize.height * 0.45,
                             left: ResponsiveWidget.isSmallScreen(context)
                                 ? screenSize.width / 12
                                 : screenSize.width / 5,

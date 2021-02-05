@@ -14,7 +14,7 @@ class TransactionHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: screenSize.height * 0.06,
+        top: screenSize.height * 0.02,
         left: screenSize.width / 15,
         right: screenSize.width / 15,
       ),

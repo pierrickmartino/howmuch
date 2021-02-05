@@ -200,11 +200,11 @@ class Database extends _$Database {
   }
 
   Future<List<Transaction>> allWatchingTransactions() {
-    return (select(transactions)..limit(20)).get();
+    return (select(transactions)..limit(50)).get();
   }
 
   Stream<List<Transaction>> watchAllTransactions() {
-    return (select(transactions)..limit(20)).watch();
+    return (select(transactions)..limit(50)).watch();
   }
 
   Future<int> get countTransactions =>
