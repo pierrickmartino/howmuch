@@ -51,6 +51,7 @@ const List<String> initCategoryList = [
   'Autre revenu',
   'Carte',
   'Enfants',
+  'Epargne',
   'Frais bancaires',
   'Impôts & Taxes',
   'Maison & Maintenance',

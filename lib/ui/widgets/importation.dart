@@ -105,25 +105,31 @@ class _ImportationState extends State<Importation> {
           values[12].replaceAll(',', '.').replaceAll(' ', '');
       final type = values[13];
       final extraInfo = values[14];
+      int typeId = 1;
 
-      // insert into the moor database
-      await BlocProvider.of<HowMuchAppBloc>(context).insertTransaction(
-        product,
-        iban,
-        transactionId,
-        description1,
-        description2,
-        description3,
-        currency,
-        extraInfo,
-        DateTime.parse(valueDate),
-        DateTime.parse(transactionDate),
-        DateTime.parse(accountingDate),
-        1, //type,
-        double.parse(debitAmount.isEmpty ? '0' : debitAmount),
-        double.parse(creditAmount.isEmpty ? '0' : creditAmount),
-        double.parse(transactionAmount.isEmpty ? '0' : transactionAmount),
-      );
+      await BlocProvider.of<HowMuchAppBloc>(context)
+          .getCategoryByDescription(type)
+          .then((value) => typeId = value.id)
+          .whenComplete(() async =>
+              // insert into the moor database
+              BlocProvider.of<HowMuchAppBloc>(context).insertTransaction(
+                product,
+                iban,
+                transactionId,
+                description1,
+                description2,
+                description3,
+                currency,
+                extraInfo,
+                DateTime.parse(valueDate),
+                DateTime.parse(transactionDate),
+                DateTime.parse(accountingDate),
+                typeId, //type,
+                double.parse(debitAmount.isEmpty ? '0' : debitAmount),
+                double.parse(creditAmount.isEmpty ? '0' : creditAmount),
+                double.parse(
+                    transactionAmount.isEmpty ? '0' : transactionAmount),
+              ));
     }
   }
 

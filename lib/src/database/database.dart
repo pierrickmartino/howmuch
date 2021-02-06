@@ -175,6 +175,15 @@ class Database extends _$Database {
   Future<List<Category>> get allWatchingCategories => select(categories).get();
   Stream<List<Category>> get watchAllCategories => select(categories).watch();
 
+  Future<Category> categoryByDescription(String description) {
+    return (select(categories)..where((t) => t.description.equals(description)))
+        .getSingle();
+  }
+
+  Future<Category> categoryById(int id) {
+    return (select(categories)..where((t) => t.id.equals(id))).getSingle();
+  }
+
   /* TODO : Really necessary ??? double-check if auto-increment is not enough */
   Future<dynamic> createCategory(CategoriesCompanion _category) async {
     final _categories = await (select(categories)

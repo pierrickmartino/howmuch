@@ -65,13 +65,13 @@ class _TransactionListState extends State<TransactionList> {
                             builder: TimelineTileBuilder.connected(
                               indicatorBuilder: (context, index) {
                                 return DotIndicator(
-                                  size: 24,
+                                  size: 26,
                                   color: Theme.of(context).iconTheme.color,
                                   child: IconButton(
-                                    icon: Icon(LineAwesomeIcons.check),
-                                    padding: EdgeInsets.all(0),
+                                    icon: const Icon(LineAwesomeIcons.check),
+                                    padding: const EdgeInsets.all(0),
                                     color: Theme.of(context).backgroundColor,
-                                    iconSize: 14,
+                                    iconSize: 12,
                                     onPressed: () {
                                       showDialog(
                                           context: context,
@@ -84,7 +84,7 @@ class _TransactionListState extends State<TransactionList> {
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                 ),
-                                                child: Text('Test'));
+                                                child: const Text('Test'));
                                           });
                                     },
                                   ),

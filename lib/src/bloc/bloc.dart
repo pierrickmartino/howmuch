@@ -73,6 +73,17 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
  */
 
   /*
+   * Category Get
+   */
+  Future<Category> getCategoryById(int id) {
+    return db.categoryById(id);
+  }
+
+  Future<Category> getCategoryByDescription(String description) {
+    return db.categoryByDescription(description);
+  }
+
+  /*
    * Category Update
    */
   void showCategory(Category category) {
