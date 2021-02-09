@@ -30,15 +30,19 @@ class _TransactionListState extends State<TransactionList> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget.isSmallScreen(context)
-        ? Padding(
-            padding: EdgeInsets.only(
-              top: widget.screenSize.width * 0.06,
-              left: widget.screenSize.width * 0.06,
-              right: widget.screenSize.width * 0.06,
-            ),
-            child: SingleChildScrollView(
-              child: StreamBuilder<List<TransactionWithCategory>>(
+    return Center(
+      heightFactor: 1,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: ResponsiveWidget.isSmallScreen(context)
+              ? widget.screenSize.width / 15
+              : widget.screenSize.width / 5,
+          right: ResponsiveWidget.isSmallScreen(context)
+              ? widget.screenSize.width / 15
+              : widget.screenSize.width / 5,
+        ),
+        child: ResponsiveWidget.isSmallScreen(context)
+            ? StreamBuilder<List<TransactionWithCategory>>(
                 stream: bloc.homeScreenEntries,
                 builder: (context, snapshot) {
                   List<Widget> children;
@@ -49,6 +53,7 @@ class _TransactionListState extends State<TransactionList> {
                         width: widget.screenSize.width * 0.88,
                         child: ListView.builder(
                           itemCount: snapshot.data.length,
+                          padding: const EdgeInsets.symmetric(vertical: 5),
                           itemBuilder: (context, index) {
                             return ListTile(
                               title: Text(snapshot
@@ -98,16 +103,16 @@ class _TransactionListState extends State<TransactionList> {
                     ),
                   );
                 },
+              )
+            : Padding(
+                padding: EdgeInsets.only(
+                  top: widget.screenSize.height * 0.06,
+                  left: widget.screenSize.width / 15,
+                  right: widget.screenSize.width / 15,
+                ),
+                child: Row(),
               ),
-            ),
-          )
-        : Padding(
-            padding: EdgeInsets.only(
-              top: widget.screenSize.height * 0.06,
-              left: widget.screenSize.width / 15,
-              right: widget.screenSize.width / 15,
-            ),
-            child: Row(),
-          );
+      ),
+    );
   }
 }

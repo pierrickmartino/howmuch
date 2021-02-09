@@ -56,11 +56,9 @@ class FeaturedTiles extends StatelessWidget {
                                     color: Theme.of(context).cardColor,
                                     child: Summary(
                                       widgetType: trends[pageIndex],
-                                      amount: FakeData.fakeIncome,
-                                      variation:
-                                          FakeData.fakeIncomeVariation / 100.0,
-                                      variationAmount:
-                                          FakeData.fakeIncomeVariationAmount,
+                                      amount: 10000,
+                                      variation: 50 / 100.0,
+                                      variationAmount: 5000,
                                     ),
                                   ),
                                 ),
@@ -126,10 +124,9 @@ class FeaturedTiles extends StatelessWidget {
                               color: Theme.of(context).cardColor,
                               child: Summary(
                                 widgetType: trends[pageIndex],
-                                amount: FakeData.fakeIncome,
-                                variation: FakeData.fakeIncomeVariation / 100.0,
-                                variationAmount:
-                                    FakeData.fakeIncomeVariationAmount,
+                                amount: 10000,
+                                variation: 50 / 100.0,
+                                variationAmount: 5000,
                               ),
                             ),
                           ),

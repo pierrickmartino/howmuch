@@ -182,92 +182,96 @@ class _TopBarContentsState extends State<TopBarContents> {
                     value ? _isHovering[3] = true : _isHovering[3] = false;
                   });
                 },
-                onTap: userEmail == null
-                    ? () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AuthDialog(),
-                        );
-                      }
-                    : null,
-                child: userEmail == null
-                    ? Text(
-                        'Sign in',
-                        style: TextStyle(
-                            color:
-                                _isHovering[3] ? Colors.white : Colors.white70),
-                      )
-                    : Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundImage: imageUrl != null
-                                ? NetworkImage(imageUrl)
-                                : null,
-                            child: imageUrl == null
-                                ? const Icon(
-                                    Icons.account_circle,
-                                    size: 30,
-                                  )
-                                : Container(),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            name ?? userEmail,
-                            style: TextStyle(
-                              color: _isHovering[3]
-                                  ? Colors.white
-                                  : Colors.white70,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          FlatButton(
-                            color: Colors.blueGrey,
-                            hoverColor: Colors.blueGrey[700],
-                            highlightColor: Colors.blueGrey[800],
-                            onPressed: _isProcessing
-                                ? null
-                                : () async {
-                                    setState(() {
-                                      _isProcessing = true;
-                                    });
-                                    await signOut().then((result) {
-                                      //print(result);
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<dynamic>(
-                                          fullscreenDialog: true,
-                                          builder: (context) =>
-                                              const HomePage(),
-                                        ),
-                                      );
-                                    }).catchError((error) {
-                                      //print('Sign Out Error: $error');
-                                    });
-                                    setState(() {
-                                      _isProcessing = false;
-                                    });
-                                  },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 8,
-                                bottom: 8,
-                              ),
-                              child: _isProcessing
-                                  ? const CircularProgressIndicator()
-                                  : const Text(
-                                      'Sign out',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                        ],
-                      ),
+                //onTap:
+                // userEmail == null
+                //     ? () {
+                //         showDialog(
+                //           context: context,
+                //           builder: (context) => const AuthDialog(),
+                //         );
+                //       }
+                //     : null
+                //    ,
+                child:
+                    // userEmail == null
+                    //     ?
+                    Text(
+                  'Sign in',
+                  style: TextStyle(
+                      color: _isHovering[3] ? Colors.white : Colors.white70),
+                )
+                // : Row(
+                //     children: [
+                //       CircleAvatar(
+                //         radius: 15,
+                //         backgroundImage: imageUrl != null
+                //             ? NetworkImage(imageUrl)
+                //             : null,
+                //         child: imageUrl == null
+                //             ? const Icon(
+                //                 Icons.account_circle,
+                //                 size: 30,
+                //               )
+                //             : Container(),
+                //       ),
+                //       const SizedBox(width: 5),
+                //       Text(
+                //         name ?? userEmail,
+                //         style: TextStyle(
+                //           color: _isHovering[3]
+                //               ? Colors.white
+                //               : Colors.white70,
+                //         ),
+                //       ),
+                //       const SizedBox(width: 10),
+                //       FlatButton(
+                //         color: Colors.blueGrey,
+                //         hoverColor: Colors.blueGrey[700],
+                //         highlightColor: Colors.blueGrey[800],
+                //         onPressed: _isProcessing
+                //             ? null
+                //             : () async {
+                //                 setState(() {
+                //                   _isProcessing = true;
+                //                 });
+                //                 await signOut().then((result) {
+                //                   //print(result);
+                //                   Navigator.of(context).pushReplacement(
+                //                     MaterialPageRoute<dynamic>(
+                //                       fullscreenDialog: true,
+                //                       builder: (context) =>
+                //                           const HomePage(),
+                //                     ),
+                //                   );
+                //                 }).catchError((error) {
+                //                   //print('Sign Out Error: $error');
+                //                 });
+                //                 setState(() {
+                //                   _isProcessing = false;
+                //                 });
+                //               },
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(15),
+                //         ),
+                //         child: Padding(
+                //           padding: const EdgeInsets.only(
+                //             top: 8,
+                //             bottom: 8,
+                //           ),
+                //           child: _isProcessing
+                //               ? const CircularProgressIndicator()
+                //               : const Text(
+                //                   'Sign out',
+                //                   style: TextStyle(
+                //                     fontSize: 14,
+                //                     color: Colors.white,
+                //                   ),
+                //                 ),
+                //         ),
+                //       ),
+                //     ],
+                //   )
+                ,
               ),
             ],
           ),

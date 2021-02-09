@@ -30,20 +30,20 @@ class _GoogleButtonState extends State<GoogleButton> {
           setState(() {
             _isProcessing = true;
           });
-          await signInWithGoogle().then((result) {
-            //print(result);
-            if (result != null) {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute<dynamic>(
-                  fullscreenDialog: true,
-                  builder: (context) => const HomePage(),
-                ),
-              );
-            }
-          }).catchError((dynamic error) {
-            print('Registration Error: $error');
-          });
+          // await signInWithGoogle().then((result) {
+          //   //print(result);
+          //   if (result != null) {
+          //     Navigator.of(context).pop();
+          //     Navigator.of(context).pushReplacement(
+          //       MaterialPageRoute<dynamic>(
+          //         fullscreenDialog: true,
+          //         builder: (context) => const HomePage(),
+          //       ),
+          //     );
+          //   }
+          // }).catchError((dynamic error) {
+          //   print('Registration Error: $error');
+          // });
           setState(() {
             _isProcessing = false;
           });

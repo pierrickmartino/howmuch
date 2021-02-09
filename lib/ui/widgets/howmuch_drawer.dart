@@ -27,116 +27,117 @@ class _HowMuchDrawerState extends State<HowMuchDrawer> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (userEmail == null)
-                Container(
-                  width: double.maxFinite,
-                  child: FlatButton(
-                    color: Colors.black,
-                    hoverColor: Colors.blueGrey[800],
-                    highlightColor: Colors.blueGrey[700],
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => const AuthDialog(),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                        top: 15,
-                        bottom: 15,
-                      ),
-                      child: Text(
-                        'Sign in',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+              //if (userEmail == null)
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  color: Colors.black,
+                  hoverColor: Colors.blueGrey[800],
+                  highlightColor: Colors.blueGrey[700],
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const AuthDialog(),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                )
-              else
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage:
-                          imageUrl != null ? NetworkImage(imageUrl) : null,
-                      child: imageUrl == null
-                          ? const Icon(
-                              Icons.account_circle,
-                              size: 40,
-                            )
-                          : Container(),
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      top: 15,
+                      bottom: 15,
                     ),
-                    const SizedBox(width: 10),
-                    Text(
-                      name ?? userEmail,
-                      style: const TextStyle(
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white70,
+                        color: Colors.white,
                       ),
-                    )
-                  ],
-                ),
-              const SizedBox(height: 20),
-              if (userEmail != null)
-                Container(
-                  width: double.maxFinite,
-                  child: FlatButton(
-                    color: Colors.black,
-                    hoverColor: Colors.blueGrey[800],
-                    highlightColor: Colors.blueGrey[700],
-                    onPressed: _isProcessing
-                        ? null
-                        : () async {
-                            setState(() {
-                              _isProcessing = true;
-                            });
-                            await signOut().then((result) {
-                              //print(result);
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute<dynamic>(
-                                  fullscreenDialog: true,
-                                  builder: (context) => const HomePage(),
-                                ),
-                              );
-                            }).catchError((dynamic error) {
-                              print('Sign Out Error: $error');
-                            });
-                            setState(() {
-                              _isProcessing = false;
-                            });
-                          },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 15,
-                        bottom: 15,
-                      ),
-                      child: _isProcessing
-                          ? const CircularProgressIndicator()
-                          : const Text(
-                              'Sign out',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            ),
                     ),
                   ),
-                )
-              else
-                Container(),
-              if (userEmail != null)
-                const SizedBox(height: 20)
-              else
-                Container(),
+                ),
+              )
+              // else
+              //   Row(
+              //     children: [
+              // CircleAvatar(
+              //   radius: 20,
+              //   backgroundImage:
+              //       imageUrl != null ? NetworkImage(imageUrl) : null,
+              //   child: imageUrl == null
+              //       ? const Icon(
+              //           Icons.account_circle,
+              //           size: 40,
+              //         )
+              //       : Container(),
+              // ),
+              //const SizedBox(width: 10),
+              // Text(
+              //   name ?? userEmail,
+              //   style: const TextStyle(
+              //     fontSize: 20,
+              //     color: Colors.white70,
+              //   ),
+              // )
+              // ],
+              // )
+              ,
+              const SizedBox(height: 20),
+              //if (userEmail != null)
+              // Container(
+              //   width: double.maxFinite,
+              //   child: FlatButton(
+              //     color: Colors.black,
+              //     hoverColor: Colors.blueGrey[800],
+              //     highlightColor: Colors.blueGrey[700],
+              //     onPressed: _isProcessing
+              //         ? null
+              //         : () async {
+              //             setState(() {
+              //               _isProcessing = true;
+              //             });
+              // await signOut().then((result) {
+              //   //print(result);
+              //   Navigator.of(context).pushReplacement(
+              //     MaterialPageRoute<dynamic>(
+              //       fullscreenDialog: true,
+              //       builder: (context) => const HomePage(),
+              //     ),
+              //   );
+              // }).catchError((dynamic error) {
+              //   print('Sign Out Error: $error');
+              // });
+              //             setState(() {
+              //               _isProcessing = false;
+              //             });
+              //           },
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(
+              //         top: 15,
+              //         bottom: 15,
+              //       ),
+              //       child: _isProcessing
+              //           ? const CircularProgressIndicator()
+              //           : const Text(
+              //               'Sign out',
+              //               style: TextStyle(
+              //                 fontSize: 20,
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //     ),
+              //   ),
+              // )
+              //else
+              Container(),
+              // if (userEmail != null)
+              //   const SizedBox(height: 20)
+              // else
+              Container(),
               InkWell(
                 onTap: () {
                   Navigator.push(
