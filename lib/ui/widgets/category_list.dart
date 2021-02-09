@@ -13,8 +13,8 @@ final _percentFormat =
     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 final _dateFormat = DateFormat.yMMMd();
 
-class TransactionList extends StatefulWidget {
-  const TransactionList({
+class CategoryList extends StatefulWidget {
+  const CategoryList({
     Key key,
     @required this.screenSize,
   }) : super(key: key);
@@ -22,10 +22,10 @@ class TransactionList extends StatefulWidget {
   final Size screenSize;
 
   @override
-  _TransactionListState createState() => _TransactionListState();
+  _CategoryListState createState() => _CategoryListState();
 }
 
-class _TransactionListState extends State<TransactionList> {
+class _CategoryListState extends State<CategoryList> {
   HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
 
   @override
@@ -38,8 +38,8 @@ class _TransactionListState extends State<TransactionList> {
               right: widget.screenSize.width * 0.06,
             ),
             child: SingleChildScrollView(
-              child: StreamBuilder<List<TransactionWithCategory>>(
-                stream: bloc.homeScreenEntries,
+              child: StreamBuilder<List<Category>>(
+                stream: bloc.getCategories,
                 builder: (context, snapshot) {
                   List<Widget> children;
                   if (snapshot.hasData) {
@@ -51,16 +51,23 @@ class _TransactionListState extends State<TransactionList> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(snapshot
-                                  .data[index].category.description
-                                  .toLowerCase()),
-                              subtitle: Text(_dateFormat
-                                  .format(snapshot
-                                      .data[index].transaction.valueDate)
-                                  .toLowerCase()),
-                              trailing: Text(
-                                'CHF  ${_numberFormat.format(snapshot.data[index].transaction.transactionAmount)}',
-                              ),
+                              dense: true,
+                              title: Text(
+                                  snapshot.data[index].description
+                                      .toLowerCase(),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .button
+                                          .color,
+                                      fontSize: 14)),
+                              trailing: Text('0',
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .button
+                                          .color,
+                                      fontSize: 14)),
                             );
                           },
                         ),
@@ -92,6 +99,7 @@ class _TransactionListState extends State<TransactionList> {
                     ];
                   }
                   return Center(
+                    heightFactor: 1,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: children,

@@ -1,8 +1,10 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+//import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_bar.dart';
 import '../widgets/carousel.dart';
+import '../widgets/category_heading.dart';
+import '../widgets/category_list.dart';
 import '../widgets/destination_heading.dart';
 import '../widgets/featured_heading.dart';
 import '../widgets/featured_tiles.dart';
@@ -65,10 +67,10 @@ class _HomePageState extends State<HomePage> {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () {
-                    DynamicTheme.of(context).setBrightness(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Brightness.light
-                            : Brightness.dark);
+                    // DynamicTheme.of(context).setBrightness(
+                    //     Theme.of(context).brightness == Brightness.dark
+                    //         ? Brightness.light
+                    //         : Brightness.dark);
                     //print(Theme.of(context).brightness);
                   },
                 ),
@@ -126,6 +128,10 @@ class _HomePageState extends State<HomePage> {
               // SizedBox(height: screenSize.height / 8),
               NumberHeading(screenSize: screenSize),
               NumberTiles(screenSize: screenSize),
+
+              CategoryHeading(screenSize: screenSize),
+              CategoryList(screenSize: screenSize),
+
               DestinationHeading(screenSize: screenSize),
               const DestinationCarousel(),
               Importation(screenSize: screenSize),

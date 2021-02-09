@@ -1,4 +1,4 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+//import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../auth/authentication.dart';
@@ -170,10 +170,10 @@ class _TopBarContentsState extends State<TopBarContents> {
                   highlightColor: Colors.transparent,
                   color: Colors.white,
                   onPressed: () {
-                    DynamicTheme.of(context).setBrightness(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Brightness.light
-                            : Brightness.dark);
+                    // DynamicTheme.of(context).setBrightness(
+                    //     Theme.of(context).brightness == Brightness.dark
+                    //         ? Brightness.light
+                    //         : Brightness.dark);
                   }),
               SizedBox(width: screenSize.width / 50),
               InkWell(

@@ -149,16 +149,13 @@ class Database extends _$Database {
   Stream<List<TransactionWithCategory>> watchTransactionsInCategory(
       Category _category) {
     final query = select(transactions).join(
-      [
-        leftOuterJoin(
-            transactions, transactions.id.equalsExp(transactions.category))
-      ],
+      [innerJoin(categories, categories.id.equalsExp(transactions.category))],
     );
 
     if (_category != null) {
-      query.where(transactions.id.equals(_category.id));
+      query.where(transactions.category.equals(_category.id));
     } else {
-      query.where(isNull(transactions.id));
+      query.where(isNotNull(transactions.id));
     }
 
     return query.watch().map((rows) {

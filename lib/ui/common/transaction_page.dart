@@ -1,4 +1,4 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+//import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_bar.dart';
@@ -63,10 +63,10 @@ class _TransactionPageState extends State<TransactionPage> {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () {
-                    DynamicTheme.of(context).setBrightness(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Brightness.light
-                            : Brightness.dark);
+                    // DynamicTheme.of(context).setBrightness(
+                    //     Theme.of(context).brightness == Brightness.dark
+                    //         ? Brightness.light
+                    //         : Brightness.dark);
                     //print(Theme.of(context).brightness);
                   },
                 ),

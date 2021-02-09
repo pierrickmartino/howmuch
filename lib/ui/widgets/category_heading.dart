@@ -5,16 +5,16 @@ import 'package:provider/provider.dart';
 import '../../src/model/list_period.dart';
 import 'responsive.dart';
 
-class NumberHeading extends StatefulWidget {
-  const NumberHeading({Key key, @required this.screenSize}) : super(key: key);
+class CategoryHeading extends StatefulWidget {
+  const CategoryHeading({Key key, @required this.screenSize}) : super(key: key);
 
   final Size screenSize;
 
   @override
-  _NumberHeadingState createState() => _NumberHeadingState();
+  _CategoryHeadingState createState() => _CategoryHeadingState();
 }
 
-class _NumberHeadingState extends State<NumberHeading> {
+class _CategoryHeadingState extends State<CategoryHeading> {
   final List<ListPeriod> _dropdownItems = [
     ListPeriod(1, 'This month'),
     ListPeriod(2, 'This year'),
@@ -66,7 +66,7 @@ class _NumberHeadingState extends State<NumberHeading> {
                 Row(
                   children: [
                     const Text(
-                      'Numbers',
+                      'Categories',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 24,
@@ -92,7 +92,7 @@ class _NumberHeadingState extends State<NumberHeading> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Data statistics that you could be interested in',
+                  'Detailed performance of each category',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
                 ),
@@ -108,7 +108,7 @@ class _NumberHeadingState extends State<NumberHeading> {
             width: widget.screenSize.width,
             // color: Colors.black,
             child: const Text(
-              'Numbers',
+              'Categories',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 40,

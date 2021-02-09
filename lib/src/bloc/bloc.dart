@@ -47,7 +47,7 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
 
     // listen for the tag to change. Then display all entries that are in
     // the current tag on the home screen.
-    //_currentEntries = _activeCategory.switchMap(db.watchTransactionsInCategory);
+    _currentEntries = _activeCategory.switchMap(db.watchTransactionsInCategory);
 
     // also watch all tags so that they can be displayed in the navigation
     // drawer.
