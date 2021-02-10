@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/bloc/bloc.dart';
 import 'package:howmuch/src/database/database.dart';
-//import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import 'responsive.dart';
 
-// final _numberFormat =
-//     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+final _numberFormat =
+    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 // final _percentFormat =
 //     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
@@ -26,11 +26,11 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
-
   void refresh() {
     setState(() {});
   }
+
+  HowMuchAppBloc get bloc => BlocProvider.of<HowMuchAppBloc>(context);
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class _CategoryListState extends State<CategoryList> {
                     ),
                     onPressed: refresh,
                   ),
-                  StreamBuilder<List<Category>>(
-                    stream: bloc.getCategories,
+                  StreamBuilder<List<CategoryWithInfo>>(
+                    stream: bloc.getCategoriesWithInfo,
                     builder: (context, snapshot) {
                       List<Widget> children;
                       if (snapshot.hasData) {
@@ -74,7 +74,8 @@ class _CategoryListState extends State<CategoryList> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        snapshot.data[index].description
+                                        snapshot
+                                            .data[index].category.description
                                             .toLowerCase(),
                                         style: TextStyle(
                                             color: Theme.of(context)
@@ -85,7 +86,9 @@ class _CategoryListState extends State<CategoryList> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        'CHF  0',
+                                        (snapshot.data[index].amount != null)
+                                            ? 'CHF  ${_numberFormat.format(snapshot.data[index].amount)}'
+                                            : 'CHF  -',
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .primaryTextTheme

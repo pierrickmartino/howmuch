@@ -39,8 +39,8 @@ class HowMuchAppBloc extends Cubit<ChangeStack> {
   //Stream<List<Category>> _allCategories;
   Stream<List<Category>> get getCategories => db.watchAllCategories;
 
-  Stream<List<CategoryWithInfo>> get getCategoriesWithCount =>
-      db.watchCategoriesWithCount();
+  Stream<List<CategoryWithInfo>> get getCategoriesWithInfo =>
+      db.watchCategoriesWithInfo();
 
   void init() {
     //_allCategories = db.watchAllCategories;

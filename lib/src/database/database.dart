@@ -110,37 +110,37 @@ class Database extends _$Database {
                 active: const Value(true)));
           }
 
-          await into(transactions).insert(const TransactionsCompanion(
-              product: Value('INIT'),
-              description: Value('Transaction initiale'),
-              currency: Value('CHF'),
-              category: Value(1)));
+          await into(transactions).insert(TransactionsCompanion(
+              product: const Value('INIT'),
+              description: const Value('Transaction initiale'),
+              currency: const Value('CHF'),
+              valueDate: Value(DateTime.now()),
+              category: const Value(1)));
         }
       },
     );
   }
 
   /// is a duplicate of the column names counter
-  Stream<List<CategoryWithInfo>> watchCategoriesWithCount() {
+  Stream<List<CategoryWithInfo>> watchCategoriesWithInfo() {
     // select all categories and load how many associated transactions there are for
     // each category
     return customSelect(
       'SELECT c.*, '
-      '(SELECT COUNT(*) FROM transactions WHERE category = c.id) AS counter '
-      '(SELECT SUM(transactionAmount) FROM transactions WHERE category = c.id) AS amount '
+      '(SELECT COUNT(*) FROM transactions WHERE category = c.id) AS counter, '
+      '(SELECT SUM(transaction_amount) FROM transactions WHERE category = c.id) AS amount '
       'FROM categories c '
-      'ORDER BY counter DESC',
+      'ORDER BY amount DESC',
       readsFrom: {categories, transactions},
     ).map((row) {
       // when we have the result set, map each row to the data class
       final hasId = row.data['id'] != null;
 
       return CategoryWithInfo(
-          hasId ? Category.fromData(row.data, this) : null,
-          row.readInt('counter'),
-          row.readDouble(
-            'amount',
-          ));
+        hasId ? Category.fromData(row.data, this) : null,
+        row.readInt('counter'),
+        row.readDouble('amount'),
+      );
     }).watch();
   }
 
@@ -210,7 +210,7 @@ class Database extends _$Database {
   }
 
   Stream<List<Transaction>> watchAllTransactions() {
-    return (select(transactions)..limit(50)).watch();
+    return select(transactions).watch();
   }
 
   Future<int> get countTransactions =>
