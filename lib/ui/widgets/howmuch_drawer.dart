@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:howmuch/ui/common/transaction_page.dart';
 
 //import '../common/transaction_page.dart';
-import '../auth/authentication.dart';
+// import '../auth/authentication.dart';
 import '../common/home_page.dart';
 import 'auth_dialog.dart';
 
@@ -16,7 +16,7 @@ class HowMuchDrawer extends StatefulWidget {
 }
 
 class _HowMuchDrawerState extends State<HowMuchDrawer> {
-  bool _isProcessing = false;
+  // bool _isProcessing = false;
   @override
   Widget build(BuildContext context) {
     return Drawer(

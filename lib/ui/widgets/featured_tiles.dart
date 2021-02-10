@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constant/fake_data.dart';
 import '../common/custom_card.dart';
 import '../dashboard/summary.dart';
 import 'responsive.dart';

@@ -1,9 +1,9 @@
 //import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../auth/authentication.dart';
-import '../common/home_page.dart';
-import 'auth_dialog.dart';
+// import '../auth/authentication.dart';
+// import '../common/home_page.dart';
+// import 'auth_dialog.dart';
 
 class TopBarContents extends StatefulWidget {
   const TopBarContents({Key key, this.opacity}) : super(key: key);
@@ -26,7 +26,7 @@ class _TopBarContentsState extends State<TopBarContents> {
     false
   ];
 
-  bool _isProcessing = false;
+  //bool _isProcessing = false;
 
   @override
   Widget build(BuildContext context) {

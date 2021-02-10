@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../auth/authentication.dart';
-import '../common/home_page.dart';
+// import '../auth/authentication.dart';
+// import '../common/home_page.dart';
 import 'google_sign_in_button.dart';
 
 class AuthDialog extends StatefulWidget {
@@ -19,8 +19,8 @@ class _AuthDialogState extends State<AuthDialog> {
   FocusNode textFocusNodePassword;
   bool _isEditingPassword = false;
 
-  bool _isRegistering = false;
-  bool _isLoggingIn = false;
+  final bool _isRegistering = false;
+  final bool _isLoggingIn = false;
 
   String loginStatus;
   Color loginStringColor = Colors.green;

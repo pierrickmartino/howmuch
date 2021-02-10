@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/bloc/bloc.dart';
 import 'package:howmuch/src/database/database.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import 'responsive.dart';
 
-final _numberFormat =
-    NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
-// ignore: unused_element
-final _percentFormat =
-    NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
-final _dateFormat = DateFormat.yMMMd();
+// final _numberFormat =
+//     NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+// final _percentFormat =
+//     NumberFormat.decimalPercentPattern(locale: 'de_CH', decimalDigits: 1);
 
 class CategoryList extends StatefulWidget {
   const CategoryList({
