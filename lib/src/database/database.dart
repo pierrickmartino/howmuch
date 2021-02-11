@@ -14,6 +14,7 @@ class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get description => text()();
   IntColumn get icon => integer().nullable()();
+  TextColumn get type => text().nullable()();
   TextColumn get iconFamily => text().nullable()();
   TextColumn get iconPackage => text().nullable()();
   IntColumn get color => integer().nullable()();
@@ -121,7 +122,6 @@ class Database extends _$Database {
     );
   }
 
-  /// is a duplicate of the column names counter
   Stream<List<CategoryWithInfo>> watchCategoriesWithInfo() {
     // select all categories and load how many associated transactions there are for
     // each category
