@@ -133,6 +133,9 @@ class _TransactionPageState extends State<TransactionPage> {
                       Column(
                         children: [
                           TransactionHeading(screenSize: screenSize),
+                          SizedBox(
+                            height: screenSize.height / 70,
+                          ),
                           TransactionList(screenSize: screenSize)
                         ],
                       ),
