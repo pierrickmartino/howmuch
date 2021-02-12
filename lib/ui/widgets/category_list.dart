@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import 'category_add_dialog.dart';
+import 'category_edit_dialog.dart';
 import 'responsive.dart';
 
 final _numberFormat =
@@ -123,7 +124,16 @@ class _CategoryListState extends State<CategoryList> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  content: Text(
+                                                      'sorry, this category is locked'),
+                                                ),
+                                              );
+                                            },
                                             child: const Icon(
                                               LineAwesomeIcons.lock,
                                               size: 16,
@@ -136,7 +146,16 @@ class _CategoryListState extends State<CategoryList> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: GestureDetector(
-                                            onTap: refresh,
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    CategoryEditDialog(
+                                                  entry: snapshot
+                                                      .data[index].category,
+                                                ),
+                                              );
+                                            },
                                             child: const Icon(
                                               LineAwesomeIcons.edit,
                                               size: 18,
@@ -156,6 +175,16 @@ class _CategoryListState extends State<CategoryList> {
                                                       context)
                                                   .deleteCategory(snapshot
                                                       .data[index].category);
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                  content: Text(
+                                                      'category successfully deleted'),
+                                                ),
+                                              );
                                             },
                                             child: const Icon(
                                               LineAwesomeIcons.trash,

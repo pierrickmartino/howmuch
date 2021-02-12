@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/bloc/bloc.dart';
+import 'package:howmuch/src/database/database.dart';
 
-class CategoryAddDialog extends StatefulWidget {
-  const CategoryAddDialog({Key key}) : super(key: key);
+class CategoryEditDialog extends StatefulWidget {
+  const CategoryEditDialog({Key key, this.entry}) : super(key: key);
+
+  final Category entry;
+
   @override
-  _CategoryAddDialogState createState() => _CategoryAddDialogState();
+  _CategoryEditDialogState createState() => _CategoryEditDialogState();
 }
 
-class _CategoryAddDialogState extends State<CategoryAddDialog> {
+class _CategoryEditDialogState extends State<CategoryEditDialog> {
   TextEditingController textControllerCategory;
   FocusNode textFocusNodeCategory;
   bool _isEditingCategory = false;
@@ -37,7 +41,7 @@ class _CategoryAddDialogState extends State<CategoryAddDialog> {
   @override
   void initState() {
     textControllerCategory = TextEditingController();
-    textControllerCategory.text = null;
+    textControllerCategory.text = widget.entry.description;
     textFocusNodeCategory = FocusNode();
     super.initState();
   }
@@ -75,7 +79,7 @@ class _CategoryAddDialogState extends State<CategoryAddDialog> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, bottom: 8),
                   child: Text(
-                    'New category',
+                    'Edit category',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.subtitle2.color,
@@ -145,11 +149,16 @@ class _CategoryAddDialogState extends State<CategoryAddDialog> {
                                 textFocusNodeCategory.unfocus();
                               });
 
-                              if (textControllerCategory.text.isNotEmpty) {
-                                BlocProvider.of<HowMuchAppBloc>(context)
-                                    .createCategory(
-                                        textControllerCategory.text);
-                              }
+                              final updatedContent =
+                                  textControllerCategory.text;
+                              final entry = widget.entry.copyWith(
+                                description: updatedContent.isNotEmpty
+                                    ? updatedContent
+                                    : null,
+                              );
+
+                              BlocProvider.of<HowMuchAppBloc>(context)
+                                  .updateCategory(entry);
 
                               textControllerCategory.text = '';
                               _isEditingCategory = false;
@@ -157,8 +166,7 @@ class _CategoryAddDialogState extends State<CategoryAddDialog> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   backgroundColor: Colors.green,
-                                  content:
-                                      Text('category successfully created'),
+                                  content: Text('category successfully edited'),
                                 ),
                               );
 
