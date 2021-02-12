@@ -140,10 +140,22 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                       Flexible(
                         child: Container(
                           width: double.maxFinite,
-                          child: FlatButton(
-                            color: Colors.blueGrey[800],
-                            hoverColor: Colors.blueGrey[900],
-                            highlightColor: Colors.black,
+                          child: OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blueGrey[800]),
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered)) {
+                                  return Colors.blueGrey[900];
+                                }
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.black;
+                                }
+                                return null; // Defer to the widget's default.
+                              }),
+                            ),
                             onPressed: () {
                               setState(() {
                                 textFocusNodeCategory.unfocus();
@@ -172,9 +184,6 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
                               Navigator.of(context, rootNavigator: true).pop();
                             },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 top: 15,
@@ -207,10 +216,22 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                       Flexible(
                         child: Container(
                           width: double.maxFinite,
-                          child: FlatButton(
-                            color: Colors.blueGrey[800],
-                            hoverColor: Colors.blueGrey[900],
-                            highlightColor: Colors.black,
+                          child: OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blueGrey[800]),
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered)) {
+                                  return Colors.blueGrey[900];
+                                }
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.black;
+                                }
+                                return null; // Defer to the widget's default.
+                              }),
+                            ),
                             onPressed: () {
                               setState(() {
                                 textFocusNodeCategory.unfocus();
@@ -221,21 +242,30 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
 
                               Navigator.of(context, rootNavigator: true).pop();
                             },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.only(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
                                 top: 15,
                                 bottom: 15,
                               ),
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              child: _isLoggingIn
+                                  ? const SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  : const Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),

@@ -73,7 +73,7 @@ class _CategoryListState extends State<CategoryList> {
                     ),
                   ]),
                   SizedBox(
-                    height: widget.screenSize.height / 80,
+                    height: widget.screenSize.height / 70,
                   ),
                   StreamBuilder<List<CategoryWithInfo>>(
                     stream: bloc.getCategoriesWithInfo,

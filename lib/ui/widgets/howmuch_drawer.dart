@@ -30,29 +30,43 @@ class _HowMuchDrawerState extends State<HowMuchDrawer> {
               //if (userEmail == null)
               Container(
                 width: double.maxFinite,
-                child: FlatButton(
-                  color: Colors.black,
-                  hoverColor: Colors.blueGrey[800],
-                  highlightColor: Colors.blueGrey[700],
+                child: OutlinedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.hovered)) {
+                        return Colors.blueGrey[800];
+                      }
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.blueGrey[700];
+                      }
+                      return null; // Defer to the widget's default.
+                    }),
+                  ),
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (context) => const AuthDialog(),
                     );
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
                   child: const Padding(
                     padding: EdgeInsets.only(
-                      top: 15,
-                      bottom: 15,
+                      top: 12,
+                      bottom: 12,
                     ),
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 12,
+                        bottom: 12,
+                      ),
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

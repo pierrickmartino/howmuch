@@ -228,10 +228,22 @@ class _AuthDialogState extends State<AuthDialog> {
                       Flexible(
                         child: Container(
                           width: double.maxFinite,
-                          child: FlatButton(
-                            color: Colors.blueGrey[800],
-                            hoverColor: Colors.blueGrey[900],
-                            highlightColor: Colors.black,
+                          child: OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blueGrey[800]),
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered)) {
+                                  return Colors.blueGrey[900];
+                                }
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.black;
+                                }
+                                return null; // Defer to the widget's default.
+                              }),
+                            ),
                             onPressed: () async {
                               //   setState(() {
                               //     _isLoggingIn = true;
@@ -288,9 +300,6 @@ class _AuthDialogState extends State<AuthDialog> {
                               //     _isEditingPassword = false;
                               //   });
                             },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 top: 15,
@@ -323,10 +332,22 @@ class _AuthDialogState extends State<AuthDialog> {
                       Flexible(
                         child: Container(
                           width: double.maxFinite,
-                          child: FlatButton(
-                            color: Colors.blueGrey[800],
-                            hoverColor: Colors.blueGrey[900],
-                            highlightColor: Colors.black,
+                          child: OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blueGrey[800]),
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered)) {
+                                  return Colors.blueGrey[900];
+                                }
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.black;
+                                }
+                                return null; // Defer to the widget's default.
+                              }),
+                            ),
                             onPressed: ()
                                 //async
                                 {
@@ -378,9 +399,6 @@ class _AuthDialogState extends State<AuthDialog> {
                               //   });
                               //
                             },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 top: 15,
