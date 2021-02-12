@@ -6,6 +6,7 @@ import 'package:howmuch/src/database/database.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
+import 'category_add_dialog.dart';
 import 'responsive.dart';
 
 final _numberFormat =
@@ -48,13 +49,27 @@ class _CategoryListState extends State<CategoryList> {
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      LineAwesomeIcons.refresh,
-                      size: 20,
+                  Row(children: [
+                    IconButton(
+                      icon: const Icon(
+                        LineAwesomeIcons.refresh,
+                        size: 20,
+                      ),
+                      onPressed: refresh,
                     ),
-                    onPressed: refresh,
-                  ),
+                    IconButton(
+                      icon: const Icon(
+                        LineAwesomeIcons.plus,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const CategoryAddDialog(),
+                        );
+                      },
+                    ),
+                  ]),
                   StreamBuilder<List<CategoryWithInfo>>(
                     stream: bloc.getCategoriesWithInfo,
                     builder: (context, snapshot) {
@@ -66,7 +81,7 @@ class _CategoryListState extends State<CategoryList> {
                             width: widget.screenSize.width * 0.88,
                             child: ListView.builder(
                               itemCount: snapshot.data.length,
-                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 8),
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: EdgeInsets.only(
@@ -100,6 +115,51 @@ class _CategoryListState extends State<CategoryList> {
                                                     ? 14
                                                     : 16),
                                       ),
+                                      if (snapshot
+                                          .data[index].category.editable)
+                                        const SizedBox.shrink()
+                                      else
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: GestureDetector(
+                                            onTap: () {},
+                                            child: const Icon(
+                                              LineAwesomeIcons.lock,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      if (snapshot
+                                          .data[index].category.editable)
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: GestureDetector(
+                                            onTap: refresh,
+                                            child: const Icon(
+                                              LineAwesomeIcons.edit,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        )
+                                      else
+                                        const SizedBox.shrink(),
+                                      if (snapshot
+                                          .data[index].category.editable)
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: GestureDetector(
+                                            onTap: refresh,
+                                            child: const Icon(
+                                              LineAwesomeIcons.trash,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        )
+                                      else
+                                        const SizedBox.shrink(),
                                       SizedBox(
                                           height:
                                               widget.screenSize.height / 70),
