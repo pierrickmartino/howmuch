@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:howmuch/src/bloc/bloc.dart';
 import 'package:howmuch/src/database/database.dart';
+import 'package:howmuch/ui/common/custom_card.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -71,6 +72,9 @@ class _CategoryListState extends State<CategoryList> {
                       },
                     ),
                   ]),
+                  SizedBox(
+                    height: widget.screenSize.height / 80,
+                  ),
                   StreamBuilder<List<CategoryWithInfo>>(
                     stream: bloc.getCategoriesWithInfo,
                     builder: (context, snapshot) {
@@ -78,126 +82,129 @@ class _CategoryListState extends State<CategoryList> {
                       if (snapshot.hasData) {
                         children = <Widget>[
                           Container(
-                            height: 850,
+                            height: 750,
                             width: widget.screenSize.width * 0.88,
                             child: ListView.builder(
                               itemCount: snapshot.data.length,
-                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              padding: EdgeInsets.fromLTRB(
+                                  0, 0, 0, widget.screenSize.height / 80),
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
-                                      top: widget.screenSize.height / 80),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        snapshot
-                                            .data[index].category.description
-                                            .toLowerCase(),
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .primaryTextTheme
-                                                .button
-                                                .color,
-                                            fontSize: 14),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        (snapshot.data[index].amount != null)
-                                            ? 'CHF  ${_numberFormat.format(snapshot.data[index].amount)}'
-                                            : 'CHF  -',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .primaryTextTheme
-                                                .button
-                                                .color,
-                                            fontSize:
-                                                ResponsiveWidget.isSmallScreen(
-                                                        context)
-                                                    ? 14
-                                                    : 16),
-                                      ),
-                                      if (snapshot
-                                          .data[index].category.editable)
-                                        const SizedBox.shrink()
-                                      else
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                  backgroundColor: Colors.red,
-                                                  content: Text(
-                                                      'sorry, this category is locked'),
-                                                ),
-                                              );
-                                            },
-                                            child: const Icon(
-                                              LineAwesomeIcons.lock,
-                                              size: 16,
+                                  padding: EdgeInsets.fromLTRB(
+                                      widget.screenSize.width / 90,
+                                      widget.screenSize.width / 90,
+                                      widget.screenSize.height / 80,
+                                      0),
+                                  child: CustomCard(
+                                    padding: 12,
+                                    elevation: 2,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              snapshot.data[index].category
+                                                  .description
+                                                  .toLowerCase(),
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .button
+                                                      .color,
+                                                  fontSize: 14),
                                             ),
-                                          ),
+                                            const Spacer(),
+                                            Text(
+                                              (snapshot.data[index].amount !=
+                                                      null)
+                                                  ? 'CHF  ${_numberFormat.format(snapshot.data[index].amount)}'
+                                                  : 'CHF  -',
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .button
+                                                      .color,
+                                                  fontSize: ResponsiveWidget
+                                                          .isSmallScreen(
+                                                              context)
+                                                      ? 14
+                                                      : 16),
+                                            ),
+                                          ],
                                         ),
-                                      if (snapshot
-                                          .data[index].category.editable)
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    CategoryEditDialog(
-                                                  entry: snapshot
-                                                      .data[index].category,
-                                                ),
-                                              );
-                                            },
-                                            child: const Icon(
-                                              LineAwesomeIcons.edit,
-                                              size: 18,
-                                            ),
-                                          ),
-                                        )
-                                      else
-                                        const SizedBox.shrink(),
-                                      if (snapshot
-                                          .data[index].category.editable)
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              BlocProvider.of<HowMuchAppBloc>(
-                                                      context)
-                                                  .deleteCategory(snapshot
-                                                      .data[index].category);
+                                        SizedBox(
+                                          height: widget.screenSize.height / 80,
+                                        ),
+                                        Row(
+                                          children: [
+                                            if (snapshot
+                                                .data[index].category.editable)
+                                              const SizedBox.shrink()
+                                            else
+                                              IconButton(
+                                                icon: const Icon(
+                                                    LineAwesomeIcons.lock),
+                                                onPressed: () {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      content: Text(
+                                                          'sorry, this category is locked'),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            if (snapshot
+                                                .data[index].category.editable)
+                                              IconButton(
+                                                icon: const Icon(
+                                                    LineAwesomeIcons.edit),
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        CategoryEditDialog(
+                                                      entry: snapshot
+                                                          .data[index].category,
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            else
+                                              const SizedBox.shrink(),
+                                            const Spacer(),
+                                            if (snapshot
+                                                .data[index].category.editable)
+                                              IconButton(
+                                                icon: const Icon(
+                                                    LineAwesomeIcons.trash),
+                                                onPressed: () {
+                                                  BlocProvider.of<
+                                                              HowMuchAppBloc>(
+                                                          context)
+                                                      .deleteCategory(snapshot
+                                                          .data[index]
+                                                          .category);
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                  backgroundColor:
-                                                      Colors.orange,
-                                                  content: Text(
-                                                      'category successfully deleted'),
-                                                ),
-                                              );
-                                            },
-                                            child: const Icon(
-                                              LineAwesomeIcons.trash,
-                                              size: 18,
-                                            ),
-                                          ),
-                                        )
-                                      else
-                                        const SizedBox.shrink(),
-                                      SizedBox(
-                                          height:
-                                              widget.screenSize.height / 70),
-                                    ],
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.orange,
+                                                      content: Text(
+                                                          'category successfully deleted'),
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            else
+                                              const SizedBox.shrink(),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
