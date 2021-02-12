@@ -151,7 +151,12 @@ class _CategoryListState extends State<CategoryList> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: GestureDetector(
-                                            onTap: refresh,
+                                            onTap: () {
+                                              BlocProvider.of<HowMuchAppBloc>(
+                                                      context)
+                                                  .deleteCategory(snapshot
+                                                      .data[index].category);
+                                            },
                                             child: const Icon(
                                               LineAwesomeIcons.trash,
                                               size: 18,
