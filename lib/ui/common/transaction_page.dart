@@ -150,7 +150,10 @@ class _TransactionPageState extends State<TransactionPage> {
               // DestinationCarousel(),
               // Importation(screenSize: screenSize),
               SizedBox(height: screenSize.height / 10),
-              const BottomBar(),
+              if (ResponsiveWidget.isSmallScreen(context))
+                const SizedBox.shrink()
+              else
+                const BottomBar(),
             ],
           ),
         ),

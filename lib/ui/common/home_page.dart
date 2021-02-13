@@ -105,7 +105,9 @@ class _HomePageState extends State<HomePage> {
               Stack(
                 children: [
                   SizedBox(
-                    height: screenSize.height * 0.45,
+                    height: ResponsiveWidget.isSmallScreen(context)
+                        ? screenSize.height * 0.2
+                        : screenSize.height * 0.45,
                     width: screenSize.width,
                     child: Image.asset(
                       'asset/images/cover.jpg',
@@ -136,7 +138,10 @@ class _HomePageState extends State<HomePage> {
               const DestinationCarousel(),
               Importation(screenSize: screenSize),
               SizedBox(height: screenSize.height / 10),
-              const BottomBar(),
+              if (ResponsiveWidget.isSmallScreen(context))
+                const SizedBox.shrink()
+              else
+                const BottomBar(),
             ],
           ),
         ),
