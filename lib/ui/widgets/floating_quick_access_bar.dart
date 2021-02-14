@@ -72,7 +72,9 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
       heightFactor: 1,
       child: Padding(
         padding: EdgeInsets.only(
-          top: widget.screenSize.height * 0.40,
+          top: ResponsiveWidget.isSmallScreen(context)
+              ? widget.screenSize.height * 0.20
+              : widget.screenSize.height * 0.40,
           left: ResponsiveWidget.isSmallScreen(context)
               ? widget.screenSize.width / 12
               : widget.screenSize.width / 5,
